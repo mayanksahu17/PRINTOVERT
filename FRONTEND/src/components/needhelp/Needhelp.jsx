@@ -8,7 +8,7 @@ function Needhelp() {
      <br/>
      <p className='ml-7 mt-1 text-2xl font-semibold'>We are here to empower PRINTOVERT Merchants <br /> by delivering a delightful support experience   <br />that minimizes efforts and maximes succes. </p>
      </div>
-  
+
   <div className='ml-28 mt-40'>
       <div className='font-semibold'>Send us a message and well get back <br /> to you in a snap</div>
       <button className=' rounded-2xl p-2 h-10 w-40 mt-5  bg-white hover:bg-blue-600 hover:text-white  border-gray-600 border-2'><div className=' -mt-2 font-semibold'>Message Us</div></button>

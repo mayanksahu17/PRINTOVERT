@@ -21,7 +21,7 @@ function Header() {
       <ImPrinter className='text-3xl text-white mt-5' />
         <h1 className="h-18 text-center font-extrabold mr-3 text-2xl cursor-pointer p-4 text-white"> PRINTOVERT </h1>
       </div> </Link> 
-   
+    
      
       <hr className=' w-50' />
       

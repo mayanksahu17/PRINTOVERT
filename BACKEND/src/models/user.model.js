@@ -25,17 +25,28 @@ const userSchema  = new Schema({
         trim : true 
         
     } ,
-    image : {
-        type : String, // we will user cloudinary avatar
-        required : true 
-    } ,
+    images : [{
+        type : String, // we will user cloudinary image
+      
+    }] ,
     password : {
         type : String,
         required : [true , "password is required"] 
     } ,
     refreshToken : {
-        type : String,
-        
+        type : String, 
+    } ,
+    phoneNumber : {
+        type : Number, 
+    } ,
+    spent : {
+        type : Number, 
+    } ,
+    totalOrders : {
+        type : Number, 
+    } ,
+    walletBalance : {
+        type : Number, 
     } ,
     isAdmin : {
         type : Boolean,
@@ -44,9 +55,23 @@ const userSchema  = new Schema({
         type : Schema.Types.ObjectId ,
         ref : "Product"
     }] ,
-    // todo : add cart and draft 
+    Ticket :[ {
+             type : Schema.Types.ObjectId ,
+             ref :    Ticket
+    }],
+    Transection :[ {
+             type : Schema.Types.ObjectId ,
+             ref :    Transection
+    }],
 
-},{timestamps : true })
+    orders : [{
+        type : Schema.Types.ObjectId ,
+        ref :    "Product"
+        }]
+    }
+
+
+,{timestamps : true })
 
 
 userSchema.pre("save", async function (next){

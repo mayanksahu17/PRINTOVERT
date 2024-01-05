@@ -7,7 +7,9 @@ const productSchema = new Schema(
 
     image: {type: String, required: true},
 
-    brand: {type: String, required: true},
+    color: {type: String, required: true},
+
+    brand: {type: String, },
 
     category: {type: String, required: true},
 
@@ -15,9 +17,15 @@ const productSchema = new Schema(
 
     price: {type: Number, required: true},
 
-    stock: {type: Number, required: true},
+    stock: {type: Number,},
     
-    rating: {type: Number, required: true},
+    rating: {type: Number, },
+    
+    shipped: {type: Boolean,},
+    
+    delivered: {type: Boolean, },
+
+    ordered : {type : Boolean}
 },
 {
     timestamps: true,

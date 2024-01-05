@@ -26,28 +26,18 @@ const generateAccessTokenandRefreshTocken = async(userId)=>{
     throw new ApiError(500,"Somthing went wrong while generating refresh and access token  ")
   }
 }
-// STEP - 01
 
-// get user details from frontend
-// validation - not empty
-// check if user already exist : usename , email
-//check for images , check for avatar
-// upload them to cloudinary , avatar
-//create user object - create entry in db
-// remove password and refresh token feild from response 
-// check for user creation 
-// return response 
 
 
 
 const registerUser =  asyncHandler(async(req,res)=> {
-  // get user details from frontend
+  
     const {fullName, email , username , password } =  req.body
- // validation - not empty
+ 
     if ([fullName ,email, username , password].some((feild)=>feild?.trim() === "") ) {
       throw new ApiError(400, "fullname is required")
     }
-     // check if user already exist : usename , email
+ 
     const exitedUser = await User.findOne({ 
     $or : [ { username }, { email } ]
     })
@@ -56,26 +46,19 @@ const registerUser =  asyncHandler(async(req,res)=> {
     throw new ApiError(409, "User with email or username already exists")
     }
     
-    const avatarLocalPath = req.files?.avatar[0]?.path;
-    // const coverImageLocalPath = req.files?.coverImage[0]?.path;
+    // const avatarLocalPath = req.files?.avatar[0]?.path;
+ 
 
-    if(!avatarLocalPath){
-      throw new ApiError(400, "Avatar file is required")
-    }
-
-    
-    const avatar = await uploadOnCloudinary(avatarLocalPath)
-    // const coverImage = await uploadOnCloudinary(coverImageLocalPath)
-
-    // if (!avatar) {
+    // if(!avatarLocalPath){
     //   throw new ApiError(400, "Avatar file is required")
     // }
-  
+
+    
+    // const avatar = await uploadOnCloudinary(avatarLocalPath)
+    
 
     const user = await User.create({
       fullName,
-      avatar : avatar.url,
-    //   coverImage : coverImage?.url  || "",
       email,
       password,
       username: username.toLowerCase()
@@ -97,13 +80,6 @@ const registerUser =  asyncHandler(async(req,res)=> {
 
 
 
-  // steps ->{
-  // req-> data 
-  // username or email
-  // find the user 
-  // password check 
-  // accessToken and refreshToken
-  // send cookie}
 
 const loginUser = asyncHandler(async(req,res)=>{
   
@@ -258,6 +234,70 @@ const updateAccountDetails = asyncHandler(async(req,res)=>{
   .json(new ApiResponse(200 , user , "Account details updated successfully"))
 })
 
+const getUserCredencials = asyncHandler(async(req,res)=>{
+    const userCredencials = await User.findById(req.params._id)
+    return res
+  .status(200)
+  .json(new ApiResponse(200, userCredencials , "User Fetched Succesfully"))
+
+})
+
+const createOrder = asyncHandler(async(req,res)=>{
+  const user = await User.findById(req?._id)
+
+  const ImageLocalPath = req.files?.Image[0]?.path;
+
+  if (!ImageLocalPath) {
+    throw new ApiError(400, "Image file is required")
+  }
+  const Image = await uploadOnCloudinary(ImageLocalPath)
+  const newOrder = {
+    name : req.body.name,
+    image: Image.url,
+    color: req.body.color,
+    brand:  req.body.brand,
+    category: req.body.category,
+    description: req.body.description,
+    price: req.body.price,
+  } 
+  user.orders.push(newOrder)
+  await user.save();
+  return res
+  .status(200)
+  .json(new ApiResponse(200, user.orders , "order added Succesfully"))
+
+})
+
+const raiseTicket  = asyncHandler(async (req,res)=>{
+  const {email , subject , status, response } = req.body 
+  if(!subject && !status && !response){
+  throw new ApiError(404 , "User Must have response or status ,subject")
+ }
+  const user = await User.findOne({email })
+
+user.Ticket.push(req.body)
+ await user.save()
+
+return res
+.status(200)
+.json(new ApiResponse(200, user.orders , "Ticket added Succesfully"))
+
+}) 
+
+ const uploadImage = asyncHandler(async(req,res)=>{
+    const user = await User.findById(req?._id) 
+    const ImageLocalPath = req.files?.Image[0]?.path;
+    if (!ImageLocalPath) {
+      throw new ApiError(400, "Image file is required")
+    }
+    const Image = await uploadOnCloudinary(ImageLocalPath)
+    user.images.push(Image.url)
+    await user.save()
+    return res
+    .status(200)
+    .json(new ApiResponse(200, user.orders , "Image added Succesfully"))
+    
+ })
 
 export { 
   registerUser,
@@ -267,9 +307,10 @@ export {
   changeCurrentPassword,
   getCurrentUser,
   updateAccountDetails,
-  updateUserAvatar,
-  updateUserCoverImage,
- 
+  getUserCredencials,
+  createOrder ,
+  raiseTicket ,
+  uploadImage ,
   
 
 }

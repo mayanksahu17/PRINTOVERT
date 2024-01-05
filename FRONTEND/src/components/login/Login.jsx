@@ -22,7 +22,7 @@ function Login() {
  
  <div className='flex justify-between w-[90%] mt-10 font-semi-bold '>
    <div className='ml-7 text-2xl'>Password</div>
-   <div className='w-[50%] flex justify-between'><input className=' rounded-lg p-2 w-[100%] h-7' type="text" placeholder='Enter the detail' /></div>
+   <div className='w-[50%] flex justify-between'><input className=' rounded-lg p-2 w-[100%] h-7' type="password" placeholder='Enter the detail' /></div>
  </div>
  
  
