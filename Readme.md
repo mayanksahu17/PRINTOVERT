@@ -1,4 +1,4 @@
-# full stack project 
+# E-commerce MERN stack project 
 
 # To setup backend 
 
