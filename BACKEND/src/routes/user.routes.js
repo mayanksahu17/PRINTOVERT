@@ -1,12 +1,15 @@
 import {Router} from 'express'
 import { loginUser, logoutUser, registerUser ,refreshAccessToken ,
-    changeCurrentPassword,updateAccountDetails , getCurrentUser ,getUserCredencials} from '../controllers/user.controller.js'
+    changeCurrentPassword,updateAccountDetails , getCurrentUser ,getUserCredencials ,uploadImage ,getAllImages } from '../controllers/user.controller.js'
 import {upload} from '../middleware/multer.middleware.js'
 import {verifyJWT } from '../middleware/auth.middleware.js'
 
 const router = Router()
 
-// router.route("/image").post(  upload.fields([  {   name : "Image" ,   maxCount : 1 } ]),  registerUser)
+router.route("/image/:id").post(upload.fields([{ name: "Image", maxCount: 1 }]), uploadImage);
+
+router.route("/all-image/:id").get(getAllImages);
+
    
 router.route('/login').post(loginUser)
 

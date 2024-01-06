@@ -276,20 +276,66 @@ return res
 
 }) 
 
- const uploadImage = asyncHandler(async(req,res)=>{
-    const user = await User.findById(req?._id) 
-    const ImageLocalPath = req.files?.Image[0]?.path;
-    if (!ImageLocalPath) {
-      throw new ApiError(400, "Image file is required")
+const uploadImage = asyncHandler(async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Check if req._id exists or has a valid value
+    console.log('Request email:', email);
+    console.log('Request _id:', req?.params.id);
+
+    // Attempt to find the user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
-    const Image = await uploadOnCloudinary(ImageLocalPath)
-    user.images.push(Image.url)
-    await user.save()
-    return res
-    .status(200)
-    .json(new ApiResponse(200, user.orders , "Image added Succesfully"))
-    
- })
+
+    const imageLocalPath = req.files?.Image[0]?.path;
+    if (!imageLocalPath) {
+      throw new ApiError(400, 'Image file is required');
+    }
+
+    const image = await uploadOnCloudinary(imageLocalPath);
+    console.log('Image URL:', image.url);
+
+    // Push the new image URL object into the user's 'image' array
+    user.image.push({ imageURL: image.url });
+    await user.save();
+    console.log('Image uploaded');
+
+    return res.status(200).json(new ApiResponse(200, user.image, 'Image added Successfully'));
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+const getAllImages = asyncHandler(async (req, res) => {
+  try {
+  
+
+    // Check if req._id exists or has a valid value
+ 
+   
+    const userId = req?.params.id
+    // Attempt to find the user by userId
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Extract all image URLs from the user's 'image' array
+    const imageUrls = user.image.map((img) => img.imageURL);
+
+    return res.status(200).json(new ApiResponse(200, imageUrls, 'All Image URLs Retrieved'));
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 
 export { 
   registerUser,
@@ -303,6 +349,6 @@ export {
   createOrder ,
   raiseTicket ,
   uploadImage ,
-  
+  getAllImages,
 
 }

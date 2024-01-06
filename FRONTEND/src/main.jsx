@@ -19,6 +19,7 @@ import Needhelp from './components/needhelp/Needhelp.jsx'
 import Paymentpage from './components/Paymentpage/Paymentpage.jsx'
 import Signup from './components/Signup/Signup.jsx'
 import Featrenot from './components/!feature/Featrenot.jsx'
+import Contactus from './components/contactUs/Contactus.jsx'
 const router = createBrowserRouter( 
   createRoutesFromElements(
       <Route path = '/' element = {<Layout/>}>
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
       <Route path = '/payment' element = {<Paymentpage/>}/>
       <Route path = '/login' element = {<Login/>}/>
       <Route path = '/featrenot' element = {<Featrenot/>}/>
+      <Route path = '/contact-us' element = {<Contactus/>}/>
       <Route path = '/signup' element = {<Signup/>}/>
       </Route>
   )

@@ -14,14 +14,14 @@ function Designlibrary() {
   };
 
   return (
-    <div className='bg-blue-200 w-full h-180'>
+    <div className='bg-blue-200 w-full h-[800px]'>
       <div className='flex'>
-        <div className='mt-20 ml-14'>
+        <div className='mt-12 ml-14'>
           <h1 className='text-5xl font-bold text-blue-800'>Design Library</h1>
           <h4 className='text-gray-600 mt-1'>Choose your Design</h4>
         </div>
         <button
-          className='w-24 h-10 text-blue-500 font-bold bg-white rounded-lg border-black border-r-blue-700 border-r-2 border-l-2 border-t-2 border-b-2 mt-24 ml-14 flex hover:bg-blue-700 hover:text-white'
+          className='w-24 h-10 text-blue-500 font-bold bg-white rounded-lg border-black border-r-blue-700 border-r-2 border-l-2 border-t-2 border-b-2 mt-16 ml-14 flex hover:bg-blue-700 hover:text-white'
           onClick={toggleUploadForm}
         >
           <IoIosCloudUpload className='text-xl mt-3 ml-1' />

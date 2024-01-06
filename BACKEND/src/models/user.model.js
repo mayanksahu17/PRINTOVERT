@@ -25,10 +25,11 @@ const userSchema  = new Schema({
         trim : true 
         
     } ,
-    images : [{
-        type : String, // we will user cloudinary image
-      
-    }] ,
+    image: [{
+        imageURL: {
+            type: String // Storing multiple imageURLs for the user
+        }
+    }],
     password : {
         type : String,
         required : [true , "password is required"] 
