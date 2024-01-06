@@ -4,9 +4,11 @@
 
 -setup the env file 
 Hit these commands 
+```
 -cd BACKEND
 -npm i 
 -npm run dev 
+```
 
 
 # To setup FRONTEND 
@@ -14,6 +16,8 @@ Hit these commands
 
 Hit these commands 
 
-cd FRONTEND
-npm i 
-npm run dev 
+```
+-cd FRONTEND
+-npm i 
+-npm run dev ```
+
