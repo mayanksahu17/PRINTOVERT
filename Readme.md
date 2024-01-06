@@ -4,7 +4,6 @@
 
 -setup the env file 
 Hit these commands 
-
 -cd BACKEND
 -npm i 
 -npm run dev 
