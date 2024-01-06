@@ -55,3 +55,22 @@ router.route("/cover-image").patch(verifyJWT,upload.single("coverimage"),updateU
 router.route("/c/:username").get(verifyJWT,getCurrentUserProfile)
 
 router.route("/history").get(verifyJWT,getWatchHistory)
+
+
+
+
+for rgister // Post method
+data : 
+{
+"fullName" : "testuser1",
+"email" : "testuser1@gmail.com",
+"username" : "user1",
+"password" : "user1"
+}
+
+for login post method 
+{
+"email" : "testuser1@gmail.com",
+"username" : "user1",
+"password" : "user1"
+}

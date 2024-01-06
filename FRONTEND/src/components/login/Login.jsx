@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { NavLink } from 'react-router-dom'
 function Login() {
   return (
     <div className='bg-blue-200 w-full h-180 '>
@@ -26,9 +26,9 @@ function Login() {
  </div>
  
  
- <div className='flex justify-end mt-16 '>
- <div className='w-[50%] flex justify-between'><button className='ml-8 rounded-2xl p-2 w-[80%] h-7 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '><div className=' -mt-2'>Forgot Password</div></button></div>
- <div className='w-[50%] flex justify-between'><button className='ml-10 rounded-2xl p-2 h-7 w-30   bg-white hover:bg-blue-600 hover:text-white  border-gray-600 border-2'><div className=' -mt-2'> Sign In</div></button> </div>
+ <div className='flex justify-end mt-16 mr-10'>
+ <NavLink to ="/featrenot"><div className='w-[200px] flex justify-between'><button className='ml-0 rounded-2xl p-2 w-[350px] h-7 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '><div className=' -mt-2'>Forgot Password</div></button></div> </NavLink>
+ <NavLink to ="/signup"> <div className='w-[50%] flex justify-between'><button className='ml-10 rounded-2xl p-2 h-7 w-30   bg-white hover:bg-blue-600 hover:text-white  border-gray-600 border-2'><div className=' -mt-2'> Signin</div></button> </div>  </NavLink>
  </div>
  
  

@@ -11,46 +11,49 @@ import { IoWalletOutline } from "react-icons/io5";
 import { IoTicketOutline } from "react-icons/io5";
 import { PiNotePencilBold } from "react-icons/pi";
 import { ImPrinter } from "react-icons/im";
+import { FaArrowRight } from "react-icons/fa";
+import { useState } from 'react';
 
 function Header() {
-
+const [open, setopen]=useState(true);
   return (
-    <div className="flex flex-col bg-blue-700 h-full sticky w-80 ">
-
-        <Link to ="">      <div className="p-8 flex">
-      <ImPrinter className='text-3xl text-white mt-5' />
-        <h1 className="h-18 text-center font-extrabold mr-3 text-2xl cursor-pointer p-4 text-white"> PRINTOVERT </h1>
+    <div id='header' className={`flex flex-col bg-blue-700 h-full ${open ? "w-80 ":"w-20 "} duration-500  relative `}>
+ <FaArrowRight className={`text-black absolute -right-[20px]  bg-white ${open ? "rotate-[180deg]": "rotate-[0deg]"} top-5  h-10 w-10 cursor-pointer border-solid border-2 border-black opacity-[0.8] rounded-full p-1 `}onClick={()=>setopen(!open)}/>
+      <Link to ="">   
+         <div className={`${!open ? "p-0":"p-8"}  flex`}>
+      <ImPrinter className={`text-3xl text-white ${open && "mr-2 mt-6"} `} />
+        <span className="h-18 text-center font-extrabold mr-3 text-2xl cursor-pointer p-4 text-white"> <div className={`${!open && "scale-0"}`}>PRINTOVERT</div> </span>
       </div> </Link> 
-    
+   
      
       <hr className=' w-50' />
       
       <ul className="p-2">
-      <NavLink to = "/"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3'> <AiOutlineHome className='mt-1 text-xl hover:text-blue-800' /></div> Dashboard</li></NavLink>
+      <NavLink to = "/"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3'> <AiOutlineHome className='mt-1 text-3xl hover:text-blue-800' /></div> <div className={`${!open && "scale-0"}`}>Deshboad</div></li></NavLink>
  
-      <NavLink to = "/design-product"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <HiPencilAlt className='mt-1 text-xl  hover:text-blue-800' /></div> Design Product </li></NavLink>
+      <NavLink to = "/design-product"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <HiPencilAlt className='mt-1 text-3xl  hover:text-blue-800 ' /></div>  <div className={`${!open && "scale-0"}`}>Design Product</div></li></NavLink>
         
       
-        <NavLink to = "/design-library"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <IoMdImages className='mt-1 text-xl  hover:text-blue-800' /></div> Design Library</li></NavLink>
+        <NavLink to = "/design-library"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <IoMdImages className='mt-1 text-3xl  hover:text-blue-800' /></div> <div className={`${!open && "scale-0"}`}>Design Library</div></li></NavLink>
         
        
-        <NavLink to = "/create-orders"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <IoIosCreate className='mt-1 text-xl' /></div> Create  Orders</li></NavLink>
+        <NavLink to = "/create-orders"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <IoIosCreate className='mt-1 text-3xl' /></div> <div className={`${!open && "scale-0"}`}>Create Order</div></li></NavLink>
        
         
-       <NavLink to = "/orders"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <IoCartOutline className='mt-1 text-xl' /></div> Orders  <div className='px-3 ml-20'></div></li></NavLink>
+       <NavLink to = "/orders"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <IoCartOutline className='mt-1 text-3xl' /></div> <div className={`${!open && "scale-0"}`}>Orders</div><div className='px-3 ml-20'></div></li></NavLink>
         
         
 
-        <NavLink to = "wallet"> <li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold">  <div className='px-3  '> <IoWalletOutline className='mt-1 text-xl' /></div> wallet  <div className='px-3 ml-20'> </div> </li> </NavLink>
+        <NavLink to = "wallet"> <li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold">  <div className='px-3  '> <IoWalletOutline className='mt-1 text-3xl' /></div> <div className={`${!open && "scale-0"}`}>Wallet</div>  <div className='px-3 ml-20'> </div> </li> </NavLink>
         
-        <Link to = "/tickets">  <li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <IoTicketOutline className='mt-1 text-xl' /></div> Ticket  <div className='px-3 ml-20'></div></li></Link>
+        <Link to = "/tickets">  <li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <IoTicketOutline className='mt-1 text-3xl' /></div> <div className={`${!open && "scale-0"}`}>Ticket</div>  <div className='px-3 ml-20'></div></li></Link>
        
        
 
-        <NavLink to = "/edit-profile"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <PiNotePencilBold className='mt-1 text-xl' /></div> Edit Profile  </li></NavLink>
+        <NavLink to = "/edit-profile"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <PiNotePencilBold className='mt-1 text-3xl' /></div> <div className={`${!open && "scale-0"}`}>Edit Profile</div>  </li></NavLink>
         
      
-        <NavLink to = "/need-help"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center mt-48 hover:text-black hover:font-bold"> <div className='px-3  '> <FaRegQuestionCircle className='mt-1 text-xl' /></div> Needhelp?   <div className='px-3 ml-16'> </div></li></NavLink>
+        <NavLink to = "/need-help"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center mt-48 hover:text-black hover:font-bold"> <div className='px-3  '> <FaRegQuestionCircle className='mt-1 text-3xl' /></div> <div className={`${!open && "scale-0"}`}>help</div>  <div className='px-3 ml-16'> </div></li></NavLink>
         
         <hr />
         <NavLink to = "/login"><li className=" w-64  px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center mt-2 p-1  hover:text-black hover:font-bold"> <div className='px-3 p-1 flex'> <MdOutlineAccountCircle className='mb-2 text-xl' /></div> Login/Logout <div className='px-3 ml-20'> </div></li></NavLink>

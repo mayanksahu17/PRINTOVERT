@@ -17,7 +17,7 @@ function Designlibrary() {
     <div className='bg-blue-200 w-full h-180'>
       <div className='flex'>
         <div className='mt-20 ml-14'>
-          <h1 className='text-4xl font-bold text-blue-800'>Design Library</h1>
+          <h1 className='text-5xl font-bold text-blue-800'>Design Library</h1>
           <h4 className='text-gray-600 mt-1'>Choose your Design</h4>
         </div>
         <button

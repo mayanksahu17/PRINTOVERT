@@ -1,1 +1,1 @@
-export const DB_NAME  = "secret code"
+export const DB_NAME  = "E-commerce-data"

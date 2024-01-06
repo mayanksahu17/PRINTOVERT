@@ -16,19 +16,26 @@ import Editprofile from './components/Editprofie/Editprofile.jsx'
 import Login from './components/login/Login.jsx'
 import Createorder from './components/createorders/Createorder.jsx'
 import Needhelp from './components/needhelp/Needhelp.jsx'
+import Paymentpage from './components/Paymentpage/Paymentpage.jsx'
+import Signup from './components/Signup/Signup.jsx'
+import Featrenot from './components/!feature/Featrenot.jsx'
 const router = createBrowserRouter( 
   createRoutesFromElements(
       <Route path = '/' element = {<Layout/>}>
       <Route path = '' element = {<Dashboard/>}/>
       <Route path = '/design-library' element = {<Designlibrary/>}/>
       <Route path = '/design-product' element = {<Designproduct/>}/>
+      <Route path = '/tshirt-designer' element = {<TShirtDesigner/>}/>
       <Route path = '/create-orders' element = {<Createorder/>}/>
       <Route path = '/orders' element = {<Orders/>}/>
       <Route path = '/tickets' element = {<Ticket/>}/>
       <Route path = '/wallet' element = {<Wallet/>}/>
       <Route path = '/edit-profile' element = {<Editprofile/>}/>
       <Route path = '/need-help' element = {<Needhelp/>}/>
+      <Route path = '/payment' element = {<Paymentpage/>}/>
       <Route path = '/login' element = {<Login/>}/>
+      <Route path = '/featrenot' element = {<Featrenot/>}/>
+      <Route path = '/signup' element = {<Signup/>}/>
       </Route>
   )
 )

@@ -3,7 +3,7 @@ import React from 'react'
 function Orders() {
   return (
     <div className='bg-blue-200 w-full h-180 '>
-      <h1 className='font-bold mt-8 ml-7  text-blufont-cerebriSans text-3xle-900 co text-4xl'>All Orders</h1>
+      <h1 className='font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>All Orders</h1>
       <p className='ml-7 mt-1'>Check your Orders</p>
       <div className='bg-blue-700 h-11 w-50 ml-6 mr-6 rounded-t-xl mt-4 '>
         <li className='flex justify-evenly text-white  px-10 text-center p-2 '>

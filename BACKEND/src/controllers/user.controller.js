@@ -18,6 +18,8 @@ const generateAccessTokenandRefreshTocken = async(userId)=>{
      
 
      user.refreshToken = refreshToken
+     
+
      await user.save({validateBeforeSave : false })
 
      return {accessToken , refreshToken}
@@ -45,16 +47,6 @@ const registerUser =  asyncHandler(async(req,res)=> {
     if (exitedUser) {
     throw new ApiError(409, "User with email or username already exists")
     }
-    
-    // const avatarLocalPath = req.files?.avatar[0]?.path;
- 
-
-    // if(!avatarLocalPath){
-    //   throw new ApiError(400, "Avatar file is required")
-    // }
-
-    
-    // const avatar = await uploadOnCloudinary(avatarLocalPath)
     
 
     const user = await User.create({
@@ -101,7 +93,7 @@ const loginUser = asyncHandler(async(req,res)=>{
     throw new ApiError(401, "Invalid user credencials ")
   }
   const {refreshToken , accessToken} = generateAccessTokenandRefreshTocken(user._id)
-
+  console.log(accessToken);
   const loggedInUser = await  User.findById(user._id).select("-refeshToken -password")
 
   const options = {

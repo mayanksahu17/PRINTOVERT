@@ -57,11 +57,11 @@ const userSchema  = new Schema({
     }] ,
     Ticket :[ {
              type : Schema.Types.ObjectId ,
-             ref :    Ticket
+             ref :    "Ticket"
     }],
     Transection :[ {
              type : Schema.Types.ObjectId ,
-             ref :    Transection
+             ref :    "Transection"
     }],
 
     orders : [{
