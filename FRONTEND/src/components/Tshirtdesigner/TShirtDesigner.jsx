@@ -110,7 +110,7 @@ const TShirtDesigner = () => {
     
           
   return (
-    <div className=" bg-blue-200 h-[910px] w-[98%]">
+    <div className=" bg-blue-200 h-full w-[98%]">
       <p className='text-5xl ml-20 mt-10 font-bold text-blue-900  '>Create Order</p>
       <div id="tshirt-div" className="relative  h-548 ml-20 mt-10 bg-blue-200" >
       <div className="bg-blue-200">

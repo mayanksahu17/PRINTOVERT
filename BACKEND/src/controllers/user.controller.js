@@ -336,6 +336,72 @@ const getAllImages = asyncHandler(async (req, res) => {
   }
 });
 
+const getAllUserTickets = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.params.id; // Assuming the user ID is passed in the URL
+
+    // Find the user by ID
+    const user = await User.findById(userId).populate('Ticket'); // Assuming 'Ticket' is the ref field
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const userTickets = user.Ticket; // Assuming 'Ticket' is the array of ticket references in the user schema
+
+    // Fetch all tickets associated with the user
+    const tickets = await Ticket.find({ _id: { $in: userTickets } });
+
+    return res.status(200).json({ success: true, data: tickets });
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+const getAllUserTransactions = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.params.id; // Assuming the user ID is passed in the URL
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Fetch all transactions associated with the user
+    const userTransactions = await Transection.find({ _id: { $in: user.Transection } });
+
+    return res.status(200).json({ success: true, data: userTransactions });
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
+const getAllOrderedProducts = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.params.id; // Assuming the user ID is passed in the URL
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Fetch ordered products in the user's cart
+    const orderedProducts = await Product.find({ _id: { $in: user.cart }, ordered: true });
+
+    return res.status(200).json({ success: true, data: orderedProducts });
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 
 export { 
   registerUser,
@@ -350,5 +416,7 @@ export {
   raiseTicket ,
   uploadImage ,
   getAllImages,
-
+  getAllUserTickets,
+  getAllUserTransactions,
+  getAllOrderedProducts
 }

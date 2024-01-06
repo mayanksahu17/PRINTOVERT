@@ -5,13 +5,28 @@ const ticketSchema = new mongoose.Schema({
         type : String,
         required   : true
     },
+    image: {
+        type: String // Storing a single imageURL for the user
+    },
     status : {
+        type : String,
+        required   : true
+    },
+    callBackNumber : {
         type : String,
         required   : true
     },
     response : {
         type : String,
-        required   : true
+    
+    },
+    category : {
+        type : String,
+    
+    },
+    description : {
+        type : String,
+    
     },
   
   
