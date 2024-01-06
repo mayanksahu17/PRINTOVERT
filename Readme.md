@@ -5,9 +5,9 @@
 -setup the env file 
 Hit these commands 
 
-cd BACKEND
-npm i 
-npm run dev 
+-cd BACKEND
+-npm i 
+-npm run dev 
 
 
 # To setup FRONTEND 
