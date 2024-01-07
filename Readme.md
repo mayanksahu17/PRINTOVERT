@@ -19,5 +19,6 @@ Hit these commands
 ```
 cd FRONTEND
 npm i 
-npm run dev ```
+npm run dev
+```
 
