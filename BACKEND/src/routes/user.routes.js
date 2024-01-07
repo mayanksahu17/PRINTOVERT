@@ -1,7 +1,7 @@
 import {Router} from 'express'
 import { loginUser, logoutUser, registerUser ,refreshAccessToken ,
     changeCurrentPassword,updateAccountDetails , getCurrentUser ,getUserCredencials
-     ,uploadImage ,getAllImages  , getAllUserTickets ,getAllUserTransactions ,getAllOrderedProducts} from '../controllers/user.controller.js'
+     ,uploadImage ,getAllImages  , getAllUserTickets ,getAllUserTransactions ,getAllOrderedProducts , createTicket} from '../controllers/user.controller.js'
 import {upload} from '../middleware/multer.middleware.js'
 import {verifyJWT } from '../middleware/auth.middleware.js'
 
@@ -36,5 +36,7 @@ router.route("/:id/tickets").get(getAllUserTickets);
 router.route("/:id/transactions ").get(getAllUserTransactions);
 
 router.route("/:id/cart ").get(getAllOrderedProducts);
+
+router.route("/:id/create-ticket/").post(upload.fields([{ name: "Image", maxCount: 1 }]), createTicket);
 
 export default router 

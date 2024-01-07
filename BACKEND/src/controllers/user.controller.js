@@ -4,6 +4,7 @@ import {User} from '..//models/user.model.js'
 import {uploadOnCloudinary} from '../utils/cloudinary.js'
 import { ApiResponse } from '../utils/ApiResponse.js' 
 import jwt from "jsonwebtoken"
+import { Ticket } from '../models/ticket.model.js'
 
 import mongoose from 'mongoose'
 const generateAccessTokenandRefreshTocken = async(userId)=>{
@@ -352,12 +353,55 @@ const getAllUserTickets = asyncHandler(async (req, res) => {
     // Fetch all tickets associated with the user
     const tickets = await Ticket.find({ _id: { $in: userTickets } });
 
-    return res.status(200).json({ success: true, data: tickets });
+    new ApiResponse(200, { success: true, data: tickets }, "User Ticket Fetched Succesfully")
+
+    return res.status(200).json( new ApiResponse(200, { success: true, data: tickets }, "User Ticket Fetched Succesfully"));
   } catch (error) {
     console.error('Error:', error);
     return res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
+
+const createTicket = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.params.id; // Assuming the user ID is passed in the URL
+
+    // Fetch the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const { subject, image, status, callBackNumber, response, category, description } = req.body;
+
+    // Create a new ticket
+    const newTicket = new Ticket({
+      subject,
+      image,
+      status,
+      callBackNumber,
+      response,
+      category,
+      description
+    });
+
+    // Save the new ticket
+    await newTicket.save();
+
+    // Add the newly created ticket to the user's Ticket array
+    user.Ticket.push(newTicket);
+    await user.save();
+
+    return res.status(201).json({ success: true, data: newTicket });
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
 
 const getAllUserTransactions = asyncHandler(async (req, res) => {
   try {
@@ -417,6 +461,7 @@ export {
   uploadImage ,
   getAllImages,
   getAllUserTickets,
+  createTicket,
   getAllUserTransactions,
-  getAllOrderedProducts
+  getAllOrderedProducts,
 }
