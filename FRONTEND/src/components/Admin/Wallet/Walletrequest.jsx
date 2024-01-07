@@ -6,9 +6,13 @@ function Walletrequest() {
     
     <div  className='bg-blue-200 w-[100%] h-[100%]'>
   
-    <div>
-<h1 className=' font-bold mt-8 ml-7  text-blufont-cerebriSans text-3xle-900 co text-4xl'>Wallet Request</h1>
-   </div>
+    <div className='bg-blue-200 w-full h-180'> 
+                <h2 className='font-bold mt-8 ml-7 font-cerebriSans text-3xl text-blue-900'>Wallet Reqeuests</h2>
+                <h5 className='text-gray-600 ml-7 font-bold '>Let's have a Tour to the Wallet</h5>
+    
+    
+    
+                </div>
    <div className='mt-4'><hr /></div>
 
 

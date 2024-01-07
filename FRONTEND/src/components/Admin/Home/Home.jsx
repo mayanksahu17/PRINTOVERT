@@ -5,12 +5,13 @@ function Home() {
   return (
     <>
       <div className='bg-blue-200 w-[100%] h-[800px]'>
-        <div>
-          <div className='font-bold mt-8 ml-7 mb-5 text-blue  font-cerebriSans text-3xle-900 co text-4xl'>
-            All Users
-          </div>
-          <hr />
-        </div>
+      <div className='bg-blue-200 w-full h-180'> 
+                <h2 className='font-bold mt-8 ml-7 font-cerebriSans text-3xl text-blue-900'>All Users</h2>
+                <h5 className='text-gray-600 ml-7 font-bold '>Let's have a Tour to the Users</h5>
+    
+    
+    
+                </div>
 
         <div className='mt-16 ml-10 font-semibold '>
           <div className='flex '>

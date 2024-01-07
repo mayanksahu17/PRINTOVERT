@@ -16,8 +16,8 @@ const [open, setopen]=useState(true);
  <div className='h-[10px] w-[10px]'><FaArrowRight className={`text-black absolute -right-[20px]   bg-white ${open ? "rotate-[180deg]": "rotate-[0deg]"} top-5  h-7 w-7 cursor-pointer border-solid border-2 border-black opacity-[0.8] rounded-full p-1 `}onClick={()=>setopen(!open)}/></div>
       <Link to ="">   
          <div className={`${!open ? "p-0":"p-8"}  flex`}>
-      <ImPrinter className={`text-3xl text-white ${open && "mr-2 mt-6"} `} />
-        <span className="h-18 text-center font-extrabold mr-3 text-2xl cursor-pointer p-4 text-white"> <div className={`${!open && "scale-0"}`}>PRINTOVERT</div> </span>
+      <ImPrinter className={`text-3xl text-white ${open && "mr-0 mt-6"} `} />
+        <span className="h-18 text-center font-extrabold mr-3 text-2xl cursor-pointer p-4 text-white"> <div className={`${!open && "scale-0"}`}>ADMIN</div> </span>
       </div> </Link> 
    
      
