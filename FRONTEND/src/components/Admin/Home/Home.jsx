@@ -4,7 +4,7 @@ import { ImSearch } from 'react-icons/im';
 function Home() {
   return (
     <>
-      <div className='bg-blue-200 w-[1200px] h-[800px]'>
+      <div className='bg-blue-200 w-[100%] h-[800px]'>
         <div>
           <div className='font-bold mt-8 ml-7 mb-5 text-blue  font-cerebriSans text-3xle-900 co text-4xl'>
             All Users
