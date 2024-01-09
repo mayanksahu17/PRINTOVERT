@@ -9,14 +9,14 @@ const [show , setShow] = useState("password")
     
       return (
         
-        <div className='bg-blue-200 w-full h-180 '>
+        <div className='bg-blue-200 h-180  '>
     
         <div>
       <h1 className=' font-bold mt-8 ml-7  text-blufont-cerebriSans text-5xl text-blue-900 '>Signup </h1>
       
       </div>
     
-    <div className='flex justify-between w-[90%] mt-16 font-semibold '>
+    <div className='flex justify-between w-[1300px] mt-16 font-semibold '>
       <div className='ml-7 text-xl'>Name</div>
       <div className='w-[50%] flex justify-between'><input className=' rounded-lg p-2 w-[45%]' type="text" placeholder='Enter the detail' />
        <input className=' rounded-lg  p-2  w-[45%]' type="text" placeholder='Enter the detail' /></div>

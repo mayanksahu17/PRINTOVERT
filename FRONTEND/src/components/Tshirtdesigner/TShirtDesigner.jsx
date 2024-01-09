@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {fabric} from 'fabric';
 import html2canvas from 'html2canvas';
 import { NavLink } from 'react-router-dom';
+import Tshirt from '../../assets/Tshirt.png'
 const TShirtDesigner = () => {
   const [canvas, setCanvas] = useState(null);
   const [color , setColor] = useState("white")
@@ -110,13 +111,13 @@ const TShirtDesigner = () => {
     
           
   return (
-    <div className=" bg-blue-200 h-full w-[98%]">
+    <div className=" bg-blue-200 h-[800px] w-[98%]">
       <p className='text-5xl ml-20 mt-10 font-bold text-blue-900  '>Create Order</p>
       <div id="tshirt-div" className="relative  h-548 ml-20 mt-10 bg-blue-200" >
       <div className="bg-blue-200">
       <img className='bg-white'
           id="tshirt-backgroundpicture" 
-          src="https://ourcodeworld.com/public-media/gallery/gallery-5d5afd3f1c7d6.png"
+          src={Tshirt}
         />
       </div>
         <div className="absolute top-14 left-[120px] z-10 w-200 h-[450px] border-2 border-red-800 border-solid  ">
@@ -126,14 +127,21 @@ const TShirtDesigner = () => {
         </div>
       </div>
 
-    
+    <div className='ml-20 mb-4'>
+    <br /><br />
+      
+ 
+      <button  className='hover:bg-blue-600 hover:text-white p-4 border-solid border-2 px-8 rounded-2xl'>cancel</button>
+      <button className='hover:bg-blue-600 hover:text-white p-4 border-solid border-2 px-8 rounded-2xl ml-12' onClick={handleSave} > save</button>
+      
+    </div>
 
       <br />
 
       <br />
       <br />
       
-    <div  className='absolute top-14 left-[1000px]'>
+    <div  className='absolute top-10 left-[1000px]'>
     <p className='text-3xl'>Add your image</p>
       <p>Maximum print area (W x H)-15.60 in x19.60</p>
       <br />
@@ -149,7 +157,7 @@ const TShirtDesigner = () => {
      </div>
      <br />
   <br />
-  <p>Size</p>
+  <p className=''>Size</p>
   <br />
   <div className='flex'>
       <div  className=" h-[50px] ml-[20px] w-[50px] border-solid border-2 rounded-xl border-blue-400 hover:bg-blue-700 flex justify-center items-center hover:text-white text-blue-600 ">S</div>
@@ -187,11 +195,8 @@ const TShirtDesigner = () => {
  )} 
       
       <br /><br />
-      <p className=' text-2xl'>Total Price: <span className='text-blue-500'>100</span>(Taxes Apply)</p>
-  <br /> 
-      <button  className='hover:bg-blue-600 hover:text-white p-4 border-solid border-2 px-8 rounded-2xl'>cancel</button>
-      <button className='hover:bg-blue-600 hover:text-white p-4 border-solid border-2 px-8 rounded-2xl ml-12' onClick={handleSave} > save</button>
-      
+      <p className=' text-2xl '>Total Price: <span className='text-blue-500'>100</span>(Taxes Apply)</p>
+
       
     </div>
  

@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+import { Provider } from 'react-redux'
 import {
   Route,
   BrowserRouter as Router, // Renamed BrowserRouter for clarity
@@ -29,7 +30,7 @@ import AdOrders from './components/Admin/Orders/AdOrders.jsx'
 import Walletrequest from './components/Admin/Wallet/Walletrequest.jsx';
 import Delivered from './components/Admin/Delivered/Delivered.jsx';
 import Activeorder from './components/Admin/activeorders/Activeorder.jsx';
-
+import  store  from './store/store.js';
 // Define routes using the Router and Routes components
 const AppRoutes = () => (
   <Router>
@@ -69,7 +70,9 @@ const AppRoutes = () => (
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+       <Provider store={store}>
    <AppRoutes />
+   </Provider>
   </React.StrictMode>
 )
 

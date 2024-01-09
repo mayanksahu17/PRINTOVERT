@@ -74,3 +74,6 @@ for login post method
 "username" : "user1",
 "password" : "user1"
 }
+
+to get all images 
+http://localhost:8000/api/v1/users/all-image/659963e03ecc5b7cdbbbb860
