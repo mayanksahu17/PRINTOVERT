@@ -31,8 +31,8 @@ function Createorder() {
         </div>
 
         <div className='h-18 w-full ml-20 flex mt-40'> 
-        <div className='w-[50%] h-6 flex justify-between'><button className='ml-8 rounded-2xl p-2 w-[50%] h-7 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '><div className=' -mt-2'>Delete Item</div></button></div>
-        <div className='w-[50%] h-6 flex justify-between'><button className='ml-8 rounded-2xl p-2 w-[50%] h-7 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '><div className=' -mt-2'>Buy Item</div></button></div>
+        <div className='w-[20%] h-6 flex justify-between'><button className='ml-8 rounded-2xl p-2 w-[50%] h-7 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '><div className=' -mt-2'>Delete Item</div></button></div>
+        <div className='w-[20%] h-6 flex justify-between'><button className='ml-8 rounded-2xl p-2 w-[50%] h-7 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '><div className=' -mt-2'>Buy Item</div></button></div>
         </div>
      
         </div>

@@ -1,7 +1,21 @@
 import {Router} from 'express'
-import { loginUser, logoutUser, registerUser ,refreshAccessToken ,
-    changeCurrentPassword,updateAccountDetails , getCurrentUser ,getUserCredencials
-     ,uploadImage ,getAllImages  , getAllUserTickets ,getAllUserTransactions ,getAllOrderedProducts , createTicket} from '../controllers/user.controller.js'
+import {
+    registerUser,
+    loginUser,
+    logoutUser,
+    refreshAccessToken,
+    changeCurrentPassword,
+    getCurrentUser,
+    updateAccountDetails,
+    getUserCredencials,
+    createOrder ,
+    uploadImage ,
+    getAllImages,
+    getAllUserTickets,
+    getAllUserTransactions,
+    getAllOrderedProducts,
+} from '../controllers/user.controller.js'
+ import {addNewProduct} from '../controllers/product.controller.js'
 import {upload} from '../middleware/multer.middleware.js'
 import {verifyJWT } from '../middleware/auth.middleware.js'
 
@@ -15,6 +29,8 @@ router.route('/test').get((req,res)=>{res.send("hii")})
 
 
 // secured Routes 
+
+
 router.route('/logout').post(verifyJWT , logoutUser)
 
 router.route("/refresh-token").post(refreshAccessToken)
@@ -29,6 +45,7 @@ router.route("/update-account").patch(verifyJWT,updateAccountDetails)
 
 router.route("/image/:id").post(upload.fields([{ name: "Image", maxCount: 1 }]), uploadImage);
 
+
 router.route("/all-image/:id").get(getAllImages);
 
 router.route("/:id/tickets").get(getAllUserTickets);
@@ -38,5 +55,11 @@ router.route("/:id/transactions ").get(getAllUserTransactions);
 router.route("/:id/cart ").get(getAllOrderedProducts);
 
 router.route("/:id/create-ticket/").post(upload.fields([{ name: "Image", maxCount: 1 }]), createTicket);
+
+// product routes
+
+router.route("/:id/add-new/product/").post(upload.fields([{ name: "Image", maxCount: 1 }]), addNewProduct);
+
+router.route("/:userId/products/:productId").put(addNewProduct);
 
 export default router 

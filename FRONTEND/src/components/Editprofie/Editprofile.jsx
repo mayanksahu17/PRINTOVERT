@@ -21,7 +21,8 @@ function Editprofile() {
 <div className='flex justify-between w-[90%] mt-16 font-semibold '>
   <div className='ml-7 text-xl'>Email-ID</div>
   <div className='w-[50%] flex justify-between'><input className=' rounded-lg p-2 w-[45%]' type="text" placeholder='Enter the detail' />
-   <input className=' rounded-lg  p-2  w-[45%]' type="text" placeholder='Enter the detail' /></div>
+   
+   </div>
 </div>
 
 <hr className='mt-10' />

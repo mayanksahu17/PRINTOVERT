@@ -4,7 +4,7 @@ import  Header  from '../../components/Header/Header'
 function Layout() {
   return (
   <>
-  <div className='flex h-[800px]'>
+  <div className='flex overflow-hidden'>
   <Header />
   <Outlet />
   </div>

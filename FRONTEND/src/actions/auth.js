@@ -14,13 +14,9 @@ const api = axios.create({
  
 
 
-const loginUser = async (userData) => {
+const loginUser = async ( state, userData) => {
   try {
-    //   console.log("login",userData);
-    // const response = await api.post('/login', userData);
-    // console.log(response.data);
-    // return response.data;
-
+   
     const response  = await axios.post('/api/v1/users/login',userData)
     console.log(response.data);
 
