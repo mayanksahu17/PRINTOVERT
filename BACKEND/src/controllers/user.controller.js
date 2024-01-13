@@ -50,7 +50,11 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
     username: username.toLowerCase(),
-    phoneNumber
+    phoneNumber,
+    spent : 1280,
+    totalOrders:19,
+    walletBalance : 19000,
+    
   });
 
   if (!user) {
@@ -83,7 +87,7 @@ const loginUser = asyncHandler(async(req,res)=>{
     throw new ApiError(401, "Invalid user credencials ")
   }
   const {refreshToken , accessToken} = generateAccessTokenandRefreshTocken(user._id)
-  console.log(accessToken);
+  // console.log(accessToken);
   const loggedInUser = await  User.findById(user._id).select("-refeshToken -password")
 
   const options = {

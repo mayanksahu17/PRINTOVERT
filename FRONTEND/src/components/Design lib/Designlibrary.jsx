@@ -18,7 +18,7 @@ function Designlibrary() {
   const toggleUploadForm = () => {
     setShowUploadForm(!showUploadForm);
   };
-
+let x
   useEffect(() => {
     const fetchData = async () => {
       if (user) {
@@ -28,7 +28,7 @@ function Designlibrary() {
       }
     };
     fetchData();
-  }, [user, dispatch]);
+  }, [user, dispatch,x]);
 
   const onSubmit = async (data) => {
     const file = data.image[0];
@@ -50,6 +50,7 @@ function Designlibrary() {
 
       setError('');
       toggleUploadForm();
+      x+=1
     } catch (error) {
       setFormError('image', { type: 'manual', message: 'Something went wrong while uploading the image' });
     }

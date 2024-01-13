@@ -17,11 +17,14 @@ import { useState } from 'react';
 import { useSelector,useDispatch  } from 'react-redux';
 import { logout } from '../../store/authSlice';
 
+
 function Header() {
   const [open, setopen] = useState(true);
   const isAuthenticated = useSelector((state) => state.auth.user !== null);
+ 
   
   return (
+
     <div id='header' className={`flex flex-col bg-blue-700 h-[800px] ${open ? "w-80 ":"w-20 "} duration-500  relative `}>
  <div className='h-[10px] w-[10px]'><FaArrowRight className={`text-black absolute -right-[20px]   bg-white ${open ? "rotate-[180deg]": "rotate-[0deg]"} top-5  h-7 w-7 cursor-pointer border-solid border-2 border-black opacity-[0.8] rounded-full p-1 `}onClick={()=>setopen(!open)}/></div>
       <Link to ="">   
@@ -34,9 +37,9 @@ function Header() {
       <hr className=' w-50' />
       
       <ul className="p-2">
-      <NavLink to = "/"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3'> <AiOutlineHome className='mt-1 text-3xl hover:text-blue-800' /></div> <div className={`${!open && "scale-0"}`}>Deshboad</div></li></NavLink>
+      <NavLink to = "/"   ><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3'> <AiOutlineHome className='mt-1 text-3xl hover:text-blue-800' /></div> <div className={`${!open && "scale-0"}`}>Deshboad</div></li></NavLink>
  
-      <NavLink to = "/design-product"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <HiPencilAlt className='mt-1 text-3xl  hover:text-blue-800 ' /></div>  <div className={`${!open && "scale-0"}`}>Design Product</div></li></NavLink>
+      <NavLink to = "/design-product"> <li  className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <HiPencilAlt className='mt-1 text-3xl  hover:text-blue-800 ' /></div>  <div className={`${!open && "scale-0"}`}>Design Product</div></li></NavLink>
         
       
         <NavLink to = "/design-library"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <IoMdImages className='mt-1 text-3xl  hover:text-blue-800' /></div> <div className={`${!open && "scale-0"}`}>Design Library</div></li></NavLink>
@@ -58,7 +61,7 @@ function Header() {
         <NavLink to = "/edit-profile"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <PiNotePencilBold className='mt-1 text-3xl' /></div> <div className={`${!open && "scale-0"}`}>Edit Profile</div>  </li></NavLink>
         
      
-        <NavLink to = "/need-help"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center mt-[80px] hover:text-black hover:font-bold"> <div className='px-3  '> <FaRegQuestionCircle className='mt-1 text-3xl' /></div> <div className={`${!open && "scale-0"}`}>help</div>  <div className='px-3 ml-16'> </div></li></NavLink>
+        <NavLink to = "/need-help" ><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center mt-[80px] hover:text-black hover:font-bold"> <div className='px-3  '> <FaRegQuestionCircle className='mt-1 text-3xl' /></div> <div className={`${!open && "scale-0"}`}>help</div>  <div className='px-3 ml-16'> </div></li></NavLink>
       
         
         <hr />

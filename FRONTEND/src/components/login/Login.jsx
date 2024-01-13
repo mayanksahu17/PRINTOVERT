@@ -21,7 +21,7 @@ function Login() {
       console.log(userData);
       if (!userData) {
         setError('Invalid username or password. Please try again.');
-        // navigate('/login');
+       
       }
 
       if (userData!== undefined) {dispatch(login({user : userData , token : userData.refreshToken}));
@@ -76,14 +76,14 @@ function Login() {
           <div className='flex justify-end mt-16 mr-10'>
             <NavLink to='/signup'>
               <div className='w-[100px] flex justify-between ml-3'>
-                <button className='ml-0 rounded-2xl p-2 w-[350px] h-7 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2'>
-                  <div className=' -mt-2'>Sign Up </div>
+                <button className='ml-0 rounded-2xl p-2 w-[350px] h-9 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2'>
+                  <div className=' -mt-1'>Sign Up </div>
                 </button>
               </div>
             </NavLink>
 
-            <button type='submit' className='ml-3 rounded-2xl p-2 w-[100px] h-7 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '>
-              <div className=' -mt-2'>Sign In </div>
+            <button type='submit' className='ml-3 rounded-2xl p-2 w-[100px] h-9 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '>
+              <div className=' -mt-1'>Sign In </div>
             </button>
           </div>
         </div>

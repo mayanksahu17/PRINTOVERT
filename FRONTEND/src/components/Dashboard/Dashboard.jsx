@@ -1,7 +1,21 @@
 import React from 'react'
 import { RiCustomerService2Fill } from "react-icons/ri";
-import { NavLink } from 'react-router-dom';
+import { NavLink , useNavigate} from 'react-router-dom';
+import store from '../../store/store.js';
 function Dashboard() {
+const navigate = useNavigate()
+    const user = store.getState().auth?.user;
+    let spent = user?.spent || 0
+    let order = user?.orders.length || 0
+    let wallet = user?.walletBalance || 0 
+    let totalOrder = user?.totalOrders || 0
+
+    if(!user){
+        navigate("/login")
+    }
+    console.log("user at dahboard " ,user);
+    
+
   return (
         <>
         
@@ -17,17 +31,17 @@ function Dashboard() {
             <div className=' bg-white h-28 ml-7 mt-10 rounded-2xl w-64'>
            
                 <h3 className='ml-5 text-gray-500 p-1 font-base text-xl font-semibold'>Spent</h3>
-             <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>$0.00</h2>
+             <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>${spent}</h2>
             </div>
 
             <div className=' bg-white h-28 w-64 ml-7 mt-10 rounded-2xl'>
                 <h3 className='ml-5 text-gray-500 p-1 font-base text-xl font-semibold'>Total orders</h3>
-             <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>0</h2>
+             <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>{totalOrder}</h2>
             </div>
 
             <div className=' bg-white h-28 w-64 ml-7 mt-10 rounded-2xl'>
                 <h3 className='ml-5 text-gray-500 p-1 font-base text-xl font-semibold'>Wallet Balance</h3>
-             <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>$0.00</h2>
+             <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>${wallet}</h2>
             </div>
 
             <div className=' bg-white h-28 w-64 ml-7 mt-10 rounded-2xl'>
@@ -37,7 +51,7 @@ function Dashboard() {
 
             <div className=' bg-white h-32   w-80 ml-7 mt-5 rounded-2xl'>
                 <h3 className='ml-5 text-black-500 p-1 font-base text-xl font-bold'>Wallet Balance</h3>
-                <h4 className='ml-6 text-lg'>$0.00</h4> 
+                <h4 className='ml-6 text-lg'>${wallet}</h4> 
                 <NavLink to = "/wallet">
                 <button className='h-10 w-28 rounded-3xl text-black mt-3 ml-6 border bg-white font-bold hover:bg-blue-500 hover:text-white'>View History</button>
                 </NavLink>

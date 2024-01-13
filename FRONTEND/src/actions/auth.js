@@ -1,5 +1,7 @@
+import axios from 'axios';
 
 
+  
 
 const handleLogin = async (userData) => {
   const apiUrl = 'http://localhost:8000/api/v1/users/login';
@@ -16,31 +18,60 @@ const handleLogin = async (userData) => {
     const data = await response.json();
 
     if (data.success) {
-      // User is successfully logged in
+  
       const user = data.data.user;
-
 
       console.log('User Data:', user);
 
-
       const refreshToken = user.refreshToken;
-      localStorage.setItem('accessToken', refreshToken);
+      const accessToken = user.accessToken;
+
+ 
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+
+      console.log('Access Token:', accessToken);
       console.log('Refresh Token:', refreshToken);
-      return user
-      // Handle your authentication state (update state, set cookies, etc.)
-      // For example, you might want to redirect the user to a protected route
+
+      return user;
     } else {
       // Handle login failure
       console.error('Login failed:', data.message);
     }
-
   } catch (error) {
     console.error('Error during login:', error);
   }
 };
 
+// Function to refresh access token using the refresh token
+const refreshAccessToken = async () => {
+  try {
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (!refreshToken) {
+      throw new Error('No refresh token available');
+    }
+
+    const response = await axios.post('http://localhost:8000/api/v1/refresh-token', { refreshToken });
+
+    if (response.data.success) {
+      const newAccessToken = response.data.data.accessToken;
+
+      // Update the access token in localStorage
+      localStorage.setItem('accessToken', newAccessToken);
+
+      console.log('Access Token Refreshed:', newAccessToken);
+    } else {
+      console.error('Failed to refresh access token:', response.data.message);
+    }
+  } catch (error) {
+    console.error('Error refreshing access token:', error.message);
+  }
+};
+
+
+
 const registerUser = async (userData) => {
-  console.log(JSON.stringify(userData));
   try {
     const response = await fetch('http://localhost:8000/api/v1/users/register', {
       method: 'POST',
@@ -53,6 +84,18 @@ const registerUser = async (userData) => {
     if (response.ok) {
       const responseData = await response.json();
       console.log('User registered successfully:', responseData);
+
+      const user = responseData.data.user;
+      // const refreshToken = user.refreshToken;
+      const accessToken = user.accessToken;
+
+      // Store tokens in localStorage
+      localStorage.setItem('accessToken', accessToken);
+      // localStorage.setItem('refreshToken', refreshToken);
+
+      console.log('Access Token:', accessToken);
+      // console.log('Refresh Token:', refreshToken);
+
       return responseData;
     } else if (response.status === 409) {
       console.error('Registration failed: User already exists');
@@ -67,46 +110,9 @@ const registerUser = async (userData) => {
   }
 };
 
-const getCurrentUser = async () => {
-
-  const accessToken = localStorage.getItem('accessToken');
-
-
-  if (!accessToken) {
-
-    return;
-  }
-
-  try {
-    const response = await axios.get('http://your-api.com/data', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-
-    console.log(response.data);
-  } catch (error) {
-
-    if (error.response && error.response.status === 401) {
-      const newAccessToken = await refreshAccessToken(localStorage.getItem('refreshToken'));
-
-      await axios.get('http://localhost:8000/api/v1/users/current-user', {
-        headers: {
-          Authorization: `Bearer ${newAccessToken}`,
-        },
-      });
-    } else {
-      console.error('Error making API request:', error);
-
-    }
-  }
-};
-
-
-
 
 export {
   handleLogin,
-  registerUser
-
+  registerUser,
+  refreshAccessToken
 }

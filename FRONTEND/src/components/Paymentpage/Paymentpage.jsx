@@ -5,14 +5,7 @@ function Paymentpage() {
     return (
         <>
             <div className='bg-blue-200 w-full h-180'> 
-            <div className='w-full flex'>
-                <NavLink to ="/wallet">
-                <div className='w-10 hover:bg-blue-600 hover:text-white rounded-lg text-center  mt-10 ml-8'>
-                      <HiArrowNarrowLeft className='text-3xl ml-1' /> </div></NavLink>
-           
-            <h1 className=' font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900  text-5xl'>Wallet</h1>
-  
-  </div> 
+        
   <div className='ml-60'>
 
 <div className=' mt-5 ml-48 ' >
