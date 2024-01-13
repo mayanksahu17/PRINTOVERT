@@ -29,48 +29,43 @@ const generateAccessTokenandRefreshTocken = async(userId)=>{
   }
 }
 
+const registerUser = asyncHandler(async (req, res) => {
+  const { fullName, email, username, password, phoneNumber } = req.body;
 
-const registerUser =  asyncHandler(async(req,res)=> {
-  
-    const {fullName, email , username , password } =  req.body
- 
-    if ([fullName ,email, username , password].some((feild)=>feild?.trim() === "") ) {
-      throw new ApiError(400, "fullname is required")
-    }
- 
-    const exitedUser = await User.findOne({ 
-    $or : [ { username }, { email } ]
-    })
+  // Explicitly trim the inputs
+  const trimmedFields = [fullName, email, username, password, phoneNumber].map(field => field?.trim());
 
-    if (exitedUser) {
-    throw new ApiError(409, "User with email or username already exists")
-    }
-    
+  if (trimmedFields.some(field => field === "")) {
+    throw new ApiError(400, "Fullname is required");
+  }
 
-    const user = await User.create({
-      fullName,
-      email,
-      password,
-      username: username.toLowerCase()
-    })
+  const existingUser = await User.findOne({ $or: [{ username }, { email }] });
 
-    const createdUser = await User.findById(user._id).select(
-      "-password -refreshToken"
-    )
+  if (existingUser) {
+    throw new ApiError(409, "User with email or username already exists");
+  }
 
-    if(!createdUser){
-      throw new ApiError(500,"Somthing went wrong while registering the user")
-    }
+  const user = await User.create({
+    fullName,
+    email,
+    password,
+    username: username.toLowerCase(),
+    phoneNumber
+  });
 
-    return res.status(201).json(
-      new ApiResponse(200 , createdUser , "user registered successfully")
-    )
+  if (!user) {
+    throw new ApiError(500, "Something went wrong while registering the user");
+  }
 
-  })
+  const createdUser = await User.findById(user._id).select("-password -refreshToken");
+
+  return res.status(201).json(new ApiResponse(200, createdUser, "User registered successfully"));
+});
 
 const loginUser = asyncHandler(async(req,res)=>{
   
   const {username , password} = req.body
+
   if (!username && !password) {  
     throw new ApiError(404 , "User Must have username or password")
   }
@@ -100,7 +95,7 @@ const loginUser = asyncHandler(async(req,res)=>{
   res
   .status(200)
   .cookie("accessToken" , accessToken , options)
-  .cookie('refreshToken',refreshToken,options)
+  .cookie('refreshToken',refreshToken, options)
   .json(
     new ApiResponse(200,{
       user : loggedInUser,
@@ -111,6 +106,7 @@ const loginUser = asyncHandler(async(req,res)=>{
     )
   )
 })
+
 const logoutUser = asyncHandler(async(req,res)=>{
   await User.findByIdAndUpdate(
     req.user._id ,
@@ -257,20 +253,21 @@ const createOrder = asyncHandler(async(req,res)=>{
 
 const uploadImage = asyncHandler(async (req, res) => {
   try {
-    const { email } = req.body;
-
+   
+    const userId = req?.params.id
     // Check if req._id exists or has a valid value
-    console.log('Request email:', email);
-    console.log('Request _id:', req?.params.id);
+   
+    console.log('Request _id:', userId);
 
     // Attempt to find the user by email
-    const user = await User.findOne({ email });
+    const user = await User.findById(userId)
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
     const imageLocalPath = req.files?.Image[0]?.path;
+    console.log(imageLocalPath);
     if (!imageLocalPath) {
       throw new ApiError(400, 'Image file is required');
     }
@@ -373,7 +370,7 @@ export {
   createOrder ,
   uploadImage ,
   getAllImages,
-  getAllUserTickets,
+  
   getAllUserTransactions,
   getAllOrderedProducts,
 }

@@ -11,11 +11,12 @@ import {
     createOrder ,
     uploadImage ,
     getAllImages,
-    getAllUserTickets,
+  
     getAllUserTransactions,
     getAllOrderedProducts,
 } from '../controllers/user.controller.js'
- import {addNewProduct} from '../controllers/product.controller.js'
+ import {addNewProduct , UpdateProduct , removeProduct} from '../controllers/product.controller.js'
+ import {  getAllUserTickets , raiseTicket ,  createTicket} from '../controllers/ticket.controller.js'
 import {upload} from '../middleware/multer.middleware.js'
 import {verifyJWT } from '../middleware/auth.middleware.js'
 
@@ -45,7 +46,6 @@ router.route("/update-account").patch(verifyJWT,updateAccountDetails)
 
 router.route("/image/:id").post(upload.fields([{ name: "Image", maxCount: 1 }]), uploadImage);
 
-
 router.route("/all-image/:id").get(getAllImages);
 
 router.route("/:id/tickets").get(getAllUserTickets);
@@ -60,6 +60,10 @@ router.route("/:id/create-ticket/").post(upload.fields([{ name: "Image", maxCoun
 
 router.route("/:id/add-new/product/").post(upload.fields([{ name: "Image", maxCount: 1 }]), addNewProduct);
 
-router.route("/:userId/products/:productId").put(addNewProduct);
+router.route("/:userId/products/:productId").put(UpdateProduct);
+
+router.route("/:userId/products/:productId").delete(removeProduct);
 
 export default router 
+
+

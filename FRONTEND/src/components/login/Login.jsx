@@ -1,28 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/authSlice';
+import { login } from '../../store/authSlice.js';
 import { useForm } from 'react-hook-form';
-import {loginUser} from '../../actions/auth.js'
+import { handleLogin } from '../../actions/auth.js';
+import { useSelector } from 'react-redux';
+
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState('');
 
+
   const onSubmit = async (data) => {
+    
     try {
-    // console.log(data);
-      const user = await loginUser(data); 
+      console.log(data);
+      const  userData = await handleLogin(data);
+      // console.log(userData);
+      
 
-     if (user) dispatch(login(user));
-
-      // Redirect to another page upon successful login
-      navigate('/dashboard');
+      if (userData) dispatch(login({user : userData , token : userData.refreshToken}));
+      
+      navigate('/');
     } catch (error) {
-      setError('Invalid username or password. Please try again.'); 
+      setError('Invalid username or password. Please try again.');
     }
   };
+
+  const isAuthenticated = useSelector((state) => state.auth.user !== null);
+
 
   return (
     <div className='bg-blue-200 w-full h-180 '>

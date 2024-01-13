@@ -66,6 +66,7 @@ data :
 "email" : "testuser1@gmail.com",
 "username" : "user1",
 "password" : "user1"
+"phoneNumber" : "457855552"
 }
 
 for login post method 

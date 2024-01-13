@@ -1,4 +1,4 @@
-import {Product} from '../models/product.model.js'
+import Product from '../models/product.model.js'
 import {ApiError} from '../utils/ApiError.js'
 import { ApiResponse } from '../utils/ApiResponse.js' 
 import {asyncHandler } from '../utils/asyncHandler.js'
@@ -122,7 +122,7 @@ const UpdateProduct = asyncHandler(async (req, res) => {
       // Save the updated user with the modified orders array
       await user.save();
   
-      res.status(200).json(new ApiResponse(200,updateOrders,"Order created Successfully" ));
+      res.status(200).json(new ApiResponse(200,removedProduct,"Order created Successfully" ));
     } else {
       throw new ApiError(404, "Product not found in user's orders");
     }

@@ -1,8 +1,9 @@
 import React from 'react'
-import {Link,NavLink} from 'react-router-dom'
+import {Link,NavLink , useNavigate } from 'react-router-dom'
 import { AiOutlineHome } from "react-icons/ai";
 import { FaRegQuestionCircle } from "react-icons/fa";
-import { MdOutlineAccountCircle } from "react-icons/md";
+import LoginButton from '../button/LoginButton';
+import LogoutButton from '../button/LogoutButton';
 import { HiPencilAlt } from "react-icons/hi";
 import { IoMdImages } from "react-icons/io";
 import { IoIosCreate } from "react-icons/io";
@@ -13,9 +14,13 @@ import { PiNotePencilBold } from "react-icons/pi";
 import { ImPrinter } from "react-icons/im";
 import { FaArrowRight } from "react-icons/fa";
 import { useState } from 'react';
+import { useSelector,useDispatch  } from 'react-redux';
+import { logout } from '../../store/authSlice';
 
 function Header() {
-const [open, setopen]=useState(true);
+  const [open, setopen] = useState(true);
+  const isAuthenticated = useSelector((state) => state.auth.user !== null);
+  
   return (
     <div id='header' className={`flex flex-col bg-blue-700 h-[800px] ${open ? "w-80 ":"w-20 "} duration-500  relative `}>
  <div className='h-[10px] w-[10px]'><FaArrowRight className={`text-black absolute -right-[20px]   bg-white ${open ? "rotate-[180deg]": "rotate-[0deg]"} top-5  h-7 w-7 cursor-pointer border-solid border-2 border-black opacity-[0.8] rounded-full p-1 `}onClick={()=>setopen(!open)}/></div>
@@ -57,7 +62,12 @@ const [open, setopen]=useState(true);
       
         
         <hr />
-        <NavLink to = "/login"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center mt-1 hover:text-black hover:font-bold"> <div className='px-3  '> <MdOutlineAccountCircle className='mt-1 text-3xl' /></div> <div className={`${!open && "scale-0"}`}>login</div>  <div className='px-3 ml-16'> </div></li></NavLink>
+    {
+           !isAuthenticated&&(<LoginButton/>)
+    }
+    {
+      isAuthenticated&&(<LogoutButton/>)
+    }
         
       </ul>
     </div>
