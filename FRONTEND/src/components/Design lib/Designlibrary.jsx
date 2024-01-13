@@ -12,14 +12,18 @@ function Designlibrary() {
   const dispatch = useDispatch();
   const { register, handleSubmit, setError: setFormError } = useForm();
 
- let userId;
-  
+
+ let userId   
   useEffect(() => {
     const fetchData = async () => {
-      if (userId) {
+      if (!userId) {
        const user = store.getState().auth.user;
-        userId = user._id;
+       if (user) {
+        const userId = user._id;
+       }
+    
        const responseData =  await getAllImages(userId, dispatch);
+      
         dispatch(addImage({ images: responseData.data }));
       }
     };
@@ -35,6 +39,7 @@ function Designlibrary() {
   const images = useSelector((state) => state.images.images);
 
   const onSubmit = async (data) => {
+   
     const file = data.image[0];
     try {
       if (!file) {
@@ -43,9 +48,12 @@ function Designlibrary() {
       }
 
       const user = store.getState().auth.user;
+     
       const userId = user._id;
-      const imageUrl = await uploadImage(file, userId);
-      dispatch(addImage({ image: imageUrl }));
+      const data = await uploadImage(file, userId);
+      console.log("button clicked");
+      dispatch(addImage({ image: data }));
+      console.log("Dispatch ho gya ");
       setError('');
       toggleUploadForm(); // Close the form after a successful upload
     } catch (error) {
@@ -79,19 +87,19 @@ function Designlibrary() {
             <span className='drop-title text-3xl font-bold ml-24 text-blue-500'>Drop files here</span>
             <h1 className='mr-18 w-fulll h-8 font-bold text-center mt-4 text-blue-500'>Or</h1>
             <span className='text-red-700 ml-3'>{error}</span>
-            <div className='flex'>
+            <div className=''>
               <input
                 type='file'
                 id='imageInput'
                 accept='image/*'
-                className='w-32 mt-5 ml-7'
+                className=' w-full ml-16 '
                 {...register('image', { required: 'Image file is required' })}
               />
               <div className='btn-collectioninput-fs16 '>
                 <button
                   id='inputCancel'
                   type='submit'
-                  className='w-28 h-18 text-blue-500 font-bold text-center bg-white rounded-lg border-black border-r-blue-700 border-r-2 border-l-2 mt-5 border-t-2 border-b-2 ml-14 flex hover:bg-blue-700 hover:text-white'
+                  className='w-28 h-18 text-blue-500 font-bold text-center bg-white rounded-lg border-black border-r-blue-700 border-r-2 border-l-2 mt-8  border-t-2 border-b-2  flex hover:bg-blue-700 hover:text-white'
                 >
                   <h1 className='ml-3 mt-0'>Add image</h1>
                 </button>

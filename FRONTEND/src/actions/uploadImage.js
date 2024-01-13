@@ -1,14 +1,15 @@
+import { addImage } from "../store/imageslice";
 
-
-
+// here we hardcoded url for testing purpose 
 const uploadImage = async (file , userId) => {
     try {
-      const apiUrl = `http://localhost:8000/api/v1/users/image/${userId}`;
+      // const apiUrl = `http://localhost:8000/api/v1/users/image/${userId}`;
+      const apiUrl = `http://localhost:8000/api/v1/users/image/65a1212e8499b765747f3650`;
      if (!file) console.log("file leke a bhai ");
       const formData = new FormData();
       formData.append('Image', file);
   
-      // Make a fetch request with the FormData
+    
       const response = await fetch(apiUrl, {
         method: 'POST',
         body: formData,
@@ -18,11 +19,10 @@ const uploadImage = async (file , userId) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      // Parse the JSON response
+   
       const data = await response.json();
       console.log("result data : " , data);
      
-      
       return data;
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -34,7 +34,8 @@ const uploadImage = async (file , userId) => {
 // actions/uploadImage.js
 
 const getAllImages = async (userId, dispatch) => {
-  const apiUrl = `http://localhost:8000/api/v1/users/all-image/${userId}`;
+  const apiUrl = `http://localhost:8000/api/v1/users/all-image/65a1212e8499b765747f3650`;
+  // const apiUrl = `http://localhost:8000/api/v1/users/all-image/${userId}`;
 
   try {
     const response = await fetch(apiUrl, {
@@ -48,7 +49,7 @@ const getAllImages = async (userId, dispatch) => {
 
     if (data.success) {
       const images = data.data; 
-      dispatch(addImage({ images }));
+      // dispatch(addImage({ images }));
       return data;
     } else {
       console.error('Failed to get images:', data.message);
