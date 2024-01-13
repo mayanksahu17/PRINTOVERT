@@ -7,8 +7,12 @@ const imageSlice = createSlice({
     name: "image",
     initialState,
     reducers: {
+        pushImage: (state, action) => {
+            state.images.push(action.payload.images)
+            // console.log("action payload data", action.payload.images);
+        },
         addImage: (state, action) => {
-            state.images = action.payload.images;
+            state.images = action.payload.images ;
             console.log("action payload data", action.payload.images);
         },
         removeImage: (state, action) => {
@@ -17,5 +21,5 @@ const imageSlice = createSlice({
     }
 });
 
-export const { addImage } = imageSlice.actions;
+export const { addImage ,pushImage } = imageSlice.actions;
 export default imageSlice.reducer

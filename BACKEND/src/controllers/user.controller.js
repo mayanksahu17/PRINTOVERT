@@ -277,10 +277,11 @@ const uploadImage = asyncHandler(async (req, res) => {
 
     // Push the new image URL object into the user's 'image' array
     user.image.push({ imageURL: image.url });
+    const addedImage = user.image.find(item => item.imageURL === image.url);
     await user.save();
     console.log('Image uploaded');
 
-    return res.status(200).json(new ApiResponse(200, user.image, 'Image added Successfully'));
+    return res.status(200).json(new ApiResponse(200, addedImage, 'Image added Successfully'));
   } catch (error) {
     console.error('Error:', error);
     return res.status(500).json({ message: 'Internal Server Error' });
@@ -296,7 +297,9 @@ const getAllImages = asyncHandler(async (req, res) => {
    
     const userId = req?.params.id
     // Attempt to find the user by userId
+   
     const user = await User.findById(userId);
+  
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });

@@ -4,11 +4,12 @@ import  Header  from '../../components/Header/Header'
 function Layout() {
   return (
   <>
-  <div className='flex overflow-hidden'>
-  <Header />
+  <div className='flex  overflow-hidden'>
+
+  <Header  className='' />
   <Outlet />
   </div>
-
+ 
   </>
   )
 }

@@ -18,13 +18,17 @@ function Login() {
     try {
       console.log(data);
       const  userData = await handleLogin(data);
-      // console.log(userData);
-      
+      console.log(userData);
+      if (!userData) {
+        setError('Invalid username or password. Please try again.');
+        // navigate('/login');
+      }
 
-      if (userData) dispatch(login({user : userData , token : userData.refreshToken}));
+      if (userData!== undefined) {dispatch(login({user : userData , token : userData.refreshToken}));
       
-      navigate('/');
+      navigate('/');}
     } catch (error) {
+
       setError('Invalid username or password. Please try again.');
     }
   };

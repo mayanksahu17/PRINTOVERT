@@ -2,65 +2,58 @@ import React, { useState, useEffect } from 'react';
 import { IoIosCloudUpload } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { addImage } from '../../store/imageslice.js';
+import { addImage, pushImage } from '../../store/imageslice.js';
 import { uploadImage, getAllImages } from '../../actions/uploadImage.js';
 import store from '../../store/store.js';
 
 function Designlibrary() {
   const [showUploadForm, setShowUploadForm] = useState(false);
+  const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+  const [images, setImages] = useState([]);
   const dispatch = useDispatch();
   const { register, handleSubmit, setError: setFormError } = useForm();
-
-
- let userId   
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!userId) {
-       const user = store.getState().auth.user;
-       if (user) {
-        const userId = user._id;
-       }
-    
-       const responseData =  await getAllImages(userId, dispatch);
-      
-        dispatch(addImage({ images: responseData.data }));
-      }
-    };
-
-    fetchData();
-  }, [userId, dispatch]);
-  
+  const user = store.getState().auth.user;
 
   const toggleUploadForm = () => {
     setShowUploadForm(!showUploadForm);
   };
 
-  const images = useSelector((state) => state.images.images);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (user) {
+        const userId = user._id;
+        const responseData = await getAllImages(userId, dispatch);
+        setImages(responseData); // Update local state with fetched images
+      }
+    };
+    fetchData();
+  }, [user, dispatch]);
 
   const onSubmit = async (data) => {
-   
     const file = data.image[0];
+
     try {
       if (!file) {
         setFormError('image', { type: 'manual', message: 'Image file is required' });
         return;
       }
 
-      const user = store.getState().auth.user;
-     
+      setError('Image uploading, please wait...');
+
       const userId = user._id;
-      const data = await uploadImage(file, userId);
-      console.log("button clicked");
-      dispatch(addImage({ image: data }));
-      console.log("Dispatch ho gya ");
+      const image = await uploadImage(file, userId);
+
+      // Update the UI by immediately adding the new image to the images array
+      dispatch(pushImage(image));
+      setImages((prevImages) => [...prevImages, image]); // Update local state
+
       setError('');
-      toggleUploadForm(); // Close the form after a successful upload
+      toggleUploadForm();
     } catch (error) {
       setFormError('image', { type: 'manual', message: 'Something went wrong while uploading the image' });
     }
   };
-
   
   return (
     <div className='bg-blue-200 w-full h-[800px]'>
@@ -109,9 +102,9 @@ function Designlibrary() {
         </form>
       )}
       <div className='mt-14 ml-14 flex flex-wrap'>
-      {images && images.map((imageUrl) => (
+      {images && images?.map((imageUrl) => (
           <img
-            key={imageUrl}
+            key={imageUrl._id}
             className='w-52 rounded-3xl hover:shadow-2xl ml-3 mt-3'
             src={imageUrl}
             alt=''
