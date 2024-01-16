@@ -30,6 +30,9 @@ import AdOrders from './components/Admin/Orders/AdOrders.jsx'
 import Walletrequest from './components/Admin/Wallet/Walletrequest.jsx';
 import Delivered from './components/Admin/Delivered/Delivered.jsx';
 import Activeorder from './components/Admin/activeorders/Activeorder.jsx';
+import Backdesigner from './components/Tshirtdesigner/Backdesigner.jsx';
+import Leftdesigner from './components/Tshirtdesigner/Leftdesigner.jsx';
+import Rightdesigner from './components/Tshirtdesigner/Rightdesigner.jsx';
 import  store  from './store/store.js';
 // Define routes using the Router and Routes components
 const AppRoutes = () => (
@@ -51,6 +54,10 @@ const AppRoutes = () => (
       <Route path = '/featrenot' element = {<Featrenot/>}/>
       <Route path = '/contact-us' element = {<Contactus/>}/>
       <Route path = '/signup' element = {<Signup/>}/>
+      <Route path = '/back-edit' element = {<Backdesigner/>}/>
+      <Route path = '/right-side-edit' element = {<Rightdesigner/>}/>
+      <Route path = '/left-side-edit' element = {<Leftdesigner/>}/>
+      
       </Route>
 
       <Route path="/admin" element={<AdLayout />}>

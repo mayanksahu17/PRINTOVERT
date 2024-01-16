@@ -1,7 +1,7 @@
 import React from 'react'
 import { MdOutlineAccountCircle } from "react-icons/md";
 import {Link,NavLink , useNavigate } from 'react-router-dom'
-function LoginButton() {
+function LoginButton({...open}) {
     
   return (
   <NavLink to={'/login'}> <li  className="py-3 px-4 rounded-lg hover:bg-white 

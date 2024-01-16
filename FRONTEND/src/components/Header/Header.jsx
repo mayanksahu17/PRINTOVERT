@@ -66,7 +66,7 @@ function Header() {
         
         <hr />
     {
-           !isAuthenticated&&(<LoginButton/>)
+           !isAuthenticated&&(<LoginButton { ...open } />)
     }
     {
       isAuthenticated&&(<LogoutButton/>)

@@ -74,13 +74,17 @@ function Login() {
           {error && <div className='text-red-500 ml-7 mt-2'>{error}</div>}
 
           <div className='flex justify-end mt-16 mr-10'>
-            <NavLink to='/signup'>
-              <div className='w-[100px] flex justify-between ml-3'>
-                <button className='ml-0 rounded-2xl p-2 w-[350px] h-9 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2'>
-                  <div className=' -mt-1'>Sign Up </div>
-                </button>
-              </div>
-            </NavLink>
+          <NavLink to='/signup'>
+  <div className='flex justify-between mr-10 '>
+    <span>
+      Don't have any account{' '}
+      <span className='ml-0 text-blue-500 underline'>
+        <div className='-mt-1 text-'>Sign Up</div>
+      </span>
+    </span>
+  </div>
+</NavLink>
+
 
             <button type='submit' className='ml-3 rounded-2xl p-2 w-[100px] h-9 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '>
               <div className=' -mt-1'>Sign In </div>
