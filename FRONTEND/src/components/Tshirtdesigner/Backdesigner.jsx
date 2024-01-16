@@ -233,13 +233,15 @@ const Backdesigner = () => {
 
       
         <br />
-        <button onClick={toggleUploadForm} className="hover:bg-blue-600 hover:text-white p-4 border-solid ml-4 border-2 px-8 rounded-2xl">
-          Upload Design
-        </button>
-        <NavLink to="/design-library">
-          {' '}
-          <button className="hover:bg-blue-600 hover:text-white p-4 border-solid border-2 px-8 rounded-2xl ml-12"> Design library</button>{' '}
-        </NavLink>
+
+        <EditButton   onClick={toggleUploadForm} >
+        Upload 
+          </EditButton>   
+
+          <EditButton  to="/design-library" >
+        {' '}
+          save
+          </EditButton>     
         {showUploadForm && (
           <form className="uploadDiving h-32 w-96 border-2 rounded-2xl border-blue-500/100 ml-42 mt-5 bg-transparent hover:bg-white">
             <label htmlFor="imageInput" className="drop-container" id="dropcontainer">

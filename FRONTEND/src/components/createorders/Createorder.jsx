@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link,NavLink} from 'react-router-dom'
+import Button from '../button/Button'
 function Createorder() {
     return (
 
@@ -30,10 +31,12 @@ function Createorder() {
             
         </div>
 
-        <div className='h-18 w-full ml-20 flex mt-40'> 
-        <div className='w-[20%] h-6 flex justify-between'><button className='ml-8 rounded-2xl p-2 w-[50%] h-7 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '><div className=' -mt-2'>Delete Item</div></button></div>
-        <div className='w-[20%] h-6 flex justify-between'><button className='ml-8 rounded-2xl p-2 w-[50%] h-7 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '><div className=' -mt-2'>Buy Item</div></button></div>
-        </div>
+        <div className='h-18 w-full ml-10 flex mt-60'> 
+    <Button children={"Buy Product"} />
+    <Button children={"Delete Product"} />
+    
+    
+     </div>
      
         </div>
 

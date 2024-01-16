@@ -5,8 +5,8 @@ import Product from './Product';
 import fullsleeve from '../../assets/images/fullsleeve.jpeg'
 import Hoodie from '../../assets/images/Hoodie.jpeg'
 import oversizedtishirt from '../../assets/images/oversizedtishirt.jpeg'
-
-
+import Regular from '../../assets/images/Regular.jpeg'
+import Sweatshirt from '../../assets/images/Sweatshirt.jpeg'
 
 
 
@@ -33,13 +33,12 @@ Design your product</h2>
 
 <div className='flex flex-wrap'>
 
-<Product />
-<Product />
-<Product />
-<Product />
-<Product />
-<Product />
-<Product />
+<Product image = {fullsleeve} name={"Full sleeve"}/>
+<Product image = {Hoodie} name={"Hoodie"} />
+<Product image = {oversizedtishirt} name={"oversizedtishirt"} />
+<Product image = {Regular}  name={"Regular"}/>
+<Product image = {Sweatshirt} name={"Sweatshirt"} />
+
   
 </div>
 

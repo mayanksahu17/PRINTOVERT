@@ -1,42 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-const shapes = { round: "rounded" };
-const variants = { fill: { blue_A700: "bg-blue-A700 text-white-A700" } };
-const sizes = { xs: "p-[18px]" };
-
-const Button = ({
-  children,
-  className = "",
-  leftIcon,
-  rightIcon,
-  shape = "round",
-  size = "xs",
-  variant = "fill",
-  color = "blue_A700",
-  ...restProps
-}) => {
+const Button = ({ to, onClick, children ,className = ""}) => {
   return (
-    <button
-      className={`${className} ${(shape && shapes[shape]) || ""} ${
-        (size && sizes[size]) || ""
-      } ${(variant && variants[variant]?.[color]) || ""}`}
-      {...restProps}
-    >
-      {!!leftIcon && leftIcon}
-      {children}
-      {!!rightIcon && rightIcon}
-    </button>
+    <NavLink to={to}>
+      <button
+        className={` ${className} hover:bg-blue-600 hover:text-white p-1 border-solid border-2 px-8 rounded-2xl ml-2 mt-2 font-semibold`}
+        onClick={onClick}
+      >
+        {children}
+      </button>
+    </NavLink>
   );
 };
 
-Button.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node,
-  shape: PropTypes.oneOf(["round"]),
-  size: PropTypes.oneOf(["xs"]),
-  variant: PropTypes.oneOf(["fill"]),
-  color: PropTypes.oneOf(["blue_A700"]),
-};
-
-export { Button };
+export default Button;
