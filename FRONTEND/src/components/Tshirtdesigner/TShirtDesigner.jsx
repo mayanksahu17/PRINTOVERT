@@ -1,28 +1,29 @@
 import { useState, useEffect } from 'react';
 import { fabric } from 'fabric';
 import html2canvas from 'html2canvas';
-import { NavLink } from 'react-router-dom';
 import Tshirt from '../../assets/Tshirt.png';
-import Coloricon from './Coloricon';
-import leftsleeve1 from '../../assets/New folder/leftsleeve1.png'
+import Sizes from './Sizes.jsx';
 import EditButton from './EditButton.jsx'
+import { useDispatch , useSelector } from 'react-redux';
+import Colorbox from './Colorbox.jsx';
+
 
 const TShirtDesigner = () => {
   const [canvas, setCanvas] = useState(null);
-  const [color, setColor] = useState('white');
   const [showUploadForm, setShowUploadForm] = useState(false);
   const [frontTshirt , setfrontTshirt] = useState(null)
-  const [backTshirt , setbackTshirt] = useState(null)
-  const [rightsideTshirt , setrightsideTshirt] = useState(null)
-  const [leftsideTshirt , setleftsideTshirt] = useState(null)
-  const [size , Setsize] = useState(null)
-  const sizes = ["S", "M", "L", "XL", "XXL", "XXXL"];
+  const dispatch = useDispatch()
+  const stateColor = useSelector((state) => state.product.color);
+
  
+  useEffect(() => {
+    const tshirtColor = document.getElementById('tshirt-backgroundpicture');
+    if (tshirtColor) {
+      tshirtColor.style.backgroundColor = stateColor;
+    }
+  }, [stateColor]);
 
-
-
-
-  const toggleUploadForm = () => {+
+  const toggleUploadForm = () => {
     setShowUploadForm(!showUploadForm);
   };
 
@@ -32,7 +33,7 @@ const TShirtDesigner = () => {
 
     return () => {
       fabricCanvas.dispose();
-    };
+    };  
   }, []);
 
   const updateTshirtImage = (imageURL) => {
@@ -116,28 +117,10 @@ const TShirtDesigner = () => {
     });
   };
 
-  const handleColorChange = (e) => {
-    setColor(e.target.value);
-    const tshirtColor = document.getElementById('tshirt-backgroundpicture');
-    tshirtColor.style.backgroundColor = e.target.value;
-  };
+    
+ 
 
 
-  
-  const handleBackImageEditing = () => {
-    // Implement functionality for editing the back image
-    console.log('Editing the back image');
-  };
-
-  const handleRightSleeveEditing = () => {
-   
-    console.log('Editing the right sleeve image');
-  };
-
-  const handleLeftSleeveEditing = () => {
-    // Implement functionality for editing the left sleeve image
-    console.log('Editing the left sleeve image');
-  };
 
   return (
     <div className="bg-blue-200 h-[800px] w-[98%]">
@@ -162,7 +145,7 @@ const TShirtDesigner = () => {
  
  <div className='mb-24 h-full w-full '>
 
- <EditButton to='/tshirt-designer' onClick={handleBackImageEditing}>
+         <EditButton to='/tshirt-designer' >
           Front 
           </EditButton>
 
@@ -184,18 +167,10 @@ const TShirtDesigner = () => {
           
 </div>
 
-
-
-       
       </div>
-
-
-
-      <br />
- 
       <br />
       <br />
-
+      <br />
       <div className="absolute top-20 left-[1000px]">
         <p className="text-3xl">Add your image</p>
         <p>Maximum print area (W x H)-15.60 in x19.60</p>
@@ -214,27 +189,21 @@ const TShirtDesigner = () => {
         <p className="text-2xl">colors</p>
         <br />
         <div className="flex">
-          <div onClick={() => handleColorChange({ target: { value: 'black' } })} id="black" className="rounded-full h-[50px] ml-[20px] w-[50px] bg-black"></div>
-          <div onClick={() => handleColorChange({ target: { value: 'red' } })} id="red" className="rounded-full h-[50px] ml-[20px] w-[50px] bg-red-500"></div>
-          <div onClick={() => handleColorChange({ target: { value: 'blue' } })} id="blue" className="rounded-full h-[50px] ml-[20px] w-[50px] bg-blue-500"></div>
-          <div onClick={() => handleColorChange({ target: { value: 'pink' } })} id="pink" className="rounded-full h-[50px] ml-[20px] w-[50px] bg-pink-500"></div>
-          <div onClick={() => handleColorChange({ target: { value: 'green' } })} id="green" className="rounded-full h-[50px] ml-[20px] w-[50px] bg-green-500"></div>
-          <div onClick={() => handleColorChange({ target: { value: 'yellow' } })} id="yellow" className="rounded-full h-[50px] ml-[20px] w-[50px] bg-yellow-500"></div>
+          <Colorbox  />
         </div>
+
         <br />
         <br />
-        <p className="">Size</p>
+        <p className="text-2xl">Size</p>
         <br />
         <div className="flex">
-        <Coloricon sizes={sizes} />
+        <Sizes />
         </div>
 
         <br />
         <br />
 
-        <p className="text-2xl ">Total Price: <span className="text-blue-500">100</span>(Taxes Apply)</p>
-
-      
+        <p className="text-2xl ">Total Price: <span className="text-blue-500">100</span> {"  "}(Taxes Apply)</p>
         <br />
         <EditButton   onClick={toggleUploadForm} >
         Upload 
@@ -261,10 +230,7 @@ const TShirtDesigner = () => {
 
         <br />
         <br />
-       
-      </div>
-
-      
+      </div>  
     </div>
   );
 };

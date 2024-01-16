@@ -7,7 +7,7 @@ const initialState = {
   rightimage : null,
   leftimage  : null,
   color      : "white",
-  size       : null
+  size       : ""
 };
 const productSlice = createSlice({
     name: "product",
@@ -20,6 +20,7 @@ const productSlice = createSlice({
 
         Editsize : (state,action)=>{
             state.size = action.payload.size
+           
         },
         
         Editcolor : (state,action)=>{

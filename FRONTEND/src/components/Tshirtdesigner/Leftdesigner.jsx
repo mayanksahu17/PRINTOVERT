@@ -4,21 +4,18 @@ import { fabric } from 'fabric';
 import html2canvas from 'html2canvas';
 import { NavLink } from 'react-router-dom';
 import Tshirt from '../../assets/Tshirt.png';
-import Coloricon from './Coloricon';
+import Sizes from './Sizes';
 import leftsleeve1 from '../../assets/New folder/leftsleeve1.png'
 import EditButton from './EditButton';
+import Colorbox from './Colorbox'
+import { useSelector, useDispatch } from 'react-redux';
 const Leftdesigner = () =>
  {
   const [canvas, setCanvas] = useState(null);
   const [color, setColor] = useState('white');
   const [showUploadForm, setShowUploadForm] = useState(false);
-  const [frontTshirt , setfrontTshirt] = useState(null)
-  const [backTshirt , setbackTshirt] = useState(null)
-  const [rightsideTshirt , setrightsideTshirt] = useState(null)
-  const [leftsideTshirt , setleftsideTshirt] = useState(null)
-  const [size , Setsize] = useState(null)
-  const sizes = ["S", "M", "L", "XL", "XXL", "XXXL"];
-  let TSHIRT = Tshirt ;
+  
+  
 
 
   const toggleUploadForm = () => {
@@ -98,13 +95,13 @@ const Leftdesigner = () =>
       
     });
   };
-
-  const handleColorChange = (e) => {
-    setColor(e.target.value);
+  const stateColor = useSelector((state) => state.product.color);
+  useEffect(() => {
     const tshirtColor = document.getElementById('tshirt-backgroundpicture');
-    tshirtColor.style.backgroundColor = e.target.value;
-  };
-
+    if (tshirtColor) {
+      tshirtColor.style.backgroundColor = stateColor;
+    }
+  }, [stateColor]);
 
   
   const handleBackImageEditing = () => {
@@ -113,7 +110,7 @@ const Leftdesigner = () =>
   };
 
   const handleRightSleeveEditing = () => {
-    TSHIRT = leftsleeve
+    
     console.log('Editing the right sleeve image');
   };
 
@@ -167,16 +164,9 @@ const Leftdesigner = () =>
           </EditButton>
 
 
- </div>
-
-          
+ </div>      
 </div>
-
-       
       </div>
-
-
-
       <br />
  
       <br />
@@ -199,19 +189,13 @@ const Leftdesigner = () =>
         <p className="text-2xl">colors</p>
         <br />
         <div className="flex">
-          <div onClick={() => handleColorChange({ target: { value: 'black' } })} id="black" className="rounded-full h-[50px] ml-[20px] w-[50px] bg-black"></div>
-          <div onClick={() => handleColorChange({ target: { value: 'red' } })} id="red" className="rounded-full h-[50px] ml-[20px] w-[50px] bg-red-500"></div>
-          <div onClick={() => handleColorChange({ target: { value: 'blue' } })} id="blue" className="rounded-full h-[50px] ml-[20px] w-[50px] bg-blue-500"></div>
-          <div onClick={() => handleColorChange({ target: { value: 'pink' } })} id="pink" className="rounded-full h-[50px] ml-[20px] w-[50px] bg-pink-500"></div>
-          <div onClick={() => handleColorChange({ target: { value: 'green' } })} id="green" className="rounded-full h-[50px] ml-[20px] w-[50px] bg-green-500"></div>
-          <div onClick={() => handleColorChange({ target: { value: 'yellow' } })} id="yellow" className="rounded-full h-[50px] ml-[20px] w-[50px] bg-yellow-500"></div>
-        </div>
+        <Colorbox  />  </div>
         <br />
         <br />
         <p className="">Size</p>
         <br />
         <div className="flex">
-        <Coloricon sizes={sizes} />
+        <Sizes />
         </div>
 
         <br />
