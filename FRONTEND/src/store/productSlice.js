@@ -13,49 +13,53 @@ const productSlice = createSlice({
     name: "product",
     initialState,
     reducers: {
-
-        setproductimage : (state , action)=>{
-            state.productimage = action.payload.file
-        },
-
-        Editsize : (state,action)=>{
-            state.size = action.payload.size
-           
-        },
-        
-        Editcolor : (state,action)=>{
-            state.color = action.payload.color
-        },
-
-        Editfontimage: (state, action) => {
-            state.fontimage = action.payload.file
-           
-        },
-        Editbackimage: (state, action) => {
-            state.backimage = action.payload.images ;
-            // console.log("action payload data", action.payload.images);
-        },
-        Editrightimage: (state, action) => {
-            state.backimage = action.payload.images ;
-            // console.log("action payload data", action.payload.images);
-        },
-        Editleftimage: (state, action) => {
-            state.backimage = action.payload.images ;
-            // console.log("action payload data", action.payload.images);
-        },
-        removeTshirt: (state, action) => {
-            state.fontimage = null; 
-            state.backimage = null; 
-            state.rightimage = null; 
-            state.leftimage = null; 
-            state.color = "white"; 
-            state.size = null; 
-
-        }
-    }
-});
-
-export const {Editsize , Editcolor, Editfontimage, Editbackimage, 
-             Editrightimage, Editleftimage, removeTshirt } = productSlice.actions;
-
-export default productSlice.reducer
+      setproductimage: (state, action) => {
+        state.productimage = action.payload.file;
+      },
+  
+      Editsize: (state, action) => {
+        state.size = action.payload.size;
+      },
+  
+      Editcolor: (state, action) => {
+        state.color = action.payload.color;
+      },
+  
+      Editfontimage: (state, action) => {
+        state.fontimage = action.payload.file;
+      },
+  
+      Editbackimage: (state, action) => {
+        state.backimage = action.payload.images;
+      },
+  
+      Editrightimage: (state, action) => {
+        state.rightimage = action.payload.images; // Corrected from state.backimage
+      },
+  
+      Editleftimage: (state, action) => {
+        state.leftimage = action.payload.images; // Corrected from state.backimage
+      },
+  
+      removeTshirt: (state, action) => {
+        state.fontimage = null;
+        state.backimage = null;
+        state.rightimage = null;
+        state.leftimage = null;
+        state.color = "white";
+        state.size = null;
+      },
+    },
+  });
+  
+  export const {
+    Editsize,
+    Editcolor,
+    Editfontimage,
+    Editbackimage,
+    Editrightimage,
+    Editleftimage,
+    removeTshirt,
+  } = productSlice.actions;
+  
+  export default productSlice.reducer;

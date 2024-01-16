@@ -6,6 +6,8 @@ import Sizes from './Sizes.jsx';
 import EditButton from './EditButton.jsx'
 import { useDispatch , useSelector } from 'react-redux';
 import Colorbox from './Colorbox.jsx';
+import Editfontimage from '../../store/productSlice.js'
+import {saveImageAndEdit} from '../../store/actions/productActions.js'
 
 
 const TShirtDesigner = () => {
@@ -90,13 +92,20 @@ const TShirtDesigner = () => {
     };
   }, [canvas]);
 
-  const handleSave = () => {
+
+
+  const handleSave =  () => {
     html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
-      const img = new Image();
-      img.src = imgData;
+        dispatch(Editfontimage({ imageFile: imgData }));
       console.log('Image saved');
-
+  
+      const downloadLink = document.createElement('a');
+      downloadLink.href = imgData;
+      downloadLink.download = 'tshirt_preview.png';
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
       // Uncomment the following code when you have a server endpoint to handle the POST request
       /*
       fetch('your-server-endpoint', {
@@ -116,6 +125,7 @@ const TShirtDesigner = () => {
       */
     });
   };
+  
 
     
  

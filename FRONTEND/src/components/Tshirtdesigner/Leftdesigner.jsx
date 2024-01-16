@@ -12,12 +12,9 @@ import { useSelector, useDispatch } from 'react-redux';
 const Leftdesigner = () =>
  {
   const [canvas, setCanvas] = useState(null);
-  const [color, setColor] = useState('white');
   const [showUploadForm, setShowUploadForm] = useState(false);
+  const dispatch = useDispatch()
   
-  
-
-
   const toggleUploadForm = () => {
     setShowUploadForm(!showUploadForm);
   };
@@ -90,6 +87,7 @@ const Leftdesigner = () =>
       const imgData = canvas.toDataURL('image/png');
       const img = new Image();
       img.src = imgData;
+      dispatch()
       console.log('Image saved');
 
       
@@ -109,15 +107,6 @@ const Leftdesigner = () =>
     console.log('Editing the back image');
   };
 
-  const handleRightSleeveEditing = () => {
-    
-    console.log('Editing the right sleeve image');
-  };
-
-  const handleLeftSleeveEditing = () => {
-    // Implement functionality for editing the left sleeve image
-    console.log('Editing the left sleeve image');
-  };
 
   return (
     <div className="bg-blue-200 h-[800px] w-[98%]">
@@ -147,7 +136,7 @@ const Leftdesigner = () =>
  
  <div className='mb-24 h-full w-full '>
 
- <EditButton to='/tshirt-designer' onClick={handleBackImageEditing}>
+ <EditButton to='/tshirt-designer'>
           Front 
           </EditButton>
 
