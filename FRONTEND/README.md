@@ -9,12 +9,10 @@ Currently, two official plugins are available:
 
 # To Setup the frontend
 
-``` 
-     - cd FRONTEND
-
-     - npm i
-
-     - npm run dev 
+```
+ cd FRONTEND
+ npm i
+ npm run dev 
 
 
 ```
