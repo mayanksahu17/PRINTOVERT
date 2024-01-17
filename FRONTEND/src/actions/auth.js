@@ -87,13 +87,13 @@ const registerUser = async (userData) => {
 
       const user = responseData.data.user;
       // const refreshToken = user.refreshToken;
-      const accessToken = user.accessToken;
+      // const accessToken = user.accessToken;
 
       // Store tokens in localStorage
-      localStorage.setItem('accessToken', accessToken);
+      // localStorage.setItem('accessToken', accessToken);
       // localStorage.setItem('refreshToken', refreshToken);
 
-      console.log('Access Token:', accessToken);
+      // console.log('Access Token:', accessToken);
       // console.log('Refresh Token:', refreshToken);
 
       return responseData;

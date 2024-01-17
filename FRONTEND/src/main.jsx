@@ -34,6 +34,7 @@ import Backdesigner from './components/Tshirtdesigner/Backdesigner.jsx';
 import Leftdesigner from './components/Tshirtdesigner/Leftdesigner.jsx';
 import Rightdesigner from './components/Tshirtdesigner/Rightdesigner.jsx';
 import  store  from './store/store.js';
+import Preview from './components/Tshirtdesigner/Preview.jsx';
 // Define routes using the Router and Routes components
 const AppRoutes = () => (
   <Router>
@@ -57,6 +58,8 @@ const AppRoutes = () => (
       <Route path = '/back-edit' element = {<Backdesigner/>}/>
       <Route path = '/right-side-edit' element = {<Rightdesigner/>}/>
       <Route path = '/left-side-edit' element = {<Leftdesigner/>}/>
+      <Route path = '/preview' element = {<Preview/>}/>
+
       
       </Route>
 

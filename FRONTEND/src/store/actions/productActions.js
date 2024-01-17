@@ -1,5 +1,5 @@
 // productActions.js
-import { Editfontimage } from '../productSlice';
+import { Editfrontimage } from '../productSlice';
 
 export const saveImageAndEdit = (imageData) => {
   return async (dispatch) => {
@@ -8,7 +8,7 @@ export const saveImageAndEdit = (imageData) => {
       const savedData = imageData;
 
      
-      dispatch(Editfontimage({ imageFile: savedData }));
+      dispatch(Editfrontimage({ imageFile: savedData }));
 
       
     } catch (error) {

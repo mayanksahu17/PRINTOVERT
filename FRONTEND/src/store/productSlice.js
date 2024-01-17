@@ -25,8 +25,11 @@ const productSlice = createSlice({
         state.color = action.payload.color;
       },
   
-      Editfontimage: (state, action) => {
-        state.fontimage = action.payload.file;
+      Editfrontimage: (state, action) => {
+        if ( action.payload.image) {
+          state.fontimage = action.payload.image;
+          console.log("kaam ho gya ");
+        }else{console.log("kuchh dikkat h yha ");}
       },
   
       Editbackimage: (state, action) => {
@@ -55,7 +58,7 @@ const productSlice = createSlice({
   export const {
     Editsize,
     Editcolor,
-    Editfontimage,
+    Editfrontimage,
     Editbackimage,
     Editrightimage,
     Editleftimage,

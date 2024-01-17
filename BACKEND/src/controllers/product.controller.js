@@ -13,14 +13,20 @@ const addNewProduct = asyncHandler(async (req, res) => {
       throw new ApiError(404, "User not found");
     }
 
-    const imageLocalPath = req.files?.Image?.[0]?.path;
+    const imageLocalPath0 = req.files?.Image?.[0]?.path;
+    const imageLocalPath1 = req.files?.Image?.[1]?.path;
+    const imageLocalPath2 = req.files?.Image?.[2]?.path;
+    const imageLocalPath3 = req.files?.Image?.[3]?.path;
 
-    if (!imageLocalPath) {
+    if (!(imageLocalPath0 && imageLocalPath1&& imageLocalPath2 && imageLocalPath3)) {
       throw new ApiError(400, "Image file is required");
     }
 
-    const image = await uploadOnCloudinary(imageLocalPath);
-    console.log('Image URL:', image.url);
+    const image0 = await uploadOnCloudinary(imageLocalPath0); 
+    const image1 = await uploadOnCloudinary(imageLocalPath1); 
+    const image2 = await uploadOnCloudinary(imageLocalPath2); 
+    const image3 = await uploadOnCloudinary(imageLocalPath3); 
+    console.log('Image URL:', image0.url);
 
     const {
       name,
@@ -53,7 +59,7 @@ const addNewProduct = asyncHandler(async (req, res) => {
       shipped,
       delivered,
       ordered,
-      image: image.url,
+      image: image0.url,
     };
 
     user.orders.push(productDetail);

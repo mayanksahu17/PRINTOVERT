@@ -181,7 +181,7 @@ const Leftdesigner = () =>
         <Colorbox  />  </div>
         <br />
         <br />
-        <p className="">Size</p>
+        <p className="text-2xl">Size</p>
         <br />
         <div className="flex">
         <Sizes />
@@ -190,7 +190,7 @@ const Leftdesigner = () =>
         <br />
         <br />
 
-        <p className="text-2xl ">Total Price: <span className="text-blue-500">100</span>(Taxes Apply)</p>
+        <p className="text-2xl ">Total Price: <span className="text-blue-500">100</span> {"  "}(Taxes Apply)</p>
 
       
         <br />

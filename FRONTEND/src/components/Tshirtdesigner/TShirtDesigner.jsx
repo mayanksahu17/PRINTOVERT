@@ -6,8 +6,9 @@ import Sizes from './Sizes.jsx';
 import EditButton from './EditButton.jsx'
 import { useDispatch , useSelector } from 'react-redux';
 import Colorbox from './Colorbox.jsx';
-import Editfontimage from '../../store/productSlice.js'
+import Editfrontimage from '../../store/productSlice.js'
 import {saveImageAndEdit} from '../../store/actions/productActions.js'
+import ImageUploader from './Base64.js'
 
 
 const TShirtDesigner = () => {
@@ -94,61 +95,42 @@ const TShirtDesigner = () => {
 
 
 
-  const handleSave =  () => {
+  const handleSave = () => {
     html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-        dispatch(Editfontimage({ imageFile: imgData }));
-      console.log('Image saved');
-  
-      const downloadLink = document.createElement('a');
-      downloadLink.href = imgData;
-      downloadLink.download = 'tshirt_preview.png';
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-      // Uncomment the following code when you have a server endpoint to handle the POST request
-      /*
-      fetch('your-server-endpoint', {
-        method: 'POST',
-        body: JSON.stringify({ imageData: imgData }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle server response
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-      */
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const imageUploader = new ImageUploader();
+          imageUploader.imageUpload({
+            file: blob,
+            name: 'frontimage',
+            method: Editfrontimage,
+            dispatch: dispatch,
+          });
+          console.log('Image saved');
+        }
+      }, 'image/png');
     });
   };
   
 
-    
  
-
-
 
   return (
     <div className="bg-blue-200 h-[800px] w-[98%]">
       <p className="text-5xl ml-20 mt-10 font-bold text-blue-900  ">Create Order</p>
+      
       <div id="tshirt-div" className="relative  h-548 ml-20 mt-10 bg-blue-200">
         <div className="bg-white w-[450px]">
           <img id="tshirt-backgroundpicture" src={Tshirt} alt="Tshirt Background"  />
         </div>
         <div className="absolute top-14 left-[120px] z-10 w-200 h-[450px] border-2 border-red-800 border-solid  ">
           <div className="relative w-200 h-400 ">
-            <canvas id="tshirt-canvas" width="200" height="450"></canvas>
+            <canvas id="tshirt-canvas" width="200" height="400"></canvas>
           </div>
         </div>
       </div>
 
-      <div className="">
-        <br />
-        <br />
+      <div className="">   <br /> <br />
 
 
 <div className="ml-20 h-[60px] w-full ">
@@ -170,11 +152,7 @@ const TShirtDesigner = () => {
           <EditButton to="/left-side-edit">
             Left 
           </EditButton>
-
-
- </div>
-
-          
+ </div>     
 </div>
 
       </div>
@@ -182,7 +160,10 @@ const TShirtDesigner = () => {
       <br />
       <br />
       <div className="absolute top-20 left-[1000px]">
+        <div className='flex'>
         <p className="text-3xl">Add your image</p>
+        <EditButton to={"/preview"} children={"Preview"} className='ml-28' />
+        </div>
         <p>Maximum print area (W x H)-15.60 in x19.60</p>
         <div className='mt-5'>
         <EditButton to="/design-product" >
@@ -193,17 +174,12 @@ const TShirtDesigner = () => {
           save
           </EditButton>   
         
-        </div>
-       
-        <br />
+        </div> <br />
         <p className="text-2xl">colors</p>
         <br />
         <div className="flex">
           <Colorbox  />
-        </div>
-
-        <br />
-        <br />
+        </div>  <br />  <br />
         <p className="text-2xl">Size</p>
         <br />
         <div className="flex">
@@ -219,7 +195,7 @@ const TShirtDesigner = () => {
         Upload 
           </EditButton>   
 
-          <EditButton  to="/design-library" >
+          <EditButton  onClick={handleSave} >
         {' '}
           save
           </EditButton> 

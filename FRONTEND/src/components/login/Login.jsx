@@ -40,7 +40,7 @@ function Login() {
     <div className='bg-blue-200 w-full h-180 '>
       <div>
         <h1 className='font-bold mt-8 ml-7 text-blufont-cerebriSans text-3xle-900 co text-4xl'>Sign In</h1>
-        <p className='ml-7 mt-1'>Create Your Account </p>
+        <p className='ml-7 mt-1'>Log in Your Account </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
