@@ -8,6 +8,8 @@ import leftsleeve1 from '../../assets/New folder/leftsleeve1.png'
 import EditButton from './EditButton';
 import Colorbox from './Colorbox'
 import { useSelector, useDispatch } from 'react-redux';
+import ImageUploader from './Base64.js'
+import { Editbackimage } from '../../store/productSlice.js';
 
 const Backdesigner = () => {
   const [canvas, setCanvas] = useState(null);
@@ -18,7 +20,8 @@ const Backdesigner = () => {
   const [rightsideTshirt , setrightsideTshirt] = useState(null)
   const [leftsideTshirt , setleftsideTshirt] = useState(null)
   const [size , Setsize] = useState(null)
- 
+  const dispatch = useDispatch()
+
 
 
   const toggleUploadForm = () => {
@@ -88,32 +91,28 @@ const Backdesigner = () => {
     };
   }, [canvas]);
 
+
   const handleSave = () => {
     html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const img = new Image();
-      img.src = imgData;
-      console.log('Image saved');
-
-      // Uncomment the following code when you have a server endpoint to handle the POST request
-      /*
-      fetch('your-server-endpoint', {
-        method: 'POST',
-        body: JSON.stringify({ imageData: imgData }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle server response
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-      */
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const imageUploader = new ImageUploader();
+          imageUploader.imageUpload({
+            file: blob,
+            name: 'backimage',
+            method: Editbackimage,
+            dispatch: dispatch,
+          });
+          console.log('Image saved');
+        }
+      }, 'image/png');
     });
   };
+  
+
+
+
+
 
   const stateColor = useSelector((state) => state.product.color);
   useEffect(() => {
@@ -124,21 +123,17 @@ const Backdesigner = () => {
   }, [stateColor]);
 
   
-  const handleBackImageEditing = () => {
-    // Implement functionality for editing the back image
-    console.log('Editing the back image');
-  };
 
   
 
   return (
     <div className="bg-blue-200 h-[800px] w-[98%]">
-      <p className="text-5xl ml-20 mt-10 font-bold text-blue-900  ">Create Order</p>
-      <div id="tshirt-div" className="relative  h-548 ml-20 mt-10 bg-blue-200">
-        <div className="bg-white w-[450px]">
+      <p className="text-5xl ml-20 mt-10 font-bold text-blue-900  ">Design Product</p>
+      <div  id="tshirt-div" className="relative  h-548 ml-20 mt-10 bg-blue-200">
+        <div className="bg-white w-[450px] ">
           <img id="tshirt-backgroundpicture" src={Tshirt} alt="Tshirt Background" />
         </div>
-        <div className="absolute top-14 left-[120px] z-10 w-200 h-[450px] border-2 border-red-800 border-solid  ">
+        <div className="absolute top-14 left-[120px] z-10 w-200 h-[450px]   ">
           <div className="relative w-200 h-400 ">
             <canvas id="tshirt-canvas" width="200" height="450"></canvas>
           </div>
@@ -154,7 +149,7 @@ const Backdesigner = () => {
  
  <div className='mb-24 h-full w-full '>
 
- <EditButton to='/tshirt-designer' onClick={handleBackImageEditing}>
+ <EditButton to='/tshirt-designer'>
           Front 
           </EditButton>
 
@@ -190,7 +185,10 @@ const Backdesigner = () => {
       <br />
 
       <div className="absolute top-20 left-[1000px]">
+      <div className='flex'>
         <p className="text-3xl">Add your image</p>
+        <EditButton to={"/preview"} children={"Preview"} className='ml-28' />
+        </div>
         <p>Maximum print area (W x H)-15.60 in x19.60</p>
         <div className='mt-5'>
         <EditButton to="/design-product" >
@@ -227,7 +225,7 @@ const Backdesigner = () => {
         Upload 
           </EditButton>   
 
-          <EditButton  to="/design-library" >
+          <EditButton onClick={handleSave} >
         {' '}
           save
           </EditButton>     

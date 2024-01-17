@@ -59,7 +59,10 @@ const addNewProduct = asyncHandler(async (req, res) => {
       shipped,
       delivered,
       ordered,
-      image: image0.url,
+      image0: image0.url,
+      image1: image1.url,
+      image2: image2.url,
+      image3: image3.url,
     };
 
     user.orders.push(productDetail);

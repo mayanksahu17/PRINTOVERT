@@ -8,7 +8,9 @@ import Sizes from './Sizes';
 import leftsleeve1 from '../../assets/New folder/leftsleeve1.png'
 import EditButton from './EditButton';
 import Colorbox from './Colorbox'
+import ImageUploader from './Base64.js'
 import { useSelector, useDispatch } from 'react-redux';
+import { Editleftimage } from '../../store/productSlice';
 const Leftdesigner = () =>
  {
   const [canvas, setCanvas] = useState(null);
@@ -84,15 +86,22 @@ const Leftdesigner = () =>
 
   const handleSave = () => {
     html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const img = new Image();
-      img.src = imgData;
-      dispatch()
-      console.log('Image saved');
-
-      
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const imageUploader = new ImageUploader();
+          imageUploader.imageUpload({
+            file: blob,
+            name: 'leftimage',
+            method: Editleftimage,
+            dispatch: dispatch,
+          });
+          console.log('Image saved');
+        }
+      }, 'image/png');
     });
   };
+  
+
   const stateColor = useSelector((state) => state.product.color);
   useEffect(() => {
     const tshirtColor = document.getElementById('tshirt-backgroundpicture');
@@ -110,7 +119,7 @@ const Leftdesigner = () =>
 
   return (
     <div className="bg-blue-200 h-[800px] w-[98%]">
-      <p className="text-5xl ml-20 mt-10 font-bold text-blue-900  ">Create Order</p>
+      <p className="text-5xl ml-20 mt-10 font-bold text-blue-900  ">Design Product</p>
       <div id="tshirt-div" className="relative h-548 ml-20 mt-10 bg-blue-200">
   <div className="bg-white w-[450px]">
     <img
@@ -162,7 +171,10 @@ const Leftdesigner = () =>
       <br />
 
       <div className="absolute top-20 left-[1000px]">
+      <div className='flex'>
         <p className="text-3xl">Add your image</p>
+        <EditButton to={"/preview"} children={"Preview"} className='ml-28' />
+        </div>
         <p>Maximum print area (W x H)-15.60 in x19.60</p>
         <div className='mt-5'>
         <EditButton to="/design-product" >

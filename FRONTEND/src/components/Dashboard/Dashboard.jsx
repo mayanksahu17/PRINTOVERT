@@ -2,6 +2,12 @@ import React from 'react'
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { NavLink , useNavigate} from 'react-router-dom';
 import store from '../../store/store.js';
+import Hoodie from '../../assets/images/Hoodie.jpeg'
+import oversizedtishirt from '../../assets/images/oversizedtishirt.jpeg'
+import Regular from '../../assets/images/Regular.jpeg'
+import Sweatshirt from '../../assets/images/Sweatshirt.jpeg'
+import Product from '../Design product/Product.jsx';
+import fullsleeve from '../../assets/images/fullsleeve.jpeg'
 function Dashboard() {
 const navigate = useNavigate()
     const user = store.getState().auth?.user;
@@ -85,6 +91,15 @@ const navigate = useNavigate()
                 <button className='h-10 w-44 rounded-3xl text-black mt-20 ml-5 border bg-white font-bold hover:bg-blue-500 hover:text-white'>Contact Us</button>
                 </NavLink>
             </div>
+
+
+
+
+            <Product image = {fullsleeve} name={"Full sleeve"}/>
+            <Product image = {Hoodie} name={"Hoodie"} />
+            <Product image = {oversizedtishirt} name={"oversizedtishirt"} />
+            {/* <Product image = {Regular}  name={"Regular"}/> */}
+            {/* <Product image = {Sweatshirt} name={"Sweatshirt"} /> */}
 
             </div>
            

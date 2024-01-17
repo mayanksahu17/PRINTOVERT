@@ -33,15 +33,15 @@ const productSlice = createSlice({
       },
   
       Editbackimage: (state, action) => {
-        state.backimage = action.payload.images;
+        state.backimage = action.payload.image;
       },
   
       Editrightimage: (state, action) => {
-        state.rightimage = action.payload.images; // Corrected from state.backimage
+        state.rightimage = action.payload.image; // Corrected from state.backimage
       },
   
       Editleftimage: (state, action) => {
-        state.leftimage = action.payload.images; // Corrected from state.backimage
+        state.leftimage = action.payload.image; // Corrected from state.backimage
       },
   
       removeTshirt: (state, action) => {

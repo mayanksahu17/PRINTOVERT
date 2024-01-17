@@ -7,7 +7,6 @@ import EditButton from './EditButton.jsx'
 import { useDispatch , useSelector } from 'react-redux';
 import Colorbox from './Colorbox.jsx';
 import Editfrontimage from '../../store/productSlice.js'
-import {saveImageAndEdit} from '../../store/actions/productActions.js'
 import ImageUploader from './Base64.js'
 
 
@@ -73,8 +72,11 @@ const TShirtDesigner = () => {
       };
     };
 
+
     if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
+    localStorage.setItem("image1" , e.target.files[0])
+    const item = e.target.files[0] ? e.target.files[0] : localStorage.getItem("image1");
+    reader.readAsDataURL(item);
     }
   };
 
@@ -117,14 +119,14 @@ const TShirtDesigner = () => {
 
   return (
     <div className="bg-blue-200 h-[800px] w-[98%]">
-      <p className="text-5xl ml-20 mt-10 font-bold text-blue-900  ">Create Order</p>
+      <p className="text-5xl ml-20 mt-10 font-bold text-blue-900  ">Design Product</p>
       
       <div id="tshirt-div" className="relative  h-548 ml-20 mt-10 bg-blue-200">
-        <div className="bg-white w-[450px]">
+        <div className="bg-white w-[450px]" >
           <img id="tshirt-backgroundpicture" src={Tshirt} alt="Tshirt Background"  />
         </div>
-        <div className="absolute top-14 left-[120px] z-10 w-200 h-[450px] border-2 border-red-800 border-solid  ">
-          <div className="relative w-200 h-400 ">
+        <div className="absolute top-14 left-[120px] z-10 h-[450px]  ">
+          <div className="relative  h-400 ">
             <canvas id="tshirt-canvas" width="200" height="400"></canvas>
           </div>
         </div>

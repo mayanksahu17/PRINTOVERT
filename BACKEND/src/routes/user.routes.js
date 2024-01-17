@@ -56,13 +56,7 @@ router.route("/:id/cart ").get(getAllOrderedProducts);
 
 router.route("/:id/create-ticket/").post(upload.fields([{ name: "Image", maxCount: 1 }]), createTicket);
 
-// product routes
 
-router.route("/:id/add-new/product/").post(upload.fields([{ name: "Image", maxCount: 1 }]), addNewProduct);
-
-router.route("/:userId/products/:productId").put(UpdateProduct);
-
-router.route("/:userId/products/:productId").delete(removeProduct);
 
 export default router 
 
