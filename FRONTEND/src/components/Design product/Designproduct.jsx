@@ -17,9 +17,11 @@ function Designproduct() {
     <div className='bg-blue-200 w-full'> 
 
     <div className='w-full'>
-    <h2 className='font-semibold text-blue-900 text-5xl mt-10 ml-10 flex '>
-         <div className='w-10 h-10 bg-blue-900 text-center text-5xl rounded-lg mr-3 mt-2'> <FaArrowRight className='text-3xl mt-2 ml-1 mb-3  text-white font-bold'/></div>
-Design your product</h2>
+    
+      <h1 className='font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>Design your product</h1>
+      <h4 className=' ml-12 text-gray-600 mt-1'>Choose your Design</h4>
+         <div className=''> </div>
+
     <div className='ml-60'>
     <h2 className=' text-black-800 text-2xl mt-10 ml-72 font-semibold '>Select the varient</h2>
     </div>

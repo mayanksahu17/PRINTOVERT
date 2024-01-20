@@ -68,44 +68,47 @@ let x
   return (
     <div className='bg-blue-200 w-full h-[800px]'>
       <div className='flex'>
-        <div className='mt-12 ml-14'>
-          <h1 className='text-5xl font-bold text-blue-800'>Design Library</h1>
-          <h4 className='text-gray-600 mt-1'>Choose your Design</h4>
-        </div>
-        <button
-          className='w-24 h-10 text-blue-500 font-bold bg-white rounded-lg border-black border-r-blue-700 border-r-2 border-l-2 border-t-2 border-b-2 mt-16 ml-14 flex hover:bg-blue-700 hover:text-white'
-          onClick={toggleUploadForm}
+        <div className=' '>
+                    <h1 className='font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>Design library </h1>
+          
+                    <h4 className=' ml-12 text-gray-600 mt-1'>Upload you'r varient</h4>
+                   </div>
+         <button
+          className='w-40 h-10 text-white font-bold bg-blue-700  rounded-3xl  border-r-2 border-l-2 border-t-2 border-b-2 mt-10 ml-8 flex hover:bg-blue-500 hover:text-white'
+          onClick={ toggleUploadForm}
         >
-          <IoIosCloudUpload className='text-xl mt-3 ml-1' />
-          <h1 className='ml-1 mt-2'>Upload</h1>
-        </button>
-      </div>
+          <IoIosCloudUpload className='text-xl mt-3 ml-8' />
+          <h1 className='ml-2 mt-2 font-semibold'>Upload</h1>
+          </button>
+          </div>
 
-      {showUploadForm && (
-        <form
+             {showUploadForm && (
+           <form
           className='uploadDiving h-40 w-96 border-2 rounded-2xl border-blue-500/100 ml-56 bg-transparent hover:bg-white'
           onSubmit={handleSubmit(onSubmit)}
         >
           <label htmlFor='imageInput' className='drop-container' id='dropcontainer'>
-            <span className='drop-title text-3xl font-bold ml-24 text-blue-500'>Drop files here</span>
-            <h1 className='mr-18 w-fulll h-8 font-bold text-center mt-4 text-blue-500'>Or</h1>
-            <span className='text-red-700 ml-3'>{error}</span>
+            {/* <span className='drop-title text-3xl font-bold ml-24 text-blue-500'>Drop files here</span>
+            <h1 className='mr-18 w-fulll h-10 font-bold text-center mt-4 text-blue-500'>Or</h1> */}
             <div className=''>
               <input
                 type='file'
                 id='imageInput'
                 accept='image/*'
-                className=' w-full ml-16 '
+                className=' w-38 ml-3 mt-4 '
                 {...register('image', { required: 'Image file is required' })}
-              />
-              <div className='btn-collectioninput-fs16 '>
+              /> 
+              <div className=' btn-collectioninput-fs16 '>
                 <button
                   id='inputCancel'
                   type='submit'
-                  className='w-28 h-18 text-blue-500 font-bold text-center bg-white rounded-lg border-black border-r-blue-700 border-r-2 border-l-2 mt-8  border-t-2 border-b-2  flex hover:bg-blue-700 hover:text-white'
-                >
-                  <h1 className='ml-3 mt-0'>Add image</h1>
+                
+                  className='w-32 h-10 text-white font-bold bg-blue-700  rounded-3xl  mt-12 ml-60 flex hover:bg-blue-500 hover:text-white'>
+                  <h1 className='ml-5 mt-2'>Add image</h1>
                 </button>
+              <span className='front-bold text-red-700 mt-12 ml-3'>{error}</span>
+                
+
               </div>
             </div>
           </label>

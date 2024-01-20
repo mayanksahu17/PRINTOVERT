@@ -28,8 +28,10 @@ const navigate = useNavigate()
       
        
         <div className='bg-blue-200 w-full h-[800px]'> 
-            <h2 className='font-bold mt-8 ml-7 font-cerebriSans text-3xl text-blue-900'>Main Dashboard</h2>
-            <h5 className='text-gray-600 ml-7 font-bold '>Let's have a Tour to the Dashboard</h5>
+        
+        <h1 className='font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>Dashbord</h1>
+        <p className='ml-12 mt-1'>Let's have a Tour to the Dashboard</p>
+          
 
             <div className='flex flex-wrap'>
 

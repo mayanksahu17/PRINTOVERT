@@ -7,7 +7,7 @@ function Editprofile() {
 
     <div>
   <h1 className=' font-bold mt-8 ml-7  text-blufont-cerebriSans text-5xl text-blue-900 '>Personal Detail</h1>
-  <p className='ml-7 mt-1'>Dont forget to save your changes </p>
+  <p className='ml-12 mt-1'>Dont forget to save your changes </p>
   </div>
 
 <div className='flex justify-between w-[90%] mt-16 font-semibold '>
@@ -52,7 +52,9 @@ function Editprofile() {
 
 <div className='flex   w-[90%] mt-6 font-bold '>
   <div className='ml-7 mr-10 text-2xl'>Addresses</div>
-  <button className='rounded-2xl w-28 bg-blue-600'>Add New</button>
+  <button className=' h-10 w-40 rounded-3xl text-white  ml-12 border bg-blue-700  hover:bg-blue-500 hover:text-white  font-semibold'>Add New</button>
+  {/* <button className='rounded-2xl w-28 bg-blue-600'>Add New</button> */}
+  
   </div>
 
 

@@ -7,9 +7,10 @@ function Createorder() {
 
         <div className='bg-blue-200 w-full h-180 '>
         
-        <div>
-        <h1 className=' font-bold mt-8 ml-7  text-blue-600 font-cerebriSans text-3xle-900 co text-5xl'>Create Order</h1>
-        <p className='ml-8 mt-1  text-gray-600 '>Place Order and Enjoy </p>
+        <div>     
+             <h1 className='font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>Create Orders</h1>
+
+        <p className='ml-12 mt-1  text-gray-600 '>Place Order and Enjoy </p>
         </div>
 
         <div className='flex'>
