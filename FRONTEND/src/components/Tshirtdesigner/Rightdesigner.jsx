@@ -225,10 +225,7 @@ const Rightdesigner = () =>
         <EditButton to="/design-product" >
             Back 
           </EditButton>   
-          <EditButton onClick={handleSave} >
-        {' '}
-          save
-          </EditButton>   
+          
         </div>
        
         <br />
@@ -254,11 +251,10 @@ const Rightdesigner = () =>
         <EditButton   onClick={toggleUploadForm} >
         Upload 
           </EditButton>   
-
-          <EditButton  to="/design-library" >
+          <EditButton onClick={handleSave} >
         {' '}
           save
-          </EditButton> 
+          </EditButton>   
         {showUploadForm && (
           <form className="uploadDiving h-32 w-96 border-2 rounded-2xl border-blue-500/100 ml-42 mt-5 bg-transparent hover:bg-white">
             <label htmlFor="imageInput" className="drop-container" id="dropcontainer">

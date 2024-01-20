@@ -24,7 +24,7 @@ import productRouter from './routes/product.routes.js'
 // routes declairation 
 app.use("/api/v1/users", userRouter)
 
-
+    
 
 app.use("/api/v1/users/products", productRouter)
 

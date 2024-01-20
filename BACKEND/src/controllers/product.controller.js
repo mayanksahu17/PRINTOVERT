@@ -24,6 +24,7 @@ const addNewProduct = asyncHandler(async (req, res) => {
           }
 
           const image = await uploadOnCloudinary(imageLocalPath);
+          
           console.log(`Image${i} URL:`, image.url);
 
           imagePaths.push(image.url);
@@ -144,10 +145,31 @@ const UpdateProduct = asyncHandler(async (req, res) => {
     }
   });
   
-
+  const getAllProducts = asyncHandler(async (req, res) => {
+    try {
+      const userId = req.params.id;
+      const user = await User.findById(userId);
+  
+      if (!user) {
+        throw new ApiError(404, "User not found");
+      }
+  
+      // This allorders is an array containing all product IDs
+      const allorders = user.orders;
+  
+      // Use $in to find products whose _id is in the allorders array
+      const products = await Product.find({ _id: { $in: allorders } });
+  
+      res.status(200).json(new ApiResponse(200, products, "All products retrieved successfully"));
+    } catch (error) {
+      console.error('Error:', error.message);
+      res.status(error.statusCode || 500).json({ message: error.message || "Internal Server Error" });
+    }
+  });
 
 export {
     addNewProduct,
     UpdateProduct,
-    removeProduct
+    removeProduct,
+    getAllProducts
 }

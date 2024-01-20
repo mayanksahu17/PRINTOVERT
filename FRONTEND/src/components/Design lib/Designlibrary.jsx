@@ -3,7 +3,7 @@ import { IoIosCloudUpload } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addImage, pushImage ,selectedImage } from '../../store/imageslice.js';
-import { uploadImage, getAllImages } from '../../actions/uploadImage.js';
+import { uploadImage, getAllImages } from '../../actions/Image.js';
 import store from '../../store/store.js';
 import { useNavigate } from 'react-router-dom';
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { uploadImage } from '../../actions/uploadImage';
+import { uploadImage } from '../../actions/Image';
 import store from '../../store/store';
 
 class ImageUploader extends Component {

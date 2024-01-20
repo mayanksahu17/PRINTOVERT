@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link,NavLink} from 'react-router-dom'
 import Button from '../button/Button'
+import Orders from './Orders'
 function Createorder() {
     return (
 
@@ -13,21 +14,7 @@ function Createorder() {
 
         <div className='flex'>
 
-            <Link to = '/login'>
-            <img className='h-50 ml-10 mt-10 w-60 rounded-2xl' src="https://imgs.search.brave.com/vHvrOc1rkgfrPI8xa4Zi8_AD5cNlqAnWl0F_TqQ7D7k/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2JhL2Ey/L2ZkL2JhYTJmZDhi/MTE5ZDFhYTc4OGI5/MDIwZDk0NDU4Y2Q1/LmpwZw" alt="" />
-            </Link>
-
-            <Link to = '/login'>
-            <img className='h-50 ml-10 mt-10 w-60 rounded-2xl' src="https://imgs.search.brave.com/vHvrOc1rkgfrPI8xa4Zi8_AD5cNlqAnWl0F_TqQ7D7k/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2JhL2Ey/L2ZkL2JhYTJmZDhi/MTE5ZDFhYTc4OGI5/MDIwZDk0NDU4Y2Q1/LmpwZw" alt="" />
-            </Link>
-
-            <Link to = '/login'>
-            <img className='h-50 ml-10 mt-10 w-60 rounded-2xl' src="https://imgs.search.brave.com/vHvrOc1rkgfrPI8xa4Zi8_AD5cNlqAnWl0F_TqQ7D7k/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2JhL2Ey/L2ZkL2JhYTJmZDhi/MTE5ZDFhYTc4OGI5/MDIwZDk0NDU4Y2Q1/LmpwZw" alt="" />
-            </Link>
-            
-            <Link to = '/login'>
-            <img className='h-50 ml-10 mt-10 w-60 rounded-2xl' src="https://imgs.search.brave.com/vHvrOc1rkgfrPI8xa4Zi8_AD5cNlqAnWl0F_TqQ7D7k/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2JhL2Ey/L2ZkL2JhYTJmZDhi/MTE5ZDFhYTc4OGI5/MDIwZDk0NDU4Y2Q1/LmpwZw" alt="" />
-            </Link>
+          <Orders />
             
         </div>
 

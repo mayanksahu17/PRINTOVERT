@@ -7,7 +7,7 @@ function AdOrders() {
             
             <div  className='h-[100%] w-[100%] bg-blue-200 ' >
       <h1 className='text-blue-900 font-semibold text-5xl pl-20 mt-8 uppercase'>customer orders</h1>
-    <div className='h-96 w-72 bg-white mt-20 ml-20 hover:shadow-gray-600 hover:shadow-2xl rounded-2xl hover:bg-blue-400'>
+      <div className='h-96 w-72 bg-white mt-20 ml-20 hover:shadow-gray-600 hover:shadow-2xl rounded-2xl hover:bg-blue-400'>
       <div className='h-[60%] w-[100%] flex justify-center items-center '>
         <img className='cover border-2 border-solid border-black rounded-xl h-[90%] w-[90%] bg-white' src="" alt="" />
       </div >

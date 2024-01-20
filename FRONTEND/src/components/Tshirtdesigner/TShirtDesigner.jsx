@@ -9,8 +9,9 @@ import Colorbox from './Colorbox.jsx';
 import Editfrontimage from '../../store/productSlice.js';
 import ImageUploader from './Base64.js';
 import { selectedImage, removeSelectedImage } from '../../store/imageslice.js';
-import { uploadImage, getAllImages } from '../../actions/uploadImage.js';
-
+import { uploadImage, getAllImages } from '../../actions/Image.js';
+import productData from  '../../actions/Product.js'
+import store from '../../store/store.js';
 const TShirtDesigner = () => {
   const [canvas, setCanvas] = useState(null);
   const [showUploadForm, setShowUploadForm] = useState(false);
@@ -18,7 +19,8 @@ const TShirtDesigner = () => {
   const dispatch = useDispatch();
   const stateColor = useSelector((state) => state.product.color);
   const stateImage = useSelector((state) => state.images.selectedImage);
-
+  const userId = useSelector((state) => state.auth.user?._id);
+  
   useEffect(() => {
     const fabricCanvas = new fabric.Canvas('tshirt-canvas');
     setCanvas(fabricCanvas);
@@ -76,7 +78,7 @@ const TShirtDesigner = () => {
 
   
 
-  const handleCustomPicture = (e) => {
+  const handleCustomPicture =async (e) => {
     const reader = new FileReader();
 
     reader.onload = (event) => {
@@ -99,29 +101,13 @@ const TShirtDesigner = () => {
     if (e.target.files[0]) {
       localStorage.setItem('image1', e.target.files[0]);
       const item = e.target.files[0] ? e.target.files[0] : localStorage.getItem('image1');
+     const response = await uploadImage(item , userId)
+     const url = response.data.imageURL
+     console.log("Image url " ,response.data.imageURL);
+     dispatch(selectedImage({image : url}))   
       reader.readAsDataURL(item);
     }
-    const uploadImage= async(file,)=>{
-      const imageurl = await uploadImage(file, userId);
-      dispatch(selectedImage(imageurl))
-
-    }
-
-    // async function imageUrlToFile(imageUrl, fileName = "xyz") {
-    //   const response = await fetch(imageUrl);
-    //   const blob = await response.blob();
-    
-    //   // Create a File object from the blob
-    //   const file = new File([blob], fileName, { type: blob.type });
-    
-    //   return file;
-    // }
-
-
-
-
-
-
+ 
   };
 
   const handleKeyDown = (e) => {
@@ -139,26 +125,28 @@ const TShirtDesigner = () => {
     };
   }, [canvas]);
 
-  const handleSave = () => {
-    html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const imageUploader = new ImageUploader();
-          imageUploader.imageUpload({
-            file: blob,
-            name: 'frontimage',
-            method: Editfrontimage,
-            dispatch: dispatch,
-          });
-          console.log('Image saved');
-        }
-      }, 'image/png');
-    });
+  const handleSave = async () => {
+    try {
+      const canvas = await html2canvas(document.getElementById("tshirt-div"));
+      const canvasDataURL = canvas.toDataURL('image/png');
+  
+      if (canvasDataURL) {
+        const response = await uploadImage(canvasDataURL, userId);
+        const url = response.data.imageURL;
+        console.log("Image url", url);
+        dispatch(Editfrontimage({ image: url }));
+      }
+    } catch (error) {
+      console.error("Error saving image:", error);
+      // Handle the error as needed, e.g., show an error message to the user
+    }
   };
+  
 
   const toggleUploadForm = () => {
     setShowUploadForm(!showUploadForm);
   };
+
 
   return (
     <div className="bg-blue-200 h-[800px] w-[98%]">
@@ -218,9 +206,9 @@ const TShirtDesigner = () => {
           <EditButton to="/design-product" >
             Back
           </EditButton>
-          <EditButton onClick={handleSave} >
+          <EditButton onClick={productData} >
             {' '}
-            save
+            Save Product
           </EditButton>
         </div> <br />
         <p className="text-2xl">colors</p>

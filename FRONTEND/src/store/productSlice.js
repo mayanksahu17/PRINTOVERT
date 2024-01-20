@@ -1,13 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  name : "",
   productimage : "",
   fontimage  : "",
   backimage  : "",
   rightimage : "",
   leftimage  : "",
   color      : "white",
-  size       : ""
+  size       : "",
+  price : null,
+  stock : null,
+  rating : null,
+  shipped : false ,
+  delivered : false ,
+  ordered : false,
+  brand : null
 };
 const productSlice = createSlice({
     name: "product",
