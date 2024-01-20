@@ -11,7 +11,7 @@ npm run dev
 ```
 
 
-# To setup FRONTEND 
+# To setup frontend 
 
 
 Hit these commands 
