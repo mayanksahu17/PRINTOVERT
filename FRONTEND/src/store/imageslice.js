@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  images : []
+  images : [],
+  selectedImage : ""
 };
 const imageSlice = createSlice({
     name: "image",
@@ -13,13 +14,20 @@ const imageSlice = createSlice({
         },
         addImage: (state, action) => {
             state.images = action.payload.images ;
-            console.log("action payload data", action.payload.images);
         },
         removeImage: (state, action) => {
             state.images = []; 
+        },
+        selectedImage : (state , action)=>{
+            state.selectedImage = action.payload.image
+            console.log("image got selected " , action.payload.image);
+        },
+        removeSelectedImage : (state,action)=>{
+            state.selectedImage = ""
         }
+
     }
 });
 
-export const { addImage ,pushImage } = imageSlice.actions;
+export const { addImage ,pushImage ,selectedImage  ,removeSelectedImage } = imageSlice.actions;
 export default imageSlice.reducer

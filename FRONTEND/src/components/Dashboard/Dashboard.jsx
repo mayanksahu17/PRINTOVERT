@@ -19,7 +19,6 @@ const navigate = useNavigate()
     if(!user){
         navigate("/login")
     }
-    console.log("user at dahboard " ,user);
     
 
   return (

@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  productimage : null,
-  fontimage  : null,
-  backimage  : null,
-  rightimage : null,
-  leftimage  : null,
+  productimage : "",
+  fontimage  : "",
+  backimage  : "",
+  rightimage : "",
+  leftimage  : "",
   color      : "white",
   size       : ""
 };
@@ -35,17 +35,17 @@ const productSlice = createSlice({
       Editbackimage: (state, action) => {
         state.backimage = action.payload.image;
       },
-  
+
       Editrightimage: (state, action) => {
-        state.rightimage = action.payload.image; // Corrected from state.backimage
+        state.rightimage = action.payload.image;
       },
-  
+
       Editleftimage: (state, action) => {
-        state.leftimage = action.payload.image; // Corrected from state.backimage
+        state.leftimage = action.payload.image; 
       },
   
       removeTshirt: (state, action) => {
-        state.fontimage = null;
+        state.fontimage = null;    
         state.backimage = null;
         state.rightimage = null;
         state.leftimage = null;

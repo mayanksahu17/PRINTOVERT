@@ -16,6 +16,8 @@ const Leftdesigner = () =>
   const [canvas, setCanvas] = useState(null);
   const [showUploadForm, setShowUploadForm] = useState(false);
   const dispatch = useDispatch()
+  const stateImage = useSelector((state) => state.images.selectedImage);
+
   
   const toggleUploadForm = () => {
     setShowUploadForm(!showUploadForm);
@@ -110,6 +112,34 @@ const Leftdesigner = () =>
     }
   }, [stateColor]);
 
+
+  
+  useEffect(() => {
+    // Load the image into the canvas when the page mounts
+    if (stateImage) {
+      loadImageIntoCanvas(stateImage, canvas);
+    }
+  }, [stateImage, canvas]);
+
+  const loadImageIntoCanvas = (imageUrl, canvas) => {
+    const imgObj = new Image();
+    imgObj.crossOrigin = 'anonymous'; // Set this if loading images from a different domain
+
+    imgObj.onload = () => {
+      const fabricImg = new fabric.Image(imgObj);
+
+      fabricImg.scaleToHeight(300);
+      fabricImg.scaleToWidth(300);
+
+      if (canvas) {
+        canvas.add(fabricImg);
+        canvas.renderAll();
+      }
+    };
+
+    imgObj.src = imageUrl;
+  };
+
   
   const handleBackImageEditing = () => {
     // Implement functionality for editing the back image
@@ -120,7 +150,15 @@ const Leftdesigner = () =>
   return (
     <div className="bg-blue-200 h-[800px] w-[98%]">
       <p className="text-5xl ml-20 mt-10 font-bold text-blue-900  ">Design Product</p>
-      <div id="tshirt-div" className="relative h-548 ml-20 mt-10 bg-blue-200">
+
+
+    <div className='flex'>
+
+    <div>
+      
+
+
+    <div id="tshirt-div" className="relative h-548 ml-20 mt-10 bg-blue-200">
   <div className="bg-white w-[450px]">
     <img
       id="tshirt-backgroundpicture"
@@ -165,74 +203,98 @@ const Leftdesigner = () =>
  </div>      
 </div>
       </div>
-      <br />
+
+
+    </div>
+
+
+    <div>
+    <br />
  
-      <br />
-      <br />
+ <br />
+ <br />
 
-      <div className="absolute top-20 left-[1000px]">
-      <div className='flex'>
-        <p className="text-3xl">Add your image</p>
-        <EditButton to={"/preview"} children={"Preview"} className='ml-28' />
-        </div>
-        <p>Maximum print area (W x H)-15.60 in x19.60</p>
-        <div className='mt-5'>
-        <EditButton to="/design-product" >
-            Back 
-          </EditButton>   
-          <EditButton onClick={handleSave} >
-        {' '}
-          save
-          </EditButton>   
-        </div>
-       
-        <br />
-        <p className="text-2xl">colors</p>
-        <br />
-        <div className="flex">
-        <Colorbox  />  </div>
-        <br />
-        <br />
-        <p className="text-2xl">Size</p>
-        <br />
-        <div className="flex">
-        <Sizes />
-        </div>
-
-        <br />
-        <br />
-
-        <p className="text-2xl ">Total Price: <span className="text-blue-500">100</span> {"  "}(Taxes Apply)</p>
-
-      
-        <br />
-        <EditButton   onClick={toggleUploadForm} >
-        Upload 
-          </EditButton>   
-
-          <EditButton  to="/design-library" >
-        {' '}
-          save
-          </EditButton> 
-        {showUploadForm && (
-          <form className="uploadDiving h-32 w-96 border-2 rounded-2xl border-blue-500/100 ml-42 mt-5 bg-transparent hover:bg-white">
-            <label htmlFor="imageInput" className="drop-container" id="dropcontainer">
-              <span className="drop-title text-3xl font-bold ml-24 text-blue-500 ">Drop files here</span>
-              <h1 className="mr-18 w-fulll h-8 font-bold text-center mt-4 text-blue-500 ">Or</h1>
-              <div className="flex">
-                <input type="file" id="imageInput" accept="image/*" className="w-42 mt-2 ml-20" onChange={handleCustomPicture} required />
-                <div className="btn-collectioninput-fs16 ">
-                 
-                </div>
-              </div>
-            </label>
-          </form>
-        )}
-
-        <br />
-        <br />
-       
+    <div className="absolute top-20 left-[1000px]">
+    <div className='flex'>
+      <p className="text-3xl">Add your image</p>
+      <EditButton to={"/preview"} children={"Preview"} className='ml-28' />
       </div>
+      <p>Maximum print area (W x H)-15.60 in x19.60</p>
+      <div className='mt-5'>
+      <EditButton to="/design-product" >
+          Back 
+        </EditButton>   
+        <EditButton onClick={handleSave} >
+      {' '}
+        save
+        </EditButton>   
+      </div>
+      
+      <br />
+      <p className="text-2xl">colors</p>
+      <br />
+      <div className="flex">
+      <Colorbox  />  </div>
+      <br />
+      <br />
+      <p className="text-2xl">Size</p>
+      <br />
+      <div className="flex">
+      <Sizes />
+      </div>
+
+      <br />
+      <br />
+
+      <p className="text-2xl ">Total Price: <span className="text-blue-500">100</span> {"  "}(Taxes Apply)</p>
+
+    
+      <br />
+      <EditButton   onClick={toggleUploadForm} >
+      Upload 
+        </EditButton>   
+
+        <EditButton  to="/design-library" >
+      {' '}
+        save
+        </EditButton> 
+      {showUploadForm && (
+        <form className="uploadDiving h-32 w-96 border-2 rounded-2xl border-blue-500/100 ml-42 mt-5 bg-transparent hover:bg-white">
+          <label htmlFor="imageInput" className="drop-container" id="dropcontainer">
+            <span className="drop-title text-3xl font-bold ml-24 text-blue-500 ">Drop files here</span>
+            <h1 className="mr-18 w-fulll h-8 font-bold text-center mt-4 text-blue-500 ">Or</h1>
+            <div className="flex">
+              <input type="file" id="imageInput" accept="image/*" className="w-42 mt-2 ml-20" onChange={handleCustomPicture} required />
+              <div className="btn-collectioninput-fs16 ">
+                
+              </div>
+            </div>
+          </label>
+        </form>
+      )}
+
+      <br />
+      <br />
+      
+    </div>
+
+    </div>
+    </div>
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
 
       
     </div>

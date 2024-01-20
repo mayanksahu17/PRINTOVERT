@@ -23,15 +23,16 @@ const productSchema = new Schema(
 
     price: {type: Number, required: true},
 
-    stock: {type: Number,},
+    stock: {type: Number},
     
-    rating: {type: Number, },
-    
-    shipped: {type: Boolean,},
-    
-    delivered: {type: Boolean, },
+    rating: {type: Number },
+
+    shipped: {type: Boolean},
+
+    delivered: {type: Boolean },
 
     ordered : {type : Boolean}
+
 },
 {
     timestamps: true,

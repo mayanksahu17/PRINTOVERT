@@ -49,10 +49,10 @@ function Preview() {
         <h1 className="text-2xl font-bold ml-60">Preview Product Image</h1>
       </div>
       <div className='flex flex-wrap'>
-      <div id="image-container" className="ml-10 mt-4 w-[400px] "></div>
-      <div id="image-container2" className="ml-10 mt-4  w-[400px] "></div>
-      <div id="image-container3" className="ml-10 mt-4  w-[400px] "></div>
-      <div id="image-container4" className="ml-10 mt-4  w-[400px] "></div>
+      <div id="image-container" className="ml-10 mt-4 w-[200px] "></div>
+      <div id="image-container2" className="ml-10 mt-4  w-[200px] "></div>
+      <div id="image-container3" className="ml-10 mt-4  w-[200px] "></div>
+      <div id="image-container4" className="ml-10 mt-4  w-[200px] "></div>
       </div>
    
     </div>

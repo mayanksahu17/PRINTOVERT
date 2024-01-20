@@ -19,13 +19,14 @@ app.use(cookieParser());
 
 // routes import 
 
-import router from './routes/user.routes.js';
-
-
-
+import userRouter from './routes/user.routes.js';
+import productRouter from './routes/product.routes.js'
 // routes declairation 
+app.use("/api/v1/users", userRouter)
 
-app.use("/api/v1/users", router)
+
+
+app.use("/api/v1/users/products", productRouter)
 
 
 export {app}

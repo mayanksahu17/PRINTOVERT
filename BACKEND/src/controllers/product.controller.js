@@ -3,75 +3,77 @@ import {ApiError} from '../utils/ApiError.js'
 import { ApiResponse } from '../utils/ApiResponse.js' 
 import {asyncHandler } from '../utils/asyncHandler.js'
 import { User } from '../models/user.model.js'
+import {uploadOnCloudinary} from '../utils/cloudinary.js'
 
 const addNewProduct = asyncHandler(async (req, res) => {
   try {
-    const userId = req.params.id;
-    const user = await User.findById(userId);
+      const userId = req.params.id;
+      const user = await User.findById(userId);
 
-    if (!user) {
-      throw new ApiError(404, "User not found");
-    }
+      if (!user) {
+          throw new ApiError(404, "User not found");
+      }
 
-    const imageLocalPath0 = req.files?.Image?.[0]?.path;
-    const imageLocalPath1 = req.files?.Image?.[1]?.path;
-    const imageLocalPath2 = req.files?.Image?.[2]?.path;
-    const imageLocalPath3 = req.files?.Image?.[3]?.path;
+      const imagePaths = [];
 
-    if (!(imageLocalPath0 && imageLocalPath1&& imageLocalPath2 && imageLocalPath3)) {
-      throw new ApiError(400, "Image file is required");
-    }
+      for (let i = 0; i < 4; i++) {
+          const imageLocalPath = req.files?.Image?.[i]?.path;
 
-    const image0 = await uploadOnCloudinary(imageLocalPath0); 
-    const image1 = await uploadOnCloudinary(imageLocalPath1); 
-    const image2 = await uploadOnCloudinary(imageLocalPath2); 
-    const image3 = await uploadOnCloudinary(imageLocalPath3); 
-    console.log('Image URL:', image0.url);
+          if (!imageLocalPath) {
+              throw new ApiError(400, `Image${i} file is required`);
+          }
 
-    const {
-      name,
-      color,
-      brand,
-      category,
-      description,
-      price,
-      stock,
-      rating,
-      shipped,
-      delivered,
-      ordered,
-    } = req.body;
+          const image = await uploadOnCloudinary(imageLocalPath);
+          console.log(`Image${i} URL:`, image.url);
 
-    // Validate data before saving
-    if (!name || !category || !price || !stock) {
-      throw new ApiError(400, "Name, category, price, and stock are required");
-    }
+          imagePaths.push(image.url);
+      }
 
-    const productDetail = {
-      name,
-      color,
-      brand,
-      category,
-      description,
-      price,
-      stock,
-      rating,
-      shipped,
-      delivered,
-      ordered,
-      image0: image0.url,
-      image1: image1.url,
-      image2: image2.url,
-      image3: image3.url,
-    };
+      const {
+          name,
+          color,
+          brand,
+          category,
+          description,
+          price,
+          stock,
+          rating,
+          shipped,
+          delivered,
+          ordered,
+      } = req.body;
 
-    user.orders.push(productDetail);
+      // Add more specific validations as needed
+
+      const productDetail = {
+          name,
+          color,
+          brand,
+          category,
+          description,
+          price,
+          stock,
+          rating,
+          shipped,
+          delivered,
+          ordered,
+          image0: imagePaths[0],
+          image1: imagePaths[1],
+          image2: imagePaths[2],
+          image3: imagePaths[3],
+      };
+
+     // Save the product to get its ID
+    const newProduct = await Product.create(productDetail);
+    const productId = newProduct._id;
+
+    // Push the productId into user.orders
+    user.orders.push(productId);
     await user.save();
-    
-    res.status(200).json(new ApiResponse(200, user.orders, "Order created successfully"));
+      res.status(200).json(new ApiResponse(200, user.orders, "Order created successfully"));
   } catch (error) {
-    console.error('Error:', error);
-    res.status(error.statusCode || 500).json({ message: error.message || "Internal Server Error" });
+      console.error('Error:', error.message);
+      res.status(error.statusCode || 500).json({ message: error.message || "Internal Server Error" });
   }
 });
 

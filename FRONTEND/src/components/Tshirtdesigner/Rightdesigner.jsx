@@ -22,6 +22,8 @@ const Rightdesigner = () =>
   const [leftsideTshirt , setleftsideTshirt] = useState(null)
   const [size , Setsize] = useState(null)
   const dispatch = useDispatch()
+  const stateImage = useSelector((state) => state.images.selectedImage);
+
   const sizes = ["S", "M", "L", "XL", "XXL", "XXXL"];
   let TSHIRT = Tshirt ;
 
@@ -38,6 +40,33 @@ const Rightdesigner = () =>
       fabricCanvas.dispose();
     };
   }, []);
+
+  useEffect(() => {
+    // Load the image into the canvas when the page mounts
+    if (stateImage) {
+      loadImageIntoCanvas(stateImage, canvas);
+    }
+  }, [stateImage, canvas]);
+
+  const loadImageIntoCanvas = (imageUrl, canvas) => {
+    const imgObj = new Image();
+    imgObj.crossOrigin = 'anonymous'; // Set this if loading images from a different domain
+
+    imgObj.onload = () => {
+      const fabricImg = new fabric.Image(imgObj);
+
+      fabricImg.scaleToHeight(300);
+      fabricImg.scaleToWidth(300);
+
+      if (canvas) {
+        canvas.add(fabricImg);
+        canvas.renderAll();
+      }
+    };
+
+    imgObj.src = imageUrl;
+  };
+
 
   const updateTshirtImage = (imageURL) => {
     fabric.Image.fromURL(imageURL, (img) => {
@@ -128,52 +157,59 @@ const Rightdesigner = () =>
   return (
     <div className="bg-blue-200 h-[800px] w-[98%]">
       <p className="text-5xl ml-20 mt-10 font-bold text-blue-900  ">Design Product</p>
-      <div id="tshirt-div" className="relative h-548 ml-20 mt-10 bg-blue-200">
-  <div className="bg-white w-[450px]">
-    <img
-      id="tshirt-backgroundpicture"
-      src={rightsleeve1}
-      alt="Tshirt Background"
-      className="w-[500px] h-550px"
-    />
-  </div>
-  <div className="absolute top-[140px] left-[120px] z-10 w-[180px] h-[280px] border-2 border-red-800 border-solid">
-    <div className="relative w-[180px] h-[280px]">
-      <canvas id="tshirt-canvas" width={180} height={280}></canvas>
-    </div>
-  </div>    
-</div>
+
+
+      <div className='flex'>
+
+      <div>
+
+        <div id="tshirt-div" className="relative h-548 ml-20 mt-10 bg-blue-200">
+        <div className="bg-white w-[450px]">
+        <img
+        id="tshirt-backgroundpicture"
+        src={rightsleeve1}
+        alt="Tshirt Background"
+        className="w-[500px] h-550px"
+        />
+        </div>
+        <div className="absolute top-[140px] left-[120px] z-10 w-[180px] h-[280px] border-2 border-red-800 border-solid">
+        <div className="relative w-[180px] h-[280px]">
+        <canvas id="tshirt-canvas" width={180} height={280}></canvas>
+        </div>
+        </div>    
+        </div>
 
 
 
-<div className="ml-20 h-[60px] w-full mt-24">
- 
- <div className='mb-24 h-full w-full '>
+        <div className="ml-20 h-[60px] w-full mt-24">
 
-          <EditButton to='/tshirt-designer'>
-          Front 
-          </EditButton>
+        <div className='mb-24 h-full w-full '>
 
-          <EditButton to="/back-edit" >
-            Back 
-          </EditButton>   
-      
-          <EditButton to="/right-side-edit" >
-            Right 
-          </EditButton>
+            <EditButton to='/tshirt-designer'>
+            Front 
+            </EditButton>
 
-          <EditButton to="/left-side-edit">
-            Left 
-          </EditButton>
+            <EditButton to="/back-edit" >
+              Back 
+            </EditButton>   
 
+            <EditButton to="/right-side-edit" >
+              Right 
+            </EditButton>
+
+            <EditButton to="/left-side-edit">
+              Left 
+            </EditButton>
+
+
+        </div>
+
+            
+        </div>
 
  </div>
 
-          
-</div>
-
-       
-
+      <div>
       <br />
  
       <br />
@@ -242,6 +278,14 @@ const Rightdesigner = () =>
         <br />
        
       </div>
+</div>
+
+
+
+
+      </div>
+
+
 
       
     </div>

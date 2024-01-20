@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { IoIosCloudUpload } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { addImage, pushImage } from '../../store/imageslice.js';
+import { addImage, pushImage ,selectedImage } from '../../store/imageslice.js';
 import { uploadImage, getAllImages } from '../../actions/uploadImage.js';
 import store from '../../store/store.js';
+import { useNavigate } from 'react-router-dom';
+
 
 function Designlibrary() {
   const [showUploadForm, setShowUploadForm] = useState(false);
@@ -12,6 +14,7 @@ function Designlibrary() {
   const [error, setError] = useState('');
   const [images, setImages] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { register, handleSubmit, setError: setFormError } = useForm();
   const user = store.getState().auth.user;
 
@@ -27,6 +30,7 @@ let x
         setImages(responseData); // Update local state with fetched images
       }
     };
+
     fetchData();
   }, [user, dispatch,x]);
 
@@ -56,6 +60,11 @@ let x
     }
   };
   
+  const selectImage = (imageUrl)=>{
+        
+
+  } 
+
   return (
     <div className='bg-blue-200 w-full h-[800px]'>
       <div className='flex'>
@@ -105,7 +114,9 @@ let x
       <div className='mt-14 ml-14 flex flex-wrap'>
       {images && images?.map((imageUrl) => (
           <img
-            key={imageUrl._id}
+          onClick={()=>{dispatch(selectedImage({image:imageUrl }));
+            navigate("/tshirt-designer")}}
+            key={imageUrl}
             className='w-52 rounded-3xl hover:shadow-2xl ml-3 mt-3'
             src={imageUrl}
             alt=''

@@ -19,6 +19,7 @@ const Backdesigner = () => {
   const [backTshirt , setbackTshirt] = useState(null)
   const [rightsideTshirt , setrightsideTshirt] = useState(null)
   const [leftsideTshirt , setleftsideTshirt] = useState(null)
+  const stateImage = useSelector((state) => state.images.selectedImage);
   const [size , Setsize] = useState(null)
   const dispatch = useDispatch()
 
@@ -36,6 +37,35 @@ const Backdesigner = () => {
       fabricCanvas.dispose();
     };
   }, []);
+
+
+  
+  useEffect(() => {
+    // Load the image into the canvas when the page mounts
+    if (stateImage) {
+      loadImageIntoCanvas(stateImage, canvas);
+    }
+  }, [stateImage, canvas]);
+
+  const loadImageIntoCanvas = (imageUrl, canvas) => {
+    const imgObj = new Image();
+    imgObj.crossOrigin = 'anonymous'; // Set this if loading images from a different domain
+
+    imgObj.onload = () => {
+      const fabricImg = new fabric.Image(imgObj);
+
+      fabricImg.scaleToHeight(300);
+      fabricImg.scaleToWidth(300);
+
+      if (canvas) {
+        canvas.add(fabricImg);
+        canvas.renderAll();
+      }
+    };
+
+    imgObj.src = imageUrl;
+  };
+
 
   const updateTshirtImage = (imageURL) => {
     fabric.Image.fromURL(imageURL, (img) => {
@@ -129,9 +159,11 @@ const Backdesigner = () => {
   return (
     <div className="bg-blue-200 h-[800px] w-[98%]">
       <p className="text-5xl ml-20 mt-10 font-bold text-blue-900  ">Design Product</p>
+      <div className='flex'>
+        <div>
       <div  id="tshirt-div" className="relative  h-548 ml-20 mt-10 bg-blue-200">
         <div className="bg-white w-[450px] ">
-          <img id="tshirt-backgroundpicture" src={Tshirt} alt="Tshirt Background" />
+          <img id="tshirt-backgroundpicture" src={Tshirt} alt="Tshirt Background"  className="w-[500px] h-550px"/>
         </div>
         <div className="absolute top-14 left-[120px] z-10 w-200 h-[450px]   ">
           <div className="relative w-200 h-400 ">
@@ -170,15 +202,10 @@ const Backdesigner = () => {
 
           
 </div>
-
-       
-
-
-       
+ 
       </div>
-
-
-
+</div>
+        <div>
       <br />
  
       <br />
@@ -248,8 +275,9 @@ const Backdesigner = () => {
         <br />
        
       </div>
-
-      
+</div>
+      </div>
+     
     </div>
   );
 };

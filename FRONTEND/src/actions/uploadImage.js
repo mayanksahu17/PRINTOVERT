@@ -38,7 +38,7 @@ const getAllImages = async (userId, dispatch) => {
 
   const apiUrl = `http://localhost:8000/api/v1/users/all-image/${userId}`;
 
-  console.log(userId);
+  
   try {
     const response = await fetch(apiUrl, {
       method: 'GET',
@@ -51,7 +51,7 @@ const getAllImages = async (userId, dispatch) => {
 
     const images = data.data;
     dispatch(addImage({ images: images }));
-    console.log(images);
+ 
     return images;
 
   } catch (error) {
