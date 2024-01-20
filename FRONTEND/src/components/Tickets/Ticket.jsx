@@ -12,11 +12,12 @@ function Ticket() {
     
     <div className='bg-blue-200 w-full h-180 '>
     <div className='flex'>
-  <h1 className=' font-bold mt-8 ml-7  text-blue-900 font-cerebriSans text-3xle-900 co text-5xl'>Check Ticket</h1>
-  <button  onClick={toggleUploadForm} className='h-8 w-40 rounded-3xl text-white mt-10 ml-6 border bg-blue-700  hover:bg-blue-500 hover:text-white'>Raise a Ticket</button>
+    <h1 className='font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>Ticket</h1>
+
+  <button  onClick={toggleUploadForm} className='h-10 w-40 rounded-3xl text-white mt-10 ml-12 border bg-blue-700  hover:bg-blue-500 hover:text-white  font-semibold'>Raise a Ticket</button>
   
   </div>
-  <p   className='ml-7 mt-1'> Raise and Check Ticket</p>
+  <p   className='ml-12 mt-1'> Raise and Check Ticket</p>
 
   {showUploadForm && (
         <form className='uploadDiving h-520 w-[1200px] border-2 border-blue-500 rounded-2xl border-blue-450/150 font-semibold mt-3   ml-3 mr6 bg-transparent'>
