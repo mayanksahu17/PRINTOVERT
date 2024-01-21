@@ -21,14 +21,14 @@ const [open, setopen]=useState(true);
       </div> </Link> 
    
      
-      <hr className=' w-50' />
+      <hr className=' w-50 ' />
       
       <ul className="p-2">
       <NavLink to = ""><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3'> <AiOutlineHome className='mt-1 text-3xl hover:text-blue-800' /></div> <div className={`${!open && "scale-0"}`}>Dashboard</div></li></NavLink>
 
-      <NavLink to = "orders"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3'> <FaCartArrowDown  className='mt-1 text-3xl hover:text-blue-800' /></div> <div className={`${!open && "scale-0"}`}>Orders</div></li></NavLink>
+      {/* <NavLink to = "orders"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3'> <FaCartArrowDown  className='mt-1 text-3xl hover:text-blue-800' /></div> <div className={`${!open && "scale-0"}`}>Orders</div></li></NavLink> */}
  
-      <NavLink to = "active-orders"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <HiPencilAlt className='mt-1 text-3xl  hover:text-blue-800 ' /></div>  <div className={`${!open && "scale-0"}`}>Active Orders</div></li></NavLink>
+      {/* <NavLink to = "active-orders"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <HiPencilAlt className='mt-1 text-3xl  hover:text-blue-800 ' /></div>  <div className={`${!open && "scale-0"}`}>Active Orders</div></li></NavLink> */}
         
       
         <NavLink to = "delivered"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <GrDeliver className='mt-1 text-3xl  hover:text-blue-800' /></div> <div className={`${!open && "scale-0"}`}>delivered</div></li></NavLink>

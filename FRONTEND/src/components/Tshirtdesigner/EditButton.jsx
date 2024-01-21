@@ -5,7 +5,7 @@ const EditButton = ({ to, onClick, children ,className = ""}) => {
   return (
     <NavLink to={to}>
       <button
-        className={`${className} hover:bg-blue-600 hover:text-white p-1 border-solid border-2 px-8 rounded-2xl ml-2 mt-2 font-semibold`}
+        className={`${className}  rounded-3xl text-white mt-10 ml-7  bg-blue-700  hover:bg-blue-500 hover:text-white  font-bold`}
         onClick={onClick}
       >
         {children}

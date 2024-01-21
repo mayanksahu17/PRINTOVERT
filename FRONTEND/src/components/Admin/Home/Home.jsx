@@ -6,9 +6,8 @@ function Home() {
     <>
       <div className='bg-blue-200 w-[100%] h-[800px]'>
       <div className='bg-blue-200 w-full h-180'> 
-                <h2 className='font-bold mt-8 ml-7 font-cerebriSans text-3xl text-blue-900'>All Users</h2>
-                <h5 className='text-gray-600 ml-7 font-bold '>Let's have a Tour to the Users</h5>
-    
+      <h1 className='font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>All client</h1>
+      <p className='ml-12 mt-1 font-bold'>here is all clint information</p>
     
     
                 </div>

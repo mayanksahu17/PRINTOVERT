@@ -41,22 +41,22 @@ const navigate = useNavigate()
 
             <div className=' bg-white h-28 ml-7 mt-10 rounded-2xl w-64'>
            
-                <h3 className='ml-5 text-gray-500 p-1 font-base text-xl font-semibold'>Spent</h3>
+                <h3 className='ml-5 text-black p-1 font-base text-xl font-semibold'>Spent</h3>
              <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>${spent}</h2>
             </div>
 
             <div className=' bg-white h-28 w-64 ml-7 mt-10 rounded-2xl'>
-                <h3 className='ml-5 text-gray-500 p-1 font-base text-xl font-semibold'>Total orders</h3>
+                <h3 className='ml-5 text-black p-1 font-base text-xl font-semibold'>Total orders</h3>
              <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>{totalOrder}</h2>
             </div>
 
             <div className=' bg-white h-28 w-64 ml-7 mt-10 rounded-2xl'>
-                <h3 className='ml-5 text-gray-500 p-1 font-base text-xl font-semibold'>Wallet Balance</h3>
+                <h3 className='ml-5 text-black p-1 font-base text-xl font-semibold'>Wallet Balance</h3>
              <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>${wallet}</h2>
             </div>
 
             <div className=' bg-white h-28 w-64 ml-7 mt-10 rounded-2xl'>
-                <h3 className='ml-5 text-gray-500 p-1 font-base text-xl font-semibold'>Active Orders</h3>
+                <h3 className='ml-5 text-black p-1 font-base text-xl font-semibold'>Active Orders</h3>
              <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>0</h2>
             </div>
 
