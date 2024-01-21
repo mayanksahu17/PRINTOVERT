@@ -2,15 +2,15 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { fabric } from 'fabric';
 import html2canvas from 'html2canvas';
-import { NavLink } from 'react-router-dom';
-import Tshirt from '../../assets/Tshirt.png';
 import Sizes from './Sizes';
 import leftsleeve1 from '../../assets/New folder/leftsleeve1.png'
 import EditButton from './EditButton';
 import Colorbox from './Colorbox'
 import ImageUploader from './Base64.js'
 import { useSelector, useDispatch } from 'react-redux';
-import { Editleftimage } from '../../store/productSlice';
+import { uploadImage } from '../../actions/Image.js';
+import { setleft } from '../../store/productimage.js';
+import store from '../../store/store.js';
 const Leftdesigner = () =>
  {
   const [canvas, setCanvas] = useState(null);
@@ -86,22 +86,57 @@ const Leftdesigner = () =>
     };
   }, [canvas]);
 
-  const handleSave = () => {
-    html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const imageUploader = new ImageUploader();
-          imageUploader.imageUpload({
-            file: blob,
-            name: 'leftimage',
-            method: Editleftimage,
-            dispatch: dispatch,
-          });
-          console.log('Image saved');
-        }
-      }, 'image/png');
-    });
+
+
+  const upload = async (dataURL) => {
+    try {
+      const user = store.getState().auth.user;
+      const userId = user._id;
+  
+      // Convert data URL to Blob
+      const blob = await (await fetch(dataURL)).blob();
+  
+      // Create a file from Blob
+      const file = new File([blob], "image.png");
+  
+      // Upload the file
+      const response = await uploadImage(file, userId);
+
+      const image = response.data.imageURL
+
+      console.log(typeof(image));
+
+      dispatch(setleft({ URL: image }));
+
+      console.log("Image uploaded:", image);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
   };
+  
+
+
+  const handleSave = async () => {
+  
+    
+
+      html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const imageUploader = new ImageUploader();
+            imageUploader.imageUpload({
+              file: blob,
+              name: 'leftimage',
+            });
+
+          }
+        }, 'image/png');
+      });
+      const canvas = await html2canvas(document.getElementById("tshirt-div"));
+      const canvasDataURL = canvas.toDataURL('image/png');
+      await upload(canvasDataURL);
+
+  }
   
 
   const stateColor = useSelector((state) => state.product.color);
@@ -149,18 +184,12 @@ const Leftdesigner = () =>
 
   return (
     <div className="bg-blue-200 h-[800px] w-[98%]">
-      {/* <p className="text-5xl ml-20 mt-10 font-bold text-blue-900  ">Design Product</p> */}
+      <p className="text-5xl ml-20 mt-10 font-bold text-blue-900  ">Design Product</p>
 
 
     <div className='flex'>
 
-    <div> <div className='flex'>
-
-<h1 className='font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>Design Product</h1>
-<EditButton className='  h-10 w-32'  to="/design-product" >
-        Back
-      </EditButton>
-  </div>
+    <div>
       
 
 
@@ -181,26 +210,33 @@ const Leftdesigner = () =>
 </div>
 
       <div className=" mb-4">
-        
-        
+        <br />
+        <br />
 
         
-<div className="ml-12 h-[60px] w-full ">
-              <div className='mb-14 h-full w-full '>
-                 <EditButton className='h-10 w-24 ' to='/tshirt-designer'>
-                  Front
-                  </EditButton>
-                  <EditButton className='h-10 w-24' to="/back-edit">
-                  Back
-                 </EditButton>
-                 <EditButton  className='h-10 w-24 ' to="/right-side-edit">
-                  Right
-                 </EditButton>
-                 <EditButton  className='h-10 w-24 ' to="/left-side-edit">
-                  Left
-                </EditButton>
-              </div>
-            </div>
+<div className="ml-20 h-[60px] w-full ">
+ 
+ <div className='mb-24 h-full w-full '>
+
+ <EditButton to='/tshirt-designer'>
+          Front 
+          </EditButton>
+
+          <EditButton to="/back-edit" >
+            Back 
+          </EditButton>   
+      
+          <EditButton to="/right-side-edit" >
+            Right 
+          </EditButton>
+
+          <EditButton to="/left-side-edit">
+            Left 
+          </EditButton>
+
+
+ </div>      
+</div>
       </div>
 
 
@@ -211,28 +247,28 @@ const Leftdesigner = () =>
     <br />
  
  <br />
- 
+ <br />
 
     <div className="absolute top-20 left-[1000px]">
     <div className='flex'>
-    <h1 className='font-bold mt-8   text-blufont-cerebriSans text-blue-900 co text-4xl'>Editing Canves</h1>
-              <EditButton  to={"/preview"} children={"Preview"} className='h-8 w-24 ml-28' />
-            
-      
+      <p className="text-3xl">Add your image</p>
+      <EditButton to={"/preview"} children={"Preview"} className='ml-28' />
       </div>
       <p>Maximum print area (W x H)-15.60 in x19.60</p>
       <div className='mt-5'>
-        
+      <EditButton to="/design-product" >
+          Back 
+        </EditButton>   
       
       </div>
-      {/* <br />
-      <br /> */}
+      
+      <br />
       <p className="text-2xl">colors</p>
       <br />
       <div className="flex">
       <Colorbox  />  </div>
       <br />
-    
+      <br />
       <p className="text-2xl">Size</p>
       <br />
       <div className="flex">
@@ -240,27 +276,28 @@ const Leftdesigner = () =>
       </div>
 
       <br />
-     
+      <br />
 
       <p className="text-2xl ">Total Price: <span className="text-blue-500">100</span> {"  "}(Taxes Apply)</p>
 
     
-   
-      <EditButton  className='h-10 w-32'onClick={toggleUploadForm}  > 
-              Upload
-            </EditButton>
-            <EditButton className='h-10 w-32' onClick={handleSave} >
-              {' '}
-              Save
-            </EditButton>
+      <br />
+      <EditButton   onClick={toggleUploadForm} >
+      Upload 
+        </EditButton>   
+
+        <EditButton onClick={handleSave} >
+      {' '}
+        save
+        </EditButton>  
       {showUploadForm && (
-        <form className="uploadDiving h-12  w-80 border-2 rounded-2xl border-blue-500/100 ml-42 mt-5 eqhover:bg-white">
-        <label htmlFor="imageInput" className="drop-container" id="dropcontainer">
-          {/* <span className="drop-title text-3xl font-bold ml-24 text-blue-500 ">Drop files here</span>
-          <h1 className="mr-18 w-fulll h-8 font-bold text-center mt-4 text-blue-500 ">Or</h1> */}
-          <div className="flex">
-            <input type="file" id="imageInput" accept="image/*" className="w-60 mt-2 ml-20" onChange={handleCustomPicture} required />
-            <div className="btn-collectioninput-fs16 ">
+        <form className="uploadDiving h-32 w-96 border-2 rounded-2xl border-blue-500/100 ml-42 mt-5 bg-transparent hover:bg-white">
+          <label htmlFor="imageInput" className="drop-container" id="dropcontainer">
+            <span className="drop-title text-3xl font-bold ml-24 text-blue-500 ">Drop files here</span>
+            <h1 className="mr-18 w-fulll h-8 font-bold text-center mt-4 text-blue-500 ">Or</h1>
+            <div className="flex">
+              <input type="file" id="imageInput" accept="image/*" className="w-42 mt-2 ml-20" onChange={handleCustomPicture} required />
+              <div className="btn-collectioninput-fs16 ">
                 
               </div>
             </div>

@@ -8,7 +8,7 @@ import {
   Routes // Import Routes to contain Route components
 } from 'react-router-dom';
 import './index.css'
- import Orders from './components/Orders/Orders.jsx'
+import Orders from './components/Orders/Orders.jsx'
 import Ticket from './components/Tickets/Ticket.jsx'
 import Wallet from './components/wallet/Wallet.jsx'
 import Layout from './pages/Layout/Layout.jsx'
@@ -26,8 +26,10 @@ import Featrenot from './components/!feature/Featrenot.jsx'
 import Contactus from './components/contactUs/Contactus.jsx'
 import AdLayout from './pages/Admin/Layout/AdLayout.jsx'
 import Home from './components/Admin/Home/Home.jsx'
+import AdOrders from './components/Admin/Orders/AdOrders.jsx'
 import Walletrequest from './components/Admin/Wallet/Walletrequest.jsx';
 import Delivered from './components/Admin/Delivered/Delivered.jsx';
+import Activeorder from './components/Admin/activeorders/Activeorder.jsx';
 import Backdesigner from './components/Tshirtdesigner/Backdesigner.jsx';
 import Leftdesigner from './components/Tshirtdesigner/Leftdesigner.jsx';
 import Rightdesigner from './components/Tshirtdesigner/Rightdesigner.jsx';
@@ -65,8 +67,9 @@ const AppRoutes = () => (
 
       <Route path="/admin" element={<AdLayout />}>
         <Route index element={<Home />} />
-
-                <Route path="delivered" element={<Delivered />} />
+        <Route path="orders" element={<AdOrders />} />
+        <Route path="active-orders" element={<Activeorder />} />
+        <Route path="delivered" element={<Delivered />} />
         <Route path="wallet-request" element={<Walletrequest />} />
 
       </Route>
