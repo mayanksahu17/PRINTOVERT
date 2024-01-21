@@ -12,7 +12,7 @@ class ImageUploader extends Component {
       console.log( url.data.imageURL);
       const image =  url.data.imageURL
       dispatch(method({image}));  
-      console.debug("File stored", base64);2
+      console.debug("File stored", base64);
     });
   };
 }
@@ -33,4 +33,13 @@ const getBase64 = (file) => {
   });
 };
 
+
+
+
+
+
+
+
 export default ImageUploader;
+
+

@@ -7,7 +7,6 @@ function LoginButton({open}) {
   let char = "Login"
   useEffect(()=>{
     if (open) {
-      console.log(open);
       char = ""
     }
   },[open])

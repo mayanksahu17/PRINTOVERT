@@ -34,14 +34,12 @@ const productSlice = createSlice({
       state.color = action.payload.color;
     },
 
-    Editfrontimage: (state, action) => {
-      if (action.payload.image) {
-        state.frontimage = action.payload.image;
-        console.log("kaam ho gya");
-      } else {
-        console.log("kuchh dikkat h yha");
-      }
-    },
+    setFrontImage : (state , action)=>{
+    
+        state.frontimage = action.payload.image
+        console.log("image set ho gya");
+    
+    } ,
 
     Editbackimage: (state, action) => {
       state.backimage = action.payload.image;
@@ -69,7 +67,7 @@ const productSlice = createSlice({
 export const {
   Editsize,
   Editcolor,
-  Editfrontimage,
+  setFrontImage,
   Editbackimage,
   Editrightimage,
   Editleftimage,
