@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import EditButton from './EditButton';
+import store from '../../store/store';
 
 function Preview() {
   const retrievedImageData = localStorage.getItem('frontimage');
@@ -34,26 +35,84 @@ function Preview() {
       containers.forEach(containerId => {
         const container = document.getElementById(containerId);
         if (container) {
-          container.innerHTML = ''; // Clear the container's content
+          container.innerHTML = ''; 
         }
       });
     };
   }, [retrievedImageData, retrievedImageData2, retrievedImageData3, retrievedImageData4]);
 
+  const saveProduct =  async()=>{
+     
+  const  backimage = store.getState().productimages.backimage
+  const frontimage = store.getState().productimages.frontimage
+  const leftimage  = store.getState().productimages.leftimage
+  const rightimage = store.getState().productimages.rightimage
+  const color = store.getState().product.color
+  const size = store.getState().product.size
+  const delivered = store.getState().product.delivered
+  const name = store.getState().product.name
+  const ordered = store.getState().product.ordered
+  const rating = store.getState().product.rating
+  const brand = store.getState().product.brand
+  const shipped = store.getState().product.shipped
+  const stock = store.getState().product.stock
+
+
+
+  }
+
+
+
+
+
+
   return (
     <div className="bg-blue-200 h-[800px] w-[98%]">
       <div className="flex mt-10">
-        <EditButton to="/tshirt-designer" children="Back to Designer" className="mt-10" />
+<div>
+      <h1 className="text-2xl font-bold ml-96">Preview Product Image</h1>
+      <EditButton to="/tshirt-designer" children="Back to Designer" className="mt-10" />
+      
         <EditButton onClick={deleteStorage} children="Delete All" className="ml-4 hover:bg-red-600" to={"/tshirt-designer"} />
         
-        <h1 className="text-2xl font-bold ml-60">Preview Product Image</h1>
+</div>
+        
+       
       </div>
-      <div className='flex flex-wrap'>
+      <div className='flex flex-wrap mt-10'>
       <div id="image-container" className="ml-10 mt-4 w-[200px] "></div>
       <div id="image-container2" className="ml-10 mt-4  w-[200px] "></div>
       <div id="image-container3" className="ml-10 mt-4  w-[200px] "></div>
       <div id="image-container4" className="ml-10 mt-4  w-[200px] "></div>
       </div>
+
+      <div className='flex'>
+
+          <div className='mt-10 ml-10 w-[50%]'>
+          <div className='font-bold text-2xl '>
+            Name : x
+          </div>
+          <div className='font-bold text-2xl mt-6'>
+            Size : x
+          </div>
+          <div className='font-bold text-2xl mt-6'>
+          Color : x
+          </div>
+          <div className='font-bold text-2xl mt-6'>
+          Price : x
+          </div>
+          <div className='font-bold text-2xl mt-6'>
+          Brand : x
+          </div>
+          </div>
+          <div className='w-72'>
+
+      <EditButton to="/tshirt-designer" children="Save Product" className=" mt-[90%]" />
+          </div>
+
+      </div>
+     
+      
    
     </div>
   );

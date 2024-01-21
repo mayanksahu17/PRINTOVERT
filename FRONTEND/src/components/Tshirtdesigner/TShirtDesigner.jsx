@@ -6,12 +6,11 @@
   import EditButton from './EditButton.jsx';
   import { useDispatch, useSelector } from 'react-redux';
   import Colorbox from './Colorbox.jsx';
-  import Editfrontimage from '../../store/productSlice.js';   
   import ImageUploader from './Base64.js';
-  import { selectedImage } from '../../store/imageslice.js';
+  import { selectedImage , removeSelectedImage } from '../../store/imageslice.js';
   import { uploadImage } from '../../actions/Image.js';
-  import { logout } from '../../store/authSlice.js';
   import store from '../../store/store.js';
+  import { setfront } from '../../store/productimage.js';
   // import upload from './ds.js';
 
   const TShirtDesigner = () => {
@@ -20,6 +19,7 @@
     const dispatch = useDispatch();
     const stateColor = useSelector((state) => state.product.color);
     const userId = useSelector((state) => state.auth.user?._id);
+    const stateImage = useSelector((state) => state.images.selectedImage);
 
     useEffect(() => {
       const fabricCanvas = new fabric.Canvas('tshirt-canvas');
@@ -32,6 +32,13 @@
       const tshirtColor = document.getElementById('tshirt-backgroundpicture');
       tshirtColor && (tshirtColor.style.backgroundColor = stateColor);
     }, [stateColor]);
+
+    useEffect(() => {
+      // Load the image into the canvas when the page mounts
+      if (stateImage) {
+        loadImageIntoCanvas(stateImage, canvas);
+      }
+    }, [ canvas]);
 
     const loadImageIntoCanvas = (imageUrl, canvas) => {
       const imgObj = new Image();
@@ -81,7 +88,7 @@
       if (e.target.files[0]) {
         localStorage.setItem('image1', e.target.files[0]);
         const item = e.target.files[0] ? e.target.files[0] : localStorage.getItem('image1');
-
+        reader.readAsDataURL(item);
         try {
           const response = await uploadImage(item, userId);
           const url = response.data.imageURL;
@@ -91,7 +98,7 @@
           // Handle the error as needed
         }
 
-        reader.readAsDataURL(item);
+        
       }
     };
 
@@ -99,6 +106,8 @@
       if (e.keyCode === 46) {
         console.log('Removing selected element on Fabric.js on DELETE key!');
         canvas && canvas.remove(canvas.getActiveObject());
+        dispatch(removeSelectedImage({ image: "" }));
+
       }
     };
 
@@ -131,9 +140,8 @@
   
         console.log(typeof(image));
   
-       
-        dispatch(Editfrontimage({ image: image }));
-          
+        dispatch(setfront({ URL: image }));
+
         console.log("Image uploaded:", image);
       } catch (error) {
         console.error("Error uploading image:", error);
@@ -141,16 +149,27 @@
     };
     
 
+    
+
 
     const handleSave = async () => {
-      try {
+
+        html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
+          canvas.toBlob((blob) => {
+            if (blob) {
+              const imageUploader = new ImageUploader();
+              imageUploader.imageUpload({
+                file: blob,
+                name: 'frontimage',
+              });
+  
+            }
+          }, 'image/png');
+        });
+
         const canvas = await html2canvas(document.getElementById("tshirt-div"));
         const canvasDataURL = canvas.toDataURL('image/png');
         await upload(canvasDataURL);
-      } catch (error) {
-        console.error("Error saving image:", error);
-        // Handle the error as needed
-      }
     }
     
 
@@ -209,7 +228,7 @@
                 <EditButton to="/design-product" >
                   Back
                 </EditButton>
-                <EditButton onClick={handleSave} >
+                <EditButton >
                   {' '}
                   Save Product
                 </EditButton>

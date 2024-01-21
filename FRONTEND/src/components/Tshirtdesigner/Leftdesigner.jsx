@@ -2,15 +2,15 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { fabric } from 'fabric';
 import html2canvas from 'html2canvas';
-import { NavLink } from 'react-router-dom';
-import Tshirt from '../../assets/Tshirt.png';
 import Sizes from './Sizes';
 import leftsleeve1 from '../../assets/New folder/leftsleeve1.png'
 import EditButton from './EditButton';
 import Colorbox from './Colorbox'
 import ImageUploader from './Base64.js'
 import { useSelector, useDispatch } from 'react-redux';
-import { Editleftimage } from '../../store/productSlice';
+import { uploadImage } from '../../actions/Image.js';
+import { setleft } from '../../store/productimage.js';
+import store from '../../store/store.js';
 const Leftdesigner = () =>
  {
   const [canvas, setCanvas] = useState(null);
@@ -86,22 +86,57 @@ const Leftdesigner = () =>
     };
   }, [canvas]);
 
-  const handleSave = () => {
-    html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const imageUploader = new ImageUploader();
-          imageUploader.imageUpload({
-            file: blob,
-            name: 'leftimage',
-            method: Editleftimage,
-            dispatch: dispatch,
-          });
-          console.log('Image saved');
-        }
-      }, 'image/png');
-    });
+
+
+  const upload = async (dataURL) => {
+    try {
+      const user = store.getState().auth.user;
+      const userId = user._id;
+  
+      // Convert data URL to Blob
+      const blob = await (await fetch(dataURL)).blob();
+  
+      // Create a file from Blob
+      const file = new File([blob], "image.png");
+  
+      // Upload the file
+      const response = await uploadImage(file, userId);
+
+      const image = response.data.imageURL
+
+      console.log(typeof(image));
+
+      dispatch(setleft({ URL: image }));
+
+      console.log("Image uploaded:", image);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
   };
+  
+
+
+  const handleSave = async () => {
+  
+    
+
+      html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const imageUploader = new ImageUploader();
+            imageUploader.imageUpload({
+              file: blob,
+              name: 'leftimage',
+            });
+
+          }
+        }, 'image/png');
+      });
+      const canvas = await html2canvas(document.getElementById("tshirt-div"));
+      const canvasDataURL = canvas.toDataURL('image/png');
+      await upload(canvasDataURL);
+
+  }
   
 
   const stateColor = useSelector((state) => state.product.color);

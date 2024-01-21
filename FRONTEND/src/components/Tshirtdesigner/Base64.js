@@ -4,14 +4,9 @@ import store from '../../store/store';
 
 class ImageUploader extends Component {
 
-  imageUpload = ({file , name , method , dispatch}) => {
+  imageUpload = ({file , name }) => {
     getBase64(file).then(async(base64) => {
-      
-     const url = await upload(file)
       localStorage.setItem(name, base64);                   
-      console.log( url.data.imageURL);
-      const image =  url.data.imageURL
-      dispatch(method({image}));  
       console.debug("File stored", base64);
     });
   };
