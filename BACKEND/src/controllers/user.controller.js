@@ -269,7 +269,9 @@ const uploadImage = asyncHandler(async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-
+    if (!req.files?.Image[0]?.path) {
+      console.log("file leke ao bhai ");
+    }
     const imageLocalPath = req.files?.Image[0]?.path;
     console.log(imageLocalPath);
     if (!imageLocalPath) {

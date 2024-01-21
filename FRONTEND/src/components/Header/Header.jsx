@@ -20,6 +20,7 @@ import { logout } from '../../store/authSlice';
 
 function Header() {
   const [open, setopen] = useState(true);
+ 
   const isAuthenticated = useSelector((state) => state.auth.user !== null);
  
   
@@ -65,11 +66,11 @@ function Header() {
       
         
         <hr />
-    {
-           !isAuthenticated&&(<LoginButton { ...open } />)
+    {    
+           !isAuthenticated&&(<LoginButton open={open} />)
     }
     {
-      isAuthenticated&&(<LogoutButton/>)
+      isAuthenticated&&(<LogoutButton open={open}/>)
     }
         
       </ul>

@@ -16,6 +16,10 @@ const navigate = useNavigate()
     let wallet = user?.walletBalance || 0 
     let totalOrder = user?.totalOrders || 0
 
+
+    console.log(store.getState().product);
+
+
     if(!user){
         navigate("/login")
     }
