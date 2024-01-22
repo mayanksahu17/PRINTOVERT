@@ -4,7 +4,8 @@ import {User} from '..//models/user.model.js'
 import {uploadOnCloudinary} from '../utils/cloudinary.js'
 import { ApiResponse } from '../utils/ApiResponse.js' 
 import jwt from "jsonwebtoken"
-import { Ticket } from '../models/ticket.model.js'
+import { wallet } from '../models/wallet.model.js'
+import {Transection} from '../models/transections.js'
 
 const generateAccessTokenandRefreshTocken = async(userId)=>{
   try {
@@ -321,8 +322,6 @@ const getAllImages = asyncHandler(async (req, res) => {
   }
 });
 
-
-
 const getAllUserTransactions = asyncHandler(async (req, res) => {
   try {
     const userId = req.params.id; // Assuming the user ID is passed in the URL
@@ -367,6 +366,41 @@ const getAllOrderedProducts = asyncHandler(async (req, res) => {
 });
 
 
+const addWalletBalance = asyncHandler(async (req, res) => {
+
+  const userId = req.params.id;
+  try {
+      const { amount , image } = req.body
+
+      const user = await User.findById(userId);
+
+      if (!user) {
+          throw new ApiError(404, "User not found");
+      }
+      const walletrequest = await  wallet.create({amount,image,userId})
+      let transaction = {
+        amount : amount,
+        Status : walletrequest.status,
+        response : walletrequest.status,
+        added :  walletrequest.status,
+        deliveryCompany : "Admin",
+      }
+      const transections = await Transection.create(transaction)
+
+    if (!walletrequest) {
+      throw new ApiError(401,"Failed to generate request ")
+    }
+      return res.status(200).json(new ApiResponse(200, walletrequest, 'Wallet balance updated successfully'));
+
+  } catch (error) {
+      console.error('Error:', error);
+      res.status(error.statusCode || 500).json({ message: error.message || "Internal Server Error" });
+  }
+});
+
+
+
+
 export { 
   registerUser,
   loginUser,
@@ -379,7 +413,7 @@ export {
   createOrder ,
   uploadImage ,
   getAllImages,
-  
   getAllUserTransactions,
   getAllOrderedProducts,
+  addWalletBalance,
 }

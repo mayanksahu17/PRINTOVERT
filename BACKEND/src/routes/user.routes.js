@@ -8,14 +8,12 @@ import {
     getCurrentUser,
     updateAccountDetails,
     getUserCredencials,
-    createOrder ,
+    addWalletBalance ,
     uploadImage ,
     getAllImages,
-  
     getAllUserTransactions,
     getAllOrderedProducts,
 } from '../controllers/user.controller.js'
- import {addNewProduct , UpdateProduct , removeProduct} from '../controllers/product.controller.js'
  import {  getAllUserTickets , raiseTicket ,  createTicket} from '../controllers/ticket.controller.js'
 import {upload} from '../middleware/multer.middleware.js'
 import {verifyJWT } from '../middleware/auth.middleware.js'
@@ -55,6 +53,8 @@ router.route("/:id/transactions ").get(getAllUserTransactions);
 router.route("/:id/cart ").get(getAllOrderedProducts);
 
 router.route("/:id/create-ticket/").post(upload.fields([{ name: "Image", maxCount: 1 }]), createTicket);
+
+router.route("/:id/wallet/request").post(addWalletBalance)
 
 
 

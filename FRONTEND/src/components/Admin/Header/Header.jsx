@@ -8,9 +8,18 @@ import { GrDeliver } from "react-icons/gr";
 import { ImPrinter } from "react-icons/im";
 import { FaArrowRight } from "react-icons/fa";
 import { useState } from 'react';
-
+import LogoutButton from './Buttons/LogoutButton';
+import  LoginButton from './Buttons/LoginButton'
+import { useSelector,useDispatch  } from 'react-redux';
 function Header() {
 const [open, setopen]=useState(true);
+
+const isAuthenticated = useSelector((state) => state.auth.user !== null);
+
+
+
+
+
   return (
     <div id='header' className={`flex flex-col bg-blue-700 h-[800px] ${open ? "w-80 ":"w-20 "} duration-500  relative `}>
  <div className='h-[10px] w-[10px]'><FaArrowRight className={`text-black absolute -right-[20px]   bg-white ${open ? "rotate-[180deg]": "rotate-[0deg]"} top-5  h-7 w-7 cursor-pointer border-solid border-2 border-black opacity-[0.8] rounded-full p-1 `}onClick={()=>setopen(!open)}/></div>
@@ -35,7 +44,17 @@ const [open, setopen]=useState(true);
         
        
         <NavLink to = "wallet-request"><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <FaRupeeSign  className='mt-1 text-3xl' /></div> <div className={`${!open && "scale-0"}`}>Wallet request</div></li></NavLink>
-       
+      
+        <div className=' mt-72'>
+        <hr />
+        {    
+           !isAuthenticated&&(<LoginButton open={open} />)
+    }
+    {
+      isAuthenticated&&(<LogoutButton open={open}/>)
+    }
+        </div>
+   
       
       </ul>
     </div>

@@ -181,13 +181,13 @@
 
     return (
       <div className="bg-blue-200 h-[800px] w-[98%]">
-     
-        <div className='flex'>
-          <div>
-          <h1 className='  font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>Desgin product </h1>
-      <p className=' ml-12 mt-1'>Add you'r image</p>
-      
-            <div id="tshirt-div" className="relative W-[450px] h-548 ml-20 mt-10 bg-blue-200">
+      <div className="flex flex-col sm:flex-row">
+        <div className="sm:w-1/2">
+          <h1 className="font-bold mt-8 ml-7 text-blufont-cerebriSans text-blue-900 co text-5xl">
+            Design product
+          </h1>
+          <p className="ml-12 mt-1">Add your image</p>
+      <div id="tshirt-div" className="relative w-full sm:w-[450px] h-548 ml-20 mt-10 bg-blue-200">
               
               <div className="bg-white w-[450px]">
                 <img id="tshirt-backgroundpicture" src={Tshirt} alt="Tshirt Background" />
@@ -216,9 +216,11 @@
                   </EditButton>
              
               </div>
+              
             </div>
           </div>
-          <div>
+            <div className="sm:w-1/2">
+
           
             
               <EditButton to="/design-product" className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  ' >
