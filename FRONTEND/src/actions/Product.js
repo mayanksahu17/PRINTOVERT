@@ -6,6 +6,7 @@ const userId = user?._id
 
 const uploadProduct = async (formData) => {
   try {
+    console.log(userId);
     const URL = `http://localhost:8000/api/v1/users/products/${userId}/add-new/product`;
     const response = await fetch(URL, {
       headers: {
@@ -24,7 +25,7 @@ const uploadProduct = async (formData) => {
     return responseData;
   } catch (error) {
     console.error('Error uploading product:', error);
-    throw error; // Propagate the error to the calling code
+    throw error; 
   }
 };
 
@@ -53,7 +54,7 @@ const getAllProducts = async () => {
 };
 
 
-export default {
+export  {
   uploadProduct,
   getAllProducts
 };

@@ -138,6 +138,7 @@ const UpdateProduct = asyncHandler(async (req, res) => {
   const getAllProducts = asyncHandler(async (req, res) => {
     try {
       const userId = req.params.id;
+      console.log(userId);
       const user = await User.findById(userId);
   
       if (!user) {

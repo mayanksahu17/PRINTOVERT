@@ -2,7 +2,7 @@ import React, { useEffect , useState} from 'react';
 import { useSelector } from 'react-redux';
 import EditButton from './EditButton';
 import store from '../../store/store';
-import uploadProduct from '../../actions/Product';
+import {uploadProduct} from '../../actions/Product.js';
 function Preview() {
   const [message , setMessage] = useState("")
   const retrievedImageData = localStorage.getItem('frontimage');
@@ -68,7 +68,7 @@ function Preview() {
         image1: frontimage,
         image2: leftimage,
         image3: rightimage,
-        // name: "name2",
+        // name: "name5",
         color: color,
         size: size,
         price: store.getState().product.price,
@@ -80,11 +80,14 @@ function Preview() {
         brand: brand,
         category: category,
       };
-  
+      
+      console.log(productData);
       const response = await uploadProduct(productData);
   
       if (response.ok) {
         setMessage("Product Saved");
+        deleteStorage()
+
       } else {
         setMessage(`Error: ${response.statusText}`);
       }

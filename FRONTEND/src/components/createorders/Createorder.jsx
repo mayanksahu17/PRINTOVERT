@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../button/Button';
 import Orders from './Orders';
-import{ allProducts,removeProducts} from '../../store/allProducts.js';
-// import getAllProducts from '../../actions/Product.js'
+import{ setProducts , removeProducts} from '../../store/allProducts.js';
+// import {getAllProducts} from '../../actions/Product.js'
 import store from '../../store/store.js';
 
 
 function CreateOrder() {
   const dispatch = useDispatch();
-  const productData = useSelector((state) => state.allProductData.data);
+  const productData = useSelector((state) => state.allProductData.allProductData);
   
   const user = store.getState().auth.user; 
   const userId = user?._id
@@ -46,8 +46,8 @@ function CreateOrder() {
         const response = await getAllProducts();
         const productData = response.data;
         console.log(productData);
-        // dispatch(allProducts({ data: productData }));
-        dispatch(removeProducts());
+        dispatch(setProducts({ data: productData }));
+        
       } catch (error) {
         console.log(error);
       }
@@ -70,7 +70,7 @@ function CreateOrder() {
         ))}
       </div>
 
-      <div className='h-18 w-full ml-10 flex mt-52'>
+      <div className='h-18 w-full ml-10 flex mt-32'>
         <Button children={'Buy Product'} />
         <Button children={'Delete Product'} />
       </div>

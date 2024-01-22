@@ -2,7 +2,7 @@ import React from 'react';
 
 function Orders({ orderData }) {
   return (
-    <div className='h-[380px] w-[280px] bg-white mt-8 ml-8 hover:shadow-gray-600 hover:shadow-2xl rounded-2xl '>
+    <div className='h-[450px] w-[280px] bg-white mt-8 ml-4 hover:shadow-gray-600 hover:shadow-2xl rounded-2xl '>
       <div className='h-[60%] w-[100%] flex flex-wrap justify-center items-center'>
         <img className='cover border-2 border-solid border-black rounded-xl h-[90%] w-[90%] bg-white' src={orderData.image0} alt="" />
       </div>
