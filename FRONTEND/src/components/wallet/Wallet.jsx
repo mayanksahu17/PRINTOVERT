@@ -5,7 +5,7 @@ function Wallet() {
     
       <div className='bg-blue-200 w-full h-180 '>
         <div className='flex'>
-      {/* <h1 className=' font-bold mt-8 ml-7   text-blue-900  text-4xl'>Wallet</h1> */}
+      
       <h1 className='font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>Wallet</h1>
       <NavLink to = "/payment">  <button
        className='h-10 w-40 rounded-3xl text-white mt-10 ml-10 border bg-blue-700  hover:bg-blue-500

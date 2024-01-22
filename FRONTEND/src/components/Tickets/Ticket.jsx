@@ -20,7 +20,7 @@ function Ticket() {
   <p   className='ml-12 mt-1'> Raise and Check Ticket</p>
 
   {showUploadForm && (
-        <form className='uploadDiving h-520 w-[1200px] border-2 border-blue-500 rounded-2xl border-blue-450/150 font-semibold mt-3   ml-3 mr6 bg-transparent'>
+        <form className='uploadDiving h-520 w-[1300px] border-2 border-blue-500 rounded-2xl border-blue-450/150 font-semibold mt-3   ml-3 mr6 bg-transparent'>
          <div>
          <div className='flex'>
 
