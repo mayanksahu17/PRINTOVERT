@@ -1,14 +1,23 @@
 import React from 'react'
 import { HiArrowNarrowLeft } from "react-icons/hi";
+import Button from '../button/Button'
 import { NavLink } from 'react-router-dom';
 function Paymentpage() {
     return (
         <>
             <div className='bg-blue-200 w-full h-180'> 
-        
+
+<div className='flex'><h1 className='font-bold mt-8 ml-8  text-blufont-cerebriSans text-blue-900 co text-5xl'>Payment</h1>
+<Button className='h-10 w-40 rounded-3xl text-white mt-[40px] ml-[40px] border bg-blue-700  hover:bg-blue-500 hover:text-white  font-semibold' to={"/wallet"} children={'Back'}/>
+</div>
+      
+     
   <div className='ml-60'>
 
 <div className=' mt-5 ml-48 ' >
+
+
+  
     <div className='text-4xl text-black font-bold ml-12'>Scan & Pay</div>
     <div className=' text-black '>Enter your amount and Submit the Screenshot </div>
     <div className=' w-80 bg-white h-[450px]  justify-center py-5 rounded-2xl mt-2'>
@@ -17,15 +26,16 @@ function Paymentpage() {
     <div className='text-center mt-3 font-semi  bold'>Scan the QR with any <br /> BharatQR / UPI enabled app</div>
     </div>
 
-<div className='flex flex-col'>
+<div className='flex flex-col ml-3'>
     
 
-  <input type="number" placeholder="Enter amount" className="w-[200px] h-8 rounded-xl mt-5 font-semibold text-center bg-white" min="0" />
-
-<input  type = "file" placeholder='  Enter screenshort' className='w-[300px] h-10 rounded-xl mt-5 PY-2 bg-tranperent  border-gray-700 border-2 border-solid    '/> 
+  <input type="number" placeholder="Enter amount" className="w-[200px] h-8 ml-12 rounded-xl mt-5 font-semibold text-center bg-white" min="0" />
+<input  type = "file" placeholder='Enter screenshort' className='  w-[300px] h-8 rounded-xl mt-4 PY-2  border-blue-700 border-4 border-solid    '/> 
 <div className='flex'>
-<button className='text-blue-700 w-[100px] h-10 rounded-lg mt-6 border-blue-700 border-2 border-solid  '>CANCLE</button>
-<button className='text-white ml-4 w-[100px] h-10 rounded-lg mt-6 bg-blue-700 border-white-700 border-2 border-solid  '>CONFIRM</button>
+<button className='h-10 w-20 rounded-xl text-white mt-4 ml-10 border bg-blue-700  hover:bg-red-500
+        hover:text-white font-semibold'>CANCLE</button>
+<button className='h-10 w-24 rounded-xl text-white mt-4 ml-4 border bg-blue-700  hover:bg-blue-500
+        hover:text-white font-semibold '>CONFIRM</button>
 
 </div>
   </div>

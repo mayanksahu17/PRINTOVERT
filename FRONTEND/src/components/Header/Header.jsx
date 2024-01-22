@@ -12,7 +12,7 @@ import { IoWalletOutline } from "react-icons/io5";
 import { IoTicketOutline } from "react-icons/io5";
 import { PiNotePencilBold } from "react-icons/pi";
 import { ImPrinter } from "react-icons/im";
-import { FaArrowRight } from "react-icons/fa";
+import { IoIosArrowDropleft } from "react-icons/io";
 import { useState } from 'react';
 import { useSelector,useDispatch  } from 'react-redux';
 import { logout } from '../../store/authSlice';
@@ -26,19 +26,19 @@ function Header() {
   
   return (
 
-    <div id='header' className={`flex flex-col bg-blue-700 h-[800px] ${open ? "w-80 ":"w-20 "} duration-500  relative `}>
- <div className='h-[10px] w-[10px]'><FaArrowRight className={`text-black absolute -right-[20px]   bg-white ${open ? "rotate-[180deg]": "rotate-[0deg]"} top-5  h-7 w-7 cursor-pointer border-solid border-2 border-black opacity-[0.8] rounded-full p-1 `}onClick={()=>setopen(!open)}/></div>
+    <div id='header' className={`flex flex-col bg-blue-700 h-[800px] ${open ? "w-80 ":"w-20 "} duration-500     relative   `}>
+ <div className='h-[50px] w-[50px]'><IoIosArrowDropleft  className={`text-4xl font-extrabold text-white textwhite absolute -right-[1px]    ${open ? "rotate-[180deg]": "rotate-[0deg]"} top-2    bg-transparent       `}onClick={()=>setopen(!open)}/></div>
       <Link to ="">   
-         <div className={`${!open ? "p-0":"p-8"}  flex`}>
-      <ImPrinter className={`text-3xl text-white ${open && "mr-2 mt-6"} `} />
-        <span className="h-18 text-center font-extrabold mr-3 text-2xl cursor-pointer p-4 text-white"> <div className={`${!open && "scale-0"}`}>PRINTOVERT</div> </span>
+         <div className={`${!open ? "p-0":"p-12"}  flex `}>
+      <ImPrinter className={`text-3xl text-white ${!open && "mr-3 mt-6"} `} />
+        <span className="h-18 text-center font-extrabold mr-1 text-2xl cursor-pointer ml-1 text-white"> <div className={`${!open && "scale-0"}`}>PRINTOVERT</div> </span>
       </div> </Link> 
    
      
       <hr className=' w-50' />
       
-      <ul className="p-2">
-      <NavLink to = "/"   ><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3'> <AiOutlineHome className='mt-1 text-3xl hover:text-blue-800' /></div> <div className={`${!open && "scale-0"}`}>Deshboad</div></li></NavLink>
+      <ul className="justify-center ">
+      <NavLink to = "/" ><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3'> <AiOutlineHome className='mt-1 text-3xl hover:text-blue-800' /></div> <div className={`${!open && "scale-0"}`}>Deshboad</div></li></NavLink>
  
       <NavLink to = "/design-product"> <li  className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <HiPencilAlt className='mt-1 text-3xl  hover:text-blue-800 ' /></div>  <div className={`${!open && "scale-0"}`}>Design Product</div></li></NavLink>
         

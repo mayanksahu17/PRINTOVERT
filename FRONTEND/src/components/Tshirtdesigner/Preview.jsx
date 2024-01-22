@@ -103,12 +103,18 @@ function Preview() {
 
   return (
     <div className="bg-blue-200 h-[800px] w-[98%]">
-      <div className="flex mt-10">
+      <div className="flex ">
         <div>
-          <h1 className="text-2xl font-bold ml-96">Preview Product Image</h1>
-          <EditButton to="/tshirt-designer" children="Back to Designer" className="mt-10" />
+        <div className='flex'>
+    <h1 className='font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>Peview product</h1>
 
-          <EditButton onClick={deleteStorage} children="Delete All" className="ml-4 hover:bg-red-600" to={"/tshirt-designer"} />
+    <EditButton to="/tshirt-designer" children="Back to Designer"className='h-10 w-58  rounded-3xl text-white mt-[40px] ml-[30px]  border bg-blue-700  hover:bg-blue-500 hover:text-white  font-semibold'/>
+  
+  </div>
+     
+      <br/> <br/>
+          {/* <EditButton to="/tshirt-designer" children="Back to Designer" className="mt-10" /> */}
+
 
         </div>
 
@@ -142,7 +148,8 @@ function Preview() {
         </div>
         <div className='w-72'>
             <p className=" ">{message}</p>
-          <EditButton onClick={saveProduct} children="Save Product" className=" mt-[90%]" />
+          <EditButton onClick={saveProduct} children="Save Product" className=" mt-[90%] w-44 h-12 "  />
+          <EditButton onClick={deleteStorage} children="Delete All" className="ml-2 w-44 h-12  hover:bg-red-600" to={"/tshirt-designer"} />
         </div>
 
       </div>
