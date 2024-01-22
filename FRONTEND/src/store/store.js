@@ -3,12 +3,14 @@ import authSlice from './authSlice';
 import imageslice from './imageslice';
 import productSlice from './productSlice.js';
 import productimage from './productimage.js'
+import allProducts from './allProducts.js';
 const store = configureStore({
     reducer: {
         auth: authSlice,
         images: imageslice,
         product: productSlice,
-        productimages : productimage
+        productimage : productimage,
+        allProductData : allProducts,
     }
 });
 

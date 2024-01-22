@@ -6,7 +6,7 @@ import {upload} from '../middleware/multer.middleware.js'
 
 const router = Router()
 
-router.route("/:id/add-new/product").post(upload.fields([{ name: "Image", maxCount: 4 }]), addNewProduct);
+router.route("/:id/add-new/product").post(addNewProduct);
 
 router.route("/:userId/products/:productId").put(UpdateProduct);
 

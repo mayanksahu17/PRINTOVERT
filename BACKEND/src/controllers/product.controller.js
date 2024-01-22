@@ -3,7 +3,6 @@ import {ApiError} from '../utils/ApiError.js'
 import { ApiResponse } from '../utils/ApiResponse.js' 
 import {asyncHandler } from '../utils/asyncHandler.js'
 import { User } from '../models/user.model.js'
-import {uploadOnCloudinary} from '../utils/cloudinary.js'
 
 const addNewProduct = asyncHandler(async (req, res) => {
   try {
@@ -14,21 +13,8 @@ const addNewProduct = asyncHandler(async (req, res) => {
           throw new ApiError(404, "User not found");
       }
 
-      const imagePaths = [];
+    
 
-      for (let i = 0; i < 4; i++) {
-          const imageLocalPath = req.files?.Image?.[i]?.path;
-
-          if (!imageLocalPath) {
-              throw new ApiError(400, `Image${i} file is required`);
-          }
-
-          const image = await uploadOnCloudinary(imageLocalPath);
-          
-          console.log(`Image${i} URL:`, image.url);
-
-          imagePaths.push(image.url);
-      }
 
       const {
           name,
@@ -42,9 +28,13 @@ const addNewProduct = asyncHandler(async (req, res) => {
           shipped,
           delivered,
           ordered,
-      } = req.body;
+          image0,
+          image1,
+          image2,
+          image3
+                   } = req.body;
 
-      // Add more specific validations as needed
+    
 
       const productDetail = {
           name,
@@ -58,10 +48,10 @@ const addNewProduct = asyncHandler(async (req, res) => {
           shipped,
           delivered,
           ordered,
-          image0: imagePaths[0],
-          image1: imagePaths[1],
-          image2: imagePaths[2],
-          image3: imagePaths[3],
+          image0,
+          image1,
+          image2,
+          image3,
       };
 
      // Save the product to get its ID

@@ -15,21 +15,20 @@ const productimage = createSlice({
   initialState,
   reducers: {
     setfront: (state, action) => {
-      state.productimage = action.payload.URL;
+      state.frontimage = action.payload.URL;
+      console.log("action ka data",action.payload.URL);
      
     },
     setback: (state, action) => {
-      state.productimage = action.payload.URL;
+      state.backimage = action.payload.URL;
     },
     setleft: (state, action) => {   
-      state.productimage = action.payload.URL;
+      state.rightimage = action.payload.URL;
     },
     setright: (state, action) => {
-      state.productimage = action.payload.URL;
+      state.leftimage = action.payload.URL;
     },
-    setright: (state, action) => {
-      state.productimage = action.payload.URL;
-    },
+    
 
 
 

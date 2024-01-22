@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   user: null, // Initially, the user is not logged in
   token: null,
+ 
 };
 
 const authSlice = createSlice({
@@ -23,6 +24,7 @@ const authSlice = createSlice({
       state.user = null;
     
     },
+   
   },
 });
 
