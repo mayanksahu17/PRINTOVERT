@@ -3,7 +3,7 @@ import mongoose ,{Schema} from 'mongoose';
 
 const productSchema = new Schema(
 {
-    name: {type: String, required: true, unique: true},
+    name: {type: String,},
 
     image0: {type: String, required: true},
 
@@ -17,11 +17,11 @@ const productSchema = new Schema(
 
     brand: {type: String, },
 
-    category: {type: String, required: true},
+    category: {type: String, },
 
-    description: {type: String, required: true},
+    description: {type: String, },
 
-    price: {type: Number, required: true},
+    price: {type: Number,},
 
     stock: {type: Number},
     

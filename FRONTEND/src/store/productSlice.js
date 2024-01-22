@@ -11,7 +11,8 @@ const initialState = {
   shipped: false,
   delivered: false,
   ordered: false,
-  brand: null
+  brand: null,
+  category : "",
 };
 
 const productSlice = createSlice({
