@@ -181,10 +181,14 @@
 
     return (
       <div className="bg-blue-200 h-[800px] w-[98%]">
-        <p className="text-5xl ml-20 mt-10 font-bold text-blue-900  ">Design Product</p>
+     
         <div className='flex'>
           <div>
+          <h1 className='  font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>Desgin product </h1>
+      <p className=' ml-12 mt-1'>Add you'r image</p>
+      
             <div id="tshirt-div" className="relative W-[450px] h-548 ml-20 mt-10 bg-blue-200">
+              
               <div className="bg-white w-[450px]">
                 <img id="tshirt-backgroundpicture" src={Tshirt} alt="Tshirt Background" />
               </div>
@@ -195,72 +199,89 @@
               </div>
             </div>
             <div>
-              <br /> <br />
+               
               <div className="ml-20 h-[60px] w-full ">
-                <div className='mb-24 h-full w-full '>
-                  <EditButton to='/tshirt-designer'>
+              
+                  <EditButton to='/tshirt-designer'className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  '>
                     Front
                   </EditButton>
-                  <EditButton to="/back-edit">
+                  <EditButton to="/back-edit"className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  '>
                     Back
                   </EditButton>
-                  <EditButton to="/right-side-edit">
+                  <EditButton to="/right-side-edit"className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  '>
                     Right
                   </EditButton>
-                  <EditButton to="/left-side-edit">
+                  <EditButton to="/left-side-edit"className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  '>
                     Left
                   </EditButton>
-                </div>
+             
               </div>
             </div>
           </div>
           <div>
-            <br />
-            <br />
-            <br />
-            <div className="absolute top-20 left-[1000px]">
-              <div className='flex'>
-                <p className="text-3xl">Add your image</p>
-                <EditButton to={"/preview"} children={"Preview"} className='ml-28' />
-              </div>
-              <p>Maximum print area (W x H)-15.60 in x19.60</p>
-              <div className='mt-5'>
-                <EditButton to="/design-product" >
+          
+            
+              <EditButton to="/design-product" className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  ' >
                   Back
                 </EditButton>
+
+                <EditButton   to={"/preview"} children={"Preview"} className='ml-80     mt-11   h-10 w-30 rounded-3xl text-white  border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold ' />
                 <EditButton >
                   {' '}
                   Save Product
                 </EditButton>
-              </div> <br />
+
+              
+            <div className="absolute top-16 left-[1000px]">
+             
+              <div className=''>
+             
+                <div className='flex'>
+                  
+                </div>
+
+                <div>
+                  
+               
+
+              <h1 className='font-bold mt-20     text-blufont-cerebriSans text-blue-900 co text-4xl'>Editing Canves </h1>
+                </div>
+               <p className=' mt-1'>Maximum print area (W x H)-15.60 in x19.60</p>
+              
+              </div>
+              {/* <p>Maximum print area (W x H)-15.60 in x19.60</p> */}
+              <div className='mt-5'>
+                
+                
+              </div> 
               <p className="text-2xl">colors</p>
               <br />
               <div className="flex">
                 <Colorbox />
-              </div> <br /> <br />
+              </div> <br /> 
               <p className="text-2xl">Size</p>
               <br />
               <div className="flex">
                 <Sizes />
               </div>
               <br />
-              <br />
+             
               <p className="text-2xl ">Total Price: <span className="text-blue-500">100</span> {"  "}(Taxes Apply)</p>
               <br />
-              <EditButton onClick={toggleUploadForm} >
+              <EditButton onClick={toggleUploadForm} className='  mt-11   h-10 w-30 rounded-3xl text-white  border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold' >
                 Upload
               </EditButton>
-              <EditButton onClick={handleSave} >
+              <EditButton onClick={handleSave}  className='ml-6  mt-11   h-10 w-30 rounded-3xl text-white  border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold' >
                 {' '}
                 Save
               </EditButton>
               {showUploadForm && (
-                <form className="uploadDiving h-full   w-96 border-2 rounded-2xl border-blue-500/100 ml-42 mt-5 bg-transparent hover:bg-white">
+                <form className="uploadDiving h-12   w-72   border-2 rounded-2xl border-blue-500/100 ml-42 mt-5 bg-transparent hover:bg-white">
                   <label htmlFor="imageInput" className="drop-container" id="dropcontainer">
-                    <span className="drop-title text-3xl font-bold ml-24 text-blue-500 ">Drop files here</span>
-                    <h1 className="mr-18 w-fulll h-8 font-bold text-center mt-4 text-blue-500 ">Or</h1>
+                    {/* <span className="drop-title text-3xl font-bold ml-24 text-blue-500 ">Drop files here</span>
+                    <h1 className="mr-18 w-fulll h-8 font-bold text-center mt-4 text-blue-500 ">Or</h1> */}
                     <div className="flex">
-                      <input type="file" id="imageInput" accept="image/*" className="w-42 mt-2 ml-20" onChange={handleCustomPicture} required />
+                      <input type="file" id="imageInput" accept="image/*" className="w-42 mt-2  ml-8" onChange={handleCustomPicture} required />
                       <div className="btn-collectioninput-fs16 ">
                       </div>
                     </div>

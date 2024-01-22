@@ -2,8 +2,13 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../button/Button';
 import Orders from './Orders';
+<<<<<<< HEAD
 import{ setProducts , removeProducts} from '../../store/allProducts.js';
 // import {getAllProducts} from '../../actions/Product.js'
+=======
+import{ setProducts,removeProducts} from '../../store/allProducts.js';
+// import getAllProducts from '../../actions/Product.js'
+>>>>>>> 6bc37cb705019c415e08e0a278da92e3cf6450b2
 import store from '../../store/store.js';
 
 
