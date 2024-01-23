@@ -20,6 +20,37 @@
     const stateColor = useSelector((state) => state.product.color);
     const userId = useSelector((state) => state.auth.user?._id);
     const stateImage = useSelector((state) => state.images.selectedImage);
+    const [printCost,setPrintCost] = useState(0)
+    const [pricing, setPricing] = useState({
+      baseRate: 0.3, 
+      additionalRate: 0.55, 
+      minimumCharge: 20,
+    });
+
+
+    const calculatePrintCost = (width, height) => {
+      const totalSqInch = width * height;
+  
+      // Apply different rates based on size
+      let printCost = 0;
+      if (totalSqInch <= 11 * 16) {
+        printCost = totalSqInch * pricing.baseRate;
+      } else {
+        printCost =
+          11 * 16 * pricing.baseRate + (totalSqInch - 11 * 16) * pricing.additionalRate;
+      }
+  
+      // Apply minimum charge
+      printCost = Math.max(printCost, pricing.minimumCharge);
+  
+      return printCost;
+    };
+    const handleCalculate = (width, height) => {
+      const cost = calculatePrintCost(width, height);
+      console.log('Printing Cost:', cost, 'Rs');
+      setPrintCost(cost)
+
+    };
 
     useEffect(() => {
       const fabricCanvas = new fabric.Canvas('tshirt-canvas');
@@ -43,15 +74,18 @@
     const loadImageIntoCanvas = (imageUrl, canvas) => {
       const imgObj = new Image();
       imgObj.crossOrigin = 'anonymous';
-
+  
       imgObj.onload = () => {
         const fabricImg = new fabric.Image(imgObj);
         fabricImg.scaleToHeight(300);
         fabricImg.scaleToWidth(300);
-
+  
+        // Use the handleCalculate function to calculate printing cost
+        handleCalculate(imgObj.width / fabricImg.scaleX, imgObj.height / fabricImg.scaleY);
+  
         canvas && (canvas.add(fabricImg), canvas.renderAll());
       };
-
+  
       imgObj.src = imageUrl;
     };
 
@@ -68,23 +102,21 @@
     const handleDesignChange = (e) => {
       updateTshirtImage(e.target.value);
     };
-
     const handleCustomPicture = async (e) => {
       const reader = new FileReader();
-
+  
       reader.onload = async (event) => {
         const imgObj = new Image();
         imgObj.src = event.target.result;
-
+  
         imgObj.onload = () => {
           const fabricImg = new fabric.Image(imgObj);
           fabricImg.scaleToHeight(300);
           fabricImg.scaleToWidth(300);
 
-          canvas && (canvas.add(fabricImg), canvas.renderAll());
+          handleCalculate(imgObj.width / fabricImg.scaleX, imgObj.height / fabricImg.scaleY);
         };
       };
-
       if (e.target.files[0]) {
         localStorage.setItem('image1', e.target.files[0]);
         const item = e.target.files[0] ? e.target.files[0] : localStorage.getItem('image1');
@@ -97,8 +129,6 @@
           console.error("Error uploading image:", error);
           // Handle the error as needed
         }
-
-        
       }
     };
 
@@ -107,6 +137,7 @@
         console.log('Removing selected element on Fabric.js on DELETE key!');
         canvas && canvas.remove(canvas.getActiveObject());
         dispatch(removeSelectedImage({ image: "" }));
+        setPrintCost(0)
 
       }
     };
@@ -181,13 +212,13 @@
 
     return (
       <div className="bg-blue-200 h-[800px] w-[98%]">
-      <div className="flex flex-col sm:flex-row">
-        <div className="sm:w-1/2">
-          <h1 className="font-bold mt-8 ml-7 text-blufont-cerebriSans text-blue-900 co text-5xl">
-            Design product
-          </h1>
-          <p className="ml-12 mt-1">Add your image</p>
-      <div id="tshirt-div" className="relative w-full sm:w-[450px] h-548 ml-20 mt-10 bg-blue-200">
+     
+        <div className='flex'>
+          <div>
+          <h1 className='  font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>Desgin product </h1>
+      <p className=' ml-12 mt-1'>Add you'r image</p>
+      
+            <div id="tshirt-div" className="relative W-[450px] h-548 ml-20 mt-10 bg-blue-200">
               
               <div className="bg-white w-[450px]">
                 <img id="tshirt-backgroundpicture" src={Tshirt} alt="Tshirt Background" />
@@ -216,23 +247,18 @@
                   </EditButton>
              
               </div>
-              
             </div>
           </div>
-            <div className="sm:w-1/2">
-
+          <div>
           
             
               <EditButton to="/design-product" className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  ' >
                   Back
                 </EditButton>
-
+  
                 <EditButton   to={"/preview"} children={"Preview"} className='ml-80     mt-11   h-10 w-30 rounded-3xl text-white  border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold ' />
-                <EditButton >
-                  {' '}
-                  Save Product
-                </EditButton>
-
+            
+  
               
             <div className="absolute top-16 left-[1000px]">
              
@@ -241,11 +267,11 @@
                 <div className='flex'>
                   
                 </div>
-
+  
                 <div>
                   
                
-
+  
               <h1 className='font-bold mt-20     text-blufont-cerebriSans text-blue-900 co text-4xl'>Editing Canves </h1>
                 </div>
                <p className=' mt-1'>Maximum print area (W x H)-15.60 in x19.60</p>
@@ -268,7 +294,7 @@
               </div>
               <br />
              
-              <p className="text-2xl ">Total Price: <span className="text-blue-500">100</span> {"  "}(Taxes Apply)</p>
+              <p className="text-2xl ">Total Price: <span className="text-blue-500">{printCost}</span> {"  "}(Taxes Apply)</p>
               <br />
               <EditButton onClick={toggleUploadForm} className='  mt-11   h-10 w-30 rounded-3xl text-white  border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold' >
                 Upload

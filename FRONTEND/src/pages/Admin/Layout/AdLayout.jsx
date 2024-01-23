@@ -4,11 +4,10 @@ import  Header  from '../../../components/Admin/Header/Header'
 function AdLayout() {
   return (
   <>
-  <div className='flex h-[800px]'>
+  <div className='flex  overflow-hidden'>
   <Header />
   <Outlet />
   </div>
-
   </>
   )
 }

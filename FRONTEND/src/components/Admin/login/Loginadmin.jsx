@@ -39,7 +39,6 @@ function Loginadmin() {
   return (
     <div className='bg-blue-200 w-full h-180 '>
       <div>
-        
          <h1 className='font-bold mt-8 ml-8  text-blufont-cerebriSans text-blue-900 co text-5xl'>Sign In</h1>
         <p className='ml-12 mt-1'>Log in Your Account </p>
       </div>

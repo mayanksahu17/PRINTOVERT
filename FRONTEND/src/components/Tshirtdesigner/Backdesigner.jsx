@@ -232,10 +232,7 @@ const Backdesigner = () => {
               </EditButton>
 
               <EditButton   to={"/preview"} children={"Preview"} className='ml-80     mt-11   h-10 w-30 rounded-3xl text-white  border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold ' />
-              <EditButton >
-                {' '}
-                Save Product
-              </EditButton>
+          
 
             
           <div className="absolute top-16 left-[1000px]">
