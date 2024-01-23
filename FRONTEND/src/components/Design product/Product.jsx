@@ -2,8 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 function Product({ image , name }) {
+  const handleClick= ()=>{
+    
+  }
   return (
-    <div className=''>
+    <div className='' onClick={handleClick}>
       <NavLink to="/tshirt-designer">
         <div className='bg-slate-100 h-72  w-52 rounded-3xl ml-8 hover:shadow-2xl mt-5  '> 
           <img className=' h-60 ml-2 w-48 rounded-2xl top-3' src={image} alt="" />

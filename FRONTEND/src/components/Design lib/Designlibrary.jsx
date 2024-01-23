@@ -3,7 +3,7 @@ import { IoIosCloudUpload } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addImage, pushImage ,selectedImage } from '../../store/imageslice.js';
-import { uploadImage, getAllImages } from '../../actions/Image.js';
+import { uploadImage, getAllImages,libuploadImage } from '../../actions/Image.js';
 import store from '../../store/store.js';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,12 +27,13 @@ let x
       if (user) {
         const userId = user._id;
         const responseData = await getAllImages(userId, dispatch);
+      
         setImages(responseData); // Update local state with fetched images
       }
     };
 
     fetchData();
-  }, [user, dispatch,x]);
+  }, [user, dispatch,x,showUploadForm]);
 
   const onSubmit = async (data) => {
     const file = data.image[0];
@@ -46,8 +47,9 @@ let x
       setError('Image uploading, please wait...');
 
       const userId = user._id;
-      const image = await uploadImage(file, userId);
-
+      const image = await libuploadImage(file, userId);
+    
+      // await libuploadImage(image.data.imageURL,userId)
       // Update the UI by immediately adding the new image to the images array
       dispatch(pushImage(image));
       setImages((prevImages) => [...prevImages, image]); // Update local state
@@ -60,10 +62,7 @@ let x
     }
   };
   
-  const selectImage = (imageUrl)=>{
-        
-
-  } 
+  
 
   return (
     <div className='bg-blue-200 w-full h-[800px]'>

@@ -11,6 +11,7 @@
   import { uploadImage } from '../../actions/Image.js';
   import store from '../../store/store.js';
   import { setfront } from '../../store/productimage.js';
+  import { setPrice } from '../../store/productSlice.js';
   // import upload from './ds.js';
 
   const TShirtDesigner = () => {
@@ -19,6 +20,7 @@
     const dispatch = useDispatch();
     const stateColor = useSelector((state) => state.product.color);
     const userId = useSelector((state) => state.auth.user?._id);
+    
     const stateImage = useSelector((state) => state.images.selectedImage);
     const [printCost,setPrintCost] = useState(0)
     const [pricing, setPricing] = useState({
@@ -49,7 +51,7 @@
       const cost = calculatePrintCost(width, height);
       console.log('Printing Cost:', cost, 'Rs');
       setPrintCost(cost)
-
+      dispatch(setPrice({price: cost}))
     };
 
     useEffect(() => {
@@ -138,7 +140,7 @@
         canvas && canvas.remove(canvas.getActiveObject());
         dispatch(removeSelectedImage({ image: "" }));
         setPrintCost(0)
-
+        dispatch(setPrice({price: 0}))
       }
     };
 

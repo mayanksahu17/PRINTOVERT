@@ -11,6 +11,11 @@ import Sweatshirt from '../../assets/images/Sweatshirt.jpeg'
 
 
 function Designproduct() {
+
+
+
+
+
   return (
 
 
@@ -36,10 +41,12 @@ function Designproduct() {
 <div className='flex flex-wrap'>
 
 <Product image = {fullsleeve} name={"Full sleeve"}/>
-<Product image = {Hoodie} name={"Hoodie"} />
+
+<Product image = {Hoodie} name={"Hoodie"}  />
+
 <Product image = {oversizedtishirt} name={"oversizedtishirt"} />
 <Product image = {Regular}  name={"Regular"}/>
-<Product image = {Sweatshirt} name={"Sweatshirt"} />
+<Product image = {Sweatshirt} name={"Sweatshirt"}/>
 
   
 </div>

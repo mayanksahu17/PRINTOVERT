@@ -110,9 +110,39 @@ const registerUser = async (userData) => {
   }
 };
 
+const updateProfile = async (userId, userData) => {
+  try {
+    const apiUrl = `http://localhost:8000/api/v1/users/${userId}/update-account`;
+
+    const response = await fetch(apiUrl, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Profile updated successfully:', data);
+      return data;
+    } else {
+      console.error('Failed to update profile:', response.statusText);
+      // Handle failure (e.g., show an error message)
+      return null;
+    }
+  } catch (error) {
+    console.error('Unexpected error updating profile:', error);
+    // Handle unexpected errors
+    return null;
+  }
+};
+
+
 
 export {
   handleLogin,
   registerUser,
-  refreshAccessToken
+  refreshAccessToken,
+  updateProfile
 }

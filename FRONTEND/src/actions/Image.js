@@ -33,6 +33,38 @@ const uploadImage = async (file, userId) => {
 };
 
 
+const libuploadImage = async ( file ,userId) => {
+  try {
+    console.log(userId);
+    const apiUrl = `http://localhost:8000/api/v1/users/${userId}/upload/library/image`;
+    if (!file) console.log("file leke a bhai ");
+
+    const formData = new FormData();
+    formData.append('Image', file);
+
+
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      body: formData,
+      headers: {},
+    });
+
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("result data : ", data);
+
+    return data;
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    throw error;
+  }
+};
+
+
 
 
 const getAllImages = async (userId, dispatch) => {
@@ -62,5 +94,6 @@ const getAllImages = async (userId, dispatch) => {
 
 export {
   getAllImages,
-  uploadImage
+  uploadImage,
+  libuploadImage
 }

@@ -15,17 +15,17 @@ const createTicket = asyncHandler(async (req, res) => {
         return res.status(404).json({ message: 'User not found' });
       }
   
-      const { subject, image, status, callBackNumber, response, category, description } = req.body;
+      const { subject, image, callBackNumber, query,  description } = req.body;
   
-      // Create a new ticket
+     
       const newTicket = new Ticket({
         subject,
         image,
-        status,
+        query,
         callBackNumber,
-        response,
-        category,
-        description
+        description,
+        status : "pending",
+        response : "N/A"
       });
   
       // Save the new ticket

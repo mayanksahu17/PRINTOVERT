@@ -82,24 +82,39 @@ const UpdateProduct = asyncHandler(async (req, res) => {
       throw new ApiError(404, "User not found");
     }
   
-    const { ordered, delivered, shipped } = req.body;
-    const { orders } = user;
+    const { ordered, delivered, shipped , price, quantity } = req.body;
+
+    if (!(price*quantity > user.walletBalance)) {
+      const { orders } = user;
   
-    const indexToUpdate = orders.findIndex((product) => product?._id === productId);
-  
-    if (indexToUpdate !== -1) {
-      // Update the properties
-      orders[indexToUpdate] = { ...orders[indexToUpdate], ordered, delivered, shipped };
-  
-      // Save the updated user with the modified orders array
-      await user.save();
-  
-      res
-      .status(200)
-      .json(new ApiResponse(200,"Order UPDATED Successfully" ));
-    } else {
-      throw new ApiError(404, "Product not found in user's orders");
+      const product = await Product.findById(productId)
+
+      
+      if (!product) {
+     
+        throw new ApiError(404, "Product not found in user's orders");
+      
+      }
+     
+      
+        product.ordered = ordered;
+        product.delivered =  delivered;
+        product.shipped =  shipped;
+
+
+        user.walletBalance = user.walletBalance - price*quantity
+        user.spent = price*quantity
+        await product.save()
+        await user.save();  
+    
+        res
+        .status(200)
+        .json(new ApiResponse(200,"Order UPDATED Successfully" ));
+     
+    }else{
+      throw new ApiError(404, "Not enough wallet ballance");
     }
+   
   });
   
 

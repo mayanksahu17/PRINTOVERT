@@ -50,8 +50,34 @@ const getAllProducts = async () => {
   }
 };
 
+const updateProduct = async (productId, userId, updateData) => {
+  try {
+    console.log(productId,userId,updateData);
+    const apiUrl = `http://localhost:8000/api/v1/users/products/${userId}/products/${productId}`;
+    const response = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updateData),
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      return responseData.data;
+    } else {
+      const errorData = await response.json();
+      console.error('Error updating product:', errorData.message || 'An error occurred');
+      return null;
+    }
+  } catch (error) {
+    console.error('Unexpected error updating product:', error);
+    return null;
+  }
+};
 
 export  {
   uploadProduct,
-  getAllProducts
+  getAllProducts,
+  updateProduct
 };

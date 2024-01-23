@@ -26,12 +26,16 @@ function Paymentpage() {
     }
 
     // Call makePayment function with the amount and screenshot
-    const paymentresult = await makePayment(userId,amount, screenshot);
-    if (paymentresult) {
-      setAmount("")
-      setScreenshot(undefined)
-      setMessage(true)
+    if (userId) {
+      const paymentresult = await makePayment(userId,amount, screenshot);
+
+      if (paymentresult) {
+        setAmount("")
+        setScreenshot(undefined)
+        setMessage(true)
+      }
     }
+   
     // Optionally, you can perform additional actions after successful payment
 
     // Redirect or update UI as needed

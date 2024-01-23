@@ -7,6 +7,7 @@ import {uploadProduct} from '../../actions/Product.js';
 
 function Preview() {
   const [message , setMessage] = useState("")
+  const [name , setname] = useState("")
   const retrievedImageData = localStorage.getItem('frontimage');
   const retrievedImageData2 = localStorage.getItem('backimage');
   const retrievedImageData3 = localStorage.getItem('rightimage');
@@ -146,8 +147,8 @@ function Preview() {
       <div className='flex'>
 
         <div className='mt-10 ml-10 w-[50%]'>
-          <div className='font-bold text-2xl '>
-            Name : <input type="text"  />
+          <div className='font-semibold text-2xl '>
+            Name : <input type="text" placeholder='Enter the name of product' className='text-sm' value={name} onChange={(e) => setname(e.target.value)}/>
           </div>
           <div className='font-bold text-2xl mt-6'>
             Size : {size}

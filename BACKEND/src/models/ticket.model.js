@@ -3,18 +3,18 @@ import mongoose from "mongoose";
 const ticketSchema = new mongoose.Schema({
     subject : {
         type : String,
-        required   : true
+        
     },
     image: {
-        type: String // Storing a single imageURL for the user
+        type: String 
     },
     status : {
         type : String,
-        required   : true
+       
     },
     callBackNumber : {
         type : String,
-        required   : true
+       
     },
     response : {
         type : String,

@@ -36,6 +36,11 @@ const productSlice = createSlice({
       state.color = "white";
       state.size = null;
     },
+    setPrice: (state, action) => {
+      state.price = action.payload.price;
+     
+    },
+
   },
 });
 
@@ -47,6 +52,7 @@ export const {
   Editrightimage,
   Editleftimage,
   removeTshirt,
+  setPrice
 } = productSlice.actions;
 
 export default productSlice.reducer;

@@ -67,13 +67,13 @@ function CreateOrder() {
 
       <div className='flex'>
         {productData?.map((product) => (
-          <Orders key={product._id} orderData={product} />
+          <Orders key={product._id} orderData={product} userId={userId} />
         ))}
       </div>
 
       <div className='h-18 w-full ml-10 flex mt-32'>
-        <Button children={'Buy Product'} />
-        <Button  className='hover:bg-red-600 ' children={'Delete Product'} />
+       
+        {/* <Button  className='hover:bg-red-600 ' children={'Delete Product'} /> */}
       </div>
     </div>
   );

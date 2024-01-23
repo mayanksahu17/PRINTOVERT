@@ -202,15 +202,17 @@ const getCurrentUser = asyncHandler(async(req,res)=>{
 })
 
 const updateAccountDetails = asyncHandler(async(req,res)=>{
-  const {fullName , email} = req.body
+  const {fullName , email , address ,phoneNumber} = req.body
   if (!fullName || !email) {
     throw new ApiError(400,"All feilds are required")  }
     
-   const user = await User.findByIdAndUpdate(req.user?._id,
+   const user = await User.findByIdAndUpdate(req.params?.id,
      {
       $set : {
         fullName,
-        email
+        email,
+        address,
+        phoneNumber
       }
      } ,
      {new : true } 
@@ -295,6 +297,41 @@ const uploadImage = asyncHandler(async (req, res) => {
   }
 });
 
+const libraryImage = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new ApiError(401, "User does not exist");
+    }
+
+    if (!req.files || !req.files.Image || !req.files.Image[0]) {
+      throw new ApiError(400, 'Image file is required');
+    }
+
+    const imageLocalPath = req.files.Image[0].path;
+    console.log('Local Image Path:', imageLocalPath);
+
+    const image = await uploadOnCloudinary(imageLocalPath);
+    console.log('Image URL:', image.url);
+
+    if (!image || !image.url) {
+      throw new ApiError(401, "Image URL is required");
+    }
+
+    user.libraryImage.push(image.url);
+    await user.save();
+
+    res.status(200).json(new ApiResponse(200, user.libraryImage, "Image added successfully"));
+  } catch (error) {
+    return res.status(500).json(new ApiError(500, { message: 'Internal Server Error', error }));
+  }
+});
+
+
+
+
 const getAllImages = asyncHandler(async (req, res) => {
   try {
   
@@ -312,8 +349,7 @@ const getAllImages = asyncHandler(async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Extract all image URLs from the user's 'image' array
-    const imageUrls = user.image.map((img) => img.imageURL);
+    const imageUrls = user.libraryImage
 
     return res.status(200).json(new ApiResponse(200, imageUrls, 'All Image URLs Retrieved'));
   } catch (error) {
@@ -321,6 +357,9 @@ const getAllImages = asyncHandler(async (req, res) => {
     return res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
+
+
 
 const getAllUserTransactions = asyncHandler(async (req, res) => {
   try {
@@ -422,4 +461,6 @@ export {
   getAllUserTransactions,
   getAllOrderedProducts,
   addWalletBalance,
+  libraryImage,
+
 }

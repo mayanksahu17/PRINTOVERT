@@ -13,6 +13,7 @@ import {
     getAllImages,
     getAllUserTransactions,
     getAllOrderedProducts,
+    libraryImage
 } from '../controllers/user.controller.js'
  import {  getAllUserTickets  ,  createTicket} from '../controllers/ticket.controller.js'
 import {upload} from '../middleware/multer.middleware.js'
@@ -40,9 +41,11 @@ router.route("/current-user").get(verifyJWT,getCurrentUser)
 
 router.route("/credencials").get(getUserCredencials)
 
-router.route("/update-account").patch(verifyJWT,updateAccountDetails)
+router.route("/:id/update-account").patch(updateAccountDetails)
 
 router.route("/image/:id").post(upload.fields([{ name: "Image", maxCount: 1 }]), uploadImage);
+
+router.route("/:id/upload/library/image").post(upload.fields([{ name: "Image", maxCount: 1 }]),libraryImage)
 
 router.route("/all-image/:id").get(getAllImages);
 
@@ -52,9 +55,11 @@ router.route("/:id/transactions").get(getAllUserTransactions);
 
 router.route("/:id/cart").get(getAllOrderedProducts);
 
-router.route("/:id/create-ticket/").post(upload.fields([{ name: "Image", maxCount: 1 }]), createTicket);
+router.route("/:id/create-ticket").post(createTicket);
 
 router.route("/:id/wallet/request").post(addWalletBalance)
+
+
 
 
 

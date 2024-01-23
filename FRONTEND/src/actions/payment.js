@@ -2,7 +2,7 @@ import { uploadImage } from './Image.js';
 
 
 
-const makePayment = async (userIdamount, imageFile) => {
+const makePayment = async (userId,amount, imageFile) => {
 
 console.log(userId);
 const apiUrl = `http://localhost:8000/api/v1/users/${userId}/wallet/request`;
