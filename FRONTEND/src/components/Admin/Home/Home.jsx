@@ -5,9 +5,15 @@ function Home() {
   return (
     <>
       <div className='bg-blue-200 w-[100%] h-[800px]'>
-      <div className='bg-blue-200 w-full h-180'> 
-                <h2 className='font-bold mt-8 ml-7 font-cerebriSans text-3xl text-blue-900'>All Users</h2>
-                <h5 className='text-gray-600 ml-7 font-bold '>Let's have a Tour to the Users</h5>
+      <div className='bg-blue-200 w-full h-180'>
+
+
+      <div>
+        
+                <h1 className='font-bold mt-8 ml-8  text-blufont-cerebriSans text-blue-900 co text-5xl'>All Users</h1>
+                <h5 className='text-black ml-7 '>Let's have a Tour to the Users</h5>
+                   
+    </div>
     
     
     

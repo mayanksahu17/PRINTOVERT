@@ -46,7 +46,7 @@ function Login() {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='h-96 w-96 ml-[30%] mt-14 bg-slate-100 rounded-2xl hover:shadow-2xl'>
-          <h1 className='ml-16 font-semi-bold p-4 text-2xl'>Login to your Account</h1>
+          <h1 className='ml-16   font-semi-bold p-4 text-2xl'>Login to your Account</h1>
 
           <div className='flex justify-between w-[90%] mt-16 font-semi-bold '>
             <div className='ml-7 text-xl'>Username</div>
