@@ -23,7 +23,7 @@ function Designproduct() {
          <div className=''> </div>
 
     <div className='ml-60'>
-    <h2 className=' text-black-800 text-2xl mt-10 ml-72 font-semibold '>Select the varient</h2>
+    <h2 className=' text-black font-serif     underline underline-offset-2  text-3xl mt-10 ml-72 font-semibold '>Select the varient</h2>
     </div>
   </div> 
 
