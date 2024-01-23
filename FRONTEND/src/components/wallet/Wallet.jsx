@@ -10,21 +10,21 @@ function Wallet() {
   let spent = user?.spent || 0
   const userId = user?._id
 
-  useEffect(() => {
-    // Fetch user transactions when the component mounts
-    const fetchTransactions = async () => {
-      try {
-        const userTransactions = await getAllUserTransactions(userId);
+  // useEffect(() => {
+  //   // Fetch user transactions when the component mounts
+  //   const fetchTransactions = async () => {
+  //     try {
+  //       const userTransactions = await getAllUserTransactions(userId);
 
-        setTransactions(userTransactions);
-      } catch (error) {
-        console.error('Error fetching transactions:', error.message);
-        // Handle the error appropriately
-      }
-    };
+  //       setTransactions(userTransactions);
+  //     } catch (error) {
+  //       console.error('Error fetching transactions:', error.message);
+  //       // Handle the error appropriately
+  //     }
+  //   };
 
-    fetchTransactions();
-  }, [userId]);
+  //   fetchTransactions();
+  // }, [userId]);
  
   return (
     

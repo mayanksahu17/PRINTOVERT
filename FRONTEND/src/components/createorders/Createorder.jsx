@@ -73,7 +73,7 @@ function CreateOrder() {
 
       <div className='h-18 w-full ml-10 flex mt-32'>
         <Button children={'Buy Product'} />
-        <Button children={'Delete Product'} />
+        <Button  className='hover:bg-red-600 ' children={'Delete Product'} />
       </div>
     </div>
   );

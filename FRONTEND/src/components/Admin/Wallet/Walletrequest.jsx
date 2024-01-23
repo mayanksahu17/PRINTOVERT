@@ -19,7 +19,7 @@ function Walletrequest() {
 
 <div className='flex mt-64 ml-32'>
 <div className='w-[50%] flex justify-between'><button className='ml-8 rounded-2xl p-2 w-[80%] h-8 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 font-semibold'><div className=' -mt-2'>Approve</div></button></div>
-<div className='w-[50%] flex justify-between'><button className='ml-10 rounded-2xl p-2  w-52 h-8  bg-white hover:bg-blue-600 hover:text-white  border-gray-600 border-2 font-semibold'><div className=' -mt-2'> Reject</div></button> </div>
+<div className='w-[50%] flex justify-between'><button className='ml-10 rounded-2xl p-2  w-52 h-8  bg-white hover:bg-red-600 hover:text-white  border-gray-600 border-2 font-semibold'><div className=' -mt-2'> Reject</div></button> </div>
 </div>
 
    </div>
