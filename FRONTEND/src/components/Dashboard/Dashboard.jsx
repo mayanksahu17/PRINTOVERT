@@ -17,7 +17,6 @@ const navigate = useNavigate()
     let totalOrder = user?.totalOrders || 0
 
 
-    console.log(store.getState().product);
 
 
     if(!user){

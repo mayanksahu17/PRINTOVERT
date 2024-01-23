@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../button/Button';
 import Orders from './Orders';
-
+import store from '../../store/store.js';
 import{ setProducts , removeProducts} from '../../store/allProducts.js';
 // import {getAllProducts} from '../../actions/Product.js'
-import store from '../../store/store.js';
+
 
 
 function CreateOrder() {

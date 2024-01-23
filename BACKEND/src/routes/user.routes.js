@@ -14,7 +14,7 @@ import {
     getAllUserTransactions,
     getAllOrderedProducts,
 } from '../controllers/user.controller.js'
- import {  getAllUserTickets , raiseTicket ,  createTicket} from '../controllers/ticket.controller.js'
+ import {  getAllUserTickets  ,  createTicket} from '../controllers/ticket.controller.js'
 import {upload} from '../middleware/multer.middleware.js'
 import {verifyJWT } from '../middleware/auth.middleware.js'
 
@@ -48,9 +48,9 @@ router.route("/all-image/:id").get(getAllImages);
 
 router.route("/:id/tickets").get(getAllUserTickets);
 
-router.route("/:id/transactions ").get(getAllUserTransactions);
+router.route("/:id/transactions").get(getAllUserTransactions);
 
-router.route("/:id/cart ").get(getAllOrderedProducts);
+router.route("/:id/cart").get(getAllOrderedProducts);
 
 router.route("/:id/create-ticket/").post(upload.fields([{ name: "Image", maxCount: 1 }]), createTicket);
 

@@ -52,9 +52,9 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
     username: username.toLowerCase(),
     phoneNumber,
-    spent : 1280,
-    totalOrders:19,
-    walletBalance : 19000,
+    spent : 0,
+    totalOrders:0,
+    walletBalance : 0,
     
   });
 
@@ -356,7 +356,7 @@ const getAllOrderedProducts = asyncHandler(async (req, res) => {
     }
 
     // Fetch ordered products in the user's cart
-    const orderedProducts = await Product.find({ _id: { $in: user.cart }, ordered: true });
+    const orderedProducts = await Product.find({ _id: { $in: user.orders }, ordered: true });
 
     return res.status(200).json({ success: true, data: orderedProducts });
   } catch (error) {
@@ -365,38 +365,44 @@ const getAllOrderedProducts = asyncHandler(async (req, res) => {
   }
 });
 
-
 const addWalletBalance = asyncHandler(async (req, res) => {
-
   const userId = req.params.id;
+
   try {
-      const { amount , image } = req.body
+    const { amount, image } = req.body;
 
-      const user = await User.findById(userId);
+    const user = await User.findById(userId);
 
-      if (!user) {
-          throw new ApiError(404, "User not found");
-      }
-      const walletrequest = await  wallet.create({amount,image,userId})
-      let transaction = {
-        amount : amount,
-        Status : walletrequest.status,
-        response : walletrequest.status,
-        added :  walletrequest.status,
-        deliveryCompany : "Admin",
-      }
-      const transections = await Transection.create(transaction)
-
-    if (!walletrequest) {
-      throw new ApiError(401,"Failed to generate request ")
+    if (!user) {
+      throw new ApiError(404, "User not found");
     }
-      return res.status(200).json(new ApiResponse(200, walletrequest, 'Wallet balance updated successfully'));
 
+    // Create a new wallet request
+    const walletRequest = await wallet.create({ amount, image, userId: userId.toString() });
+
+
+    const newTransaction = await Transection.create({
+      amount: amount,
+      Status: "Pending",
+      response: "Pending",
+      added: "Pending",
+      deliveryCompany: "Admin",
+  });
+  
+  user.Transection.push(newTransaction._id);
+  await user.save();
+
+    if (!walletRequest) {
+      throw new ApiError(401, "Failed to generate request");
+    }
+
+    return res.status(200).json(new ApiResponse(200, walletRequest, 'Wallet balance updated successfully'));
   } catch (error) {
-      console.error('Error:', error);
-      res.status(error.statusCode || 500).json({ message: error.message || "Internal Server Error" });
+    console.error('Error:', error);
+    res.status(error.statusCode || 500).json({ message: error.message || "Internal Server Error" });
   }
 });
+
 
 
 

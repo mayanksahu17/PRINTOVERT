@@ -2,7 +2,9 @@ import React, { useEffect , useState} from 'react';
 import { useSelector } from 'react-redux';
 import EditButton from './EditButton';
 import store from '../../store/store';
+import { nanoid } from '@reduxjs/toolkit';
 import {uploadProduct} from '../../actions/Product.js';
+
 function Preview() {
   const [message , setMessage] = useState("")
   const retrievedImageData = localStorage.getItem('frontimage');
@@ -13,7 +15,8 @@ function Preview() {
     console.log('Clearing local storage');
     localStorage.clear();
   };
-
+  const user = store.getState().auth.user; 
+  const userId = user?._id
  
   useEffect(() => {
     // Create an image element and append it to the container
@@ -44,7 +47,21 @@ function Preview() {
       });
     };
   }, [retrievedImageData, retrievedImageData2, retrievedImageData3, retrievedImageData4]);
-
+  const backimage = store.getState().productimage.backimage;
+  const frontimage = store.getState().productimage.frontimage;
+  const leftimage = store.getState().productimage.leftimage;
+  const rightimage = store.getState().productimage.rightimage;
+  const color = store.getState().product.color;
+  const size = store.getState().product.size;
+  const delivered = store.getState().product.delivered;
+  const name1 = store.getState().product.name;
+  const ordered = store.getState().product.ordered;
+  const rating = store.getState().product.rating;
+  const brand = store.getState().product.brand;
+  const shipped = store.getState().product.shipped;
+  const stock = store.getState().product.stock;
+  const category = store.getState().product.category;
+  const price = store.getState().product.price
 
   const saveProduct = async () => {
     try {
@@ -62,13 +79,12 @@ function Preview() {
       const shipped = store.getState().product.shipped;
       const stock = store.getState().product.stock;
       const category = store.getState().product.category;
-  
       const productData = {
         image0: backimage,
         image1: frontimage,
         image2: leftimage,
         image3: rightimage,
-        // name: "name5",
+        name: nanoid(),
         color: color,
         size: size,
         price: store.getState().product.price,
@@ -82,9 +98,9 @@ function Preview() {
       };
       
       console.log(productData);
-      const response = await uploadProduct(productData);
-  
-      if (response.ok) {
+      const response = await uploadProduct(userId,productData);
+    
+      if (response) {
         setMessage("Product Saved");
         deleteStorage()
 
@@ -131,19 +147,19 @@ function Preview() {
 
         <div className='mt-10 ml-10 w-[50%]'>
           <div className='font-bold text-2xl '>
-            Name : x
+            Name : <input type="text"  />
           </div>
           <div className='font-bold text-2xl mt-6'>
-            Size : x
+            Size : {size}
           </div>
           <div className='font-bold text-2xl mt-6'>
-            Color : x
+            Color :{color}
           </div>
           <div className='font-bold text-2xl mt-6'>
-            Price : x
+            Price : {price}
           </div>
           <div className='font-bold text-2xl mt-6'>
-            Brand : x
+            Brand : {brand} 
           </div>
         </div>
         <div className='w-72'>

@@ -1,10 +1,7 @@
 import axios from 'axios'
-import store from '../store/store.js';
 
-const user = store.getState().auth.user;
-const userId = user?._id
 
-const uploadProduct = async (formData) => {
+const uploadProduct = async (userId,formData) => {
   try {
     console.log(userId);
     const URL = `http://localhost:8000/api/v1/users/products/${userId}/add-new/product`;

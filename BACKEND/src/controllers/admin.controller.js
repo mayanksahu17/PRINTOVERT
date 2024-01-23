@@ -22,10 +22,38 @@ const getAllDeliveredProducts = asyncHandler(async (req, res) => {
   return res.json(new ApiResponse(200,deliveredProducts, 'Delivered products retrieved successfully', ));
 });
 
+const updateproduct = asyncHandler(async (req, res) => {
+  try {
+    const productId = req.params.id;
+    
+  
+    const updatedProduct = await Product.findByIdAndUpdate(
+      productId,
+      req.body,
+      { new: true }
+    );
+
+    if (!updatedProduct) {
+      // If the product with the specified ID is not found
+      throw new Error('Product not found');
+    }
+
+    res.status(200).json( new ApiResponse(200,updatedProduct,"Product updated successfully"));
+  } catch (error) {
+    console.error('Error in updateproduct:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal Server Error',
+    });
+  }
+});
+
+
 const getAllWalletRequest = asyncHandler(async (req, res) => {
-  const pendingWalletRequests = await WalletRequest.find({ confirmed: false });
+  const pendingWalletRequests = await wallet.find({ confirmed: false });
   return res.json(new ApiResponse(200,pendingWalletRequests, 'Pending wallet requests retrieved successfully', ));
 });
+
 
 
 const registerAdmin = asyncHandler(async(req,res)=>{
@@ -95,6 +123,7 @@ const addwalletamount = asyncHandler(async (req, res) => {
       if (amount <= 0) {
         throw new ApiError(400, 'Invalid amount. Amount must be greater than 0.');
       } 
+      if(  !user.walletBalance) {  user.walletBalance = 0}
       user.walletBalance =  user.walletBalance +  amount; 
   
       await user.save();
@@ -124,5 +153,6 @@ export  {
     test,
     loginAdmin,
     getwalletrequests,
-    addwalletamount
+    addwalletamount,
+    updateproduct
 }

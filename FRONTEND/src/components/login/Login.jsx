@@ -35,7 +35,7 @@ function Login() {
 
   const isAuthenticated = useSelector((state) => state.auth.user !== null);
 
-
+  
   return (
     <div className='bg-blue-200 w-full h-180 '>
       <div>

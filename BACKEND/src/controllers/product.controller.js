@@ -7,14 +7,14 @@ import { User } from '../models/user.model.js'
 const addNewProduct = asyncHandler(async (req, res) => {
   try {
       const userId = req.params.id;
+      if (!userId) {
+        throw new ApiError(401,"user id is required")
+      }
       const user = await User.findById(userId);
 
       if (!user) {
           throw new ApiError(404, "User not found");
       }
-
-    
-
 
       const {
           name,
@@ -105,7 +105,7 @@ const UpdateProduct = asyncHandler(async (req, res) => {
 
   const removeProduct = asyncHandler(async (req, res) => {
     const { userId, productId } = req.params;
-  
+    
     // Check if userId or productId is undefined
     if (!userId || !productId) {
       throw new ApiError(400, "Invalid userId or productId");
@@ -138,7 +138,7 @@ const UpdateProduct = asyncHandler(async (req, res) => {
   const getAllProducts = asyncHandler(async (req, res) => {
     try {
       const userId = req.params.id;
-      console.log(userId);
+
       const user = await User.findById(userId);
   
       if (!user) {
