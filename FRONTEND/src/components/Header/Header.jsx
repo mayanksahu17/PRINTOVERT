@@ -31,7 +31,7 @@ function Header() {
       <Link to ="">   
          <div className={`${!open ? "p-0":"p-12"}  flex `}>
       <ImPrinter className={`text-3xl text-white ${!open && "mr-3 mt-6"} `} />
-        <span className="h-18 text-center font-extrabold mr-1 text-2xl cursor-pointer ml-1 text-white"> <div className={`${!open && "scale-0"}`}>PRINTOVERT</div> </span>
+        <span className="h-18 text-center font-extrabold mr-1 text-2xl cursor-pointer ml-1 text-white"> <div className={`${!open && "scale-0"}`}>PRINTOVER</div> </span>
       </div> </Link> 
    
      
