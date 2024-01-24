@@ -104,11 +104,9 @@ userSchema.methods.generateAccessToken = function(){
             username : this.username,
             fullName : this.fullName
         } ,
-        //  process.env.ACCESS_TOKEN ,
-        "abcdefghijklmno^@!pqrstuvwx%^&yzABCDEFGHIJ|||+_*&^%$@!KLMNOPQRSTUVWX*&^%$@!YZ012" ,
+         process.env.ACCESS_TOKEN ,
          {
-            // expiresIn : process.env.ACCES_EXPIRY_TOKEN
-            expiresIn :"10d"
+            expiresIn : process.env.ACCES_EXPIRY_TOKEN
          }
          
         )
@@ -122,10 +120,8 @@ userSchema.methods.generateRefreshToken = function(){
           
         } ,
          process.env.REFRESH_TOKEN_SECRET ,
-        "o^@!pqrstuvwx%^klmno^@!pqrLMNOPQRSTUVPQRSTUVWX*&^%$@!YZ012klmno^@!pqrstuvwx%^&yzABCDEFGHIJ|||+_*&^%$@!KLMNOPQRSTUVWX*&^%$",
          {
-            // expiresIn : process.env.REFRESH_TOKEN_EXPIRY
-            expiresIn :"1d"
+            expiresIn : process.env.REFRESH_TOKEN_EXPIRY
          }
          
         )

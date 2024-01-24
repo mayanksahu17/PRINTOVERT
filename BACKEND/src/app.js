@@ -4,8 +4,7 @@ import  express  from 'express';
 const app = express()
 
 app.use(cors({
-    // origin : process.env.CORS_ORIGIN,
-    origin : '*',
+    origin : process.env.CORS_ORIGIN,
     credentials : true 
 }));
 
@@ -37,4 +36,4 @@ app.use("/api/v1/admin", adminRouter)
 
 
 
-export {app}
+export default app;

@@ -4,7 +4,7 @@
   "description": "A backend for e-commerce plateform",
   "main": "server.js",
   "scripts": {
-    "start" : "nodemon src/server.js"
+    "dev": "nodemon -r dotenv/config --experimental-json-modules src/server.js"
   },
   "author": "Mayank sahu",
   "license": "ISC",
