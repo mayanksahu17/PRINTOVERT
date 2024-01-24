@@ -25,7 +25,7 @@ import adminRouter from './routes/admin.routes.js'
 // routes declairation 
 
 app.get("/",(req,res)=>{
-    res.json("hello")
+    res.json("Server is Ready")
 })
 app.use("/api/v1/users", userRouter)
 
