@@ -78,3 +78,4 @@ for login post method
 
 to get all images 
 http://localhost:8000/api/v1/users/all-image/659963e03ecc5b7cdbbbb860
+    // "dev": "nodemon -r dotenv/config --experimental-json-modules src/server.js",
