@@ -1,16 +1,12 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  server : {
-    proxy : {
-      // '/api/v1/users/login' : 'http://localhost:8000',
-      '/api/v1/users/register' : 'http://localhost:8000',
-      
-
-
-    }
+  server: {
+    proxy: {
+      '/api': 'http://localhost:8000', // Make sure this path matches the backend API path
+    },
   },
   plugins: [react()],
-})
+});

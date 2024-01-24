@@ -1,47 +1,46 @@
 import axios from 'axios'
 
 
-const uploadProduct = async (userId,formData) => {
+const uploadProduct = async (userId, formData) => {
   try {
     console.log(userId);
-    const URL = `http://localhost:8000/api/v1/users/products/${userId}/add-new/product`;
-    const response = await fetch(URL, {
+    const apiUrl = `/api/v1/users/products/${userId}/add-new/product`; // Relative path with proxy setup
+
+    const response = await axios.post(apiUrl, formData, {
       headers: {
         'Content-Type': 'application/json',
       },
-      method: 'POST',
-      body: JSON.stringify(formData)
     });
 
-    if (!response.ok) {
-      throw new Error(`Error uploading product: ${response.statusText}`);
+    if (!response.data.success) {
+      throw new Error(`Error uploading product: ${response.data.message}`);
     }
 
-    const responseData = await response.json();
+    const responseData = response.data;
     console.log('Product uploaded successfully:', responseData);
     return responseData;
   } catch (error) {
     console.error('Error uploading product:', error);
-    throw error; 
+    throw error;
   }
 };
 
-const getAllProducts = async () => {
-  try {
-    const URL = `http://localhost:8000/api/v1/users/products/${userId}/get-all-products`;
 
-    const response = await fetch(URL, {
+const getAllProducts = async (userId) => {
+  try {
+    const apiUrl = `/api/v1/users/products/${userId}/get-all-products`; // Relative path with proxy setup
+
+    const response = await axios.get(apiUrl, {
       headers: {
         'Content-Type': 'application/json',
       },
-      method: 'GET',
     });
 
-    if (!response.ok) {
-      throw new Error(`Error fetching products: ${response.status} - ${response.statusText}`);
+    if (!response.data.success) {
+      throw new Error(`Error fetching products: ${response.data.message}`);
     }
 
-    const responseData = await response.json();
+    const responseData = response.data;
     console.log('Products fetched successfully:', responseData);
     return responseData;
   } catch (error) {
@@ -50,24 +49,22 @@ const getAllProducts = async () => {
   }
 };
 
+
 const updateProduct = async (productId, userId, updateData) => {
   try {
-    console.log(productId,userId,updateData);
-    const apiUrl = `http://localhost:8000/api/v1/users/products/${userId}/products/${productId}`;
-    const response = await fetch(apiUrl, {
-      method: 'PUT',
+    console.log(productId, userId, updateData);
+    const apiUrl = `/api/v1/users/products/${userId}/products/${productId}`; // Relative path with proxy setup
+    const response = await axios.put(apiUrl, updateData, {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updateData),
     });
 
-    if (response.ok) {
-      const responseData = await response.json();
-      return responseData.data;
+    if (response.data.success) {
+      console.log('Product updated successfully:', response.data);
+      return response.data.data;
     } else {
-      const errorData = await response.json();
-      console.error('Error updating product:', errorData.message || 'An error occurred');
+      console.error('Error updating product:', response.data.message || 'An error occurred');
       return null;
     }
   } catch (error) {
@@ -75,6 +72,7 @@ const updateProduct = async (productId, userId, updateData) => {
     return null;
   }
 };
+
 
 export  {
   uploadProduct,

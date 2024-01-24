@@ -1,24 +1,17 @@
 import axios from 'axios';
 
 
-  
+
 
 const handleLogin = async (userData) => {
-  const apiUrl = 'http://localhost:8000/api/v1/users/login';
+  const apiUrl = '/api/v1/users/login';  // Update the apiUrl to the relative path
 
   try {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
+    const response = await axios.post(apiUrl, userData);
 
-    const data = await response.json();
+    const data = response.data;
 
     if (data.success) {
-  
       const user = data.data.user;
 
       console.log('User Data:', user);
@@ -26,7 +19,6 @@ const handleLogin = async (userData) => {
       const refreshToken = user.refreshToken;
       const accessToken = user.accessToken;
 
- 
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
 
@@ -73,16 +65,10 @@ const refreshAccessToken = async () => {
 
 const registerUser = async (userData) => {
   try {
-    const response = await fetch('http://localhost:8000/api/v1/users/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
+    const response = await axios.post('/users/register', userData); 
 
-    if (response.ok) {
-      const responseData = await response.json();
+    if (response.data.success) {
+      const responseData = response.data;
       console.log('User registered successfully:', responseData);
 
       const user = responseData.data.user;
@@ -110,22 +96,19 @@ const registerUser = async (userData) => {
   }
 };
 
+
+
+
+
 const updateProfile = async (userId, userData) => {
   try {
-    const apiUrl = `http://localhost:8000/api/v1/users/${userId}/update-account`;
+    const apiUrl = `/users/${userId}/update-account`;
 
-    const response = await fetch(apiUrl, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
+    const response = await axios.patch(apiUrl, userData);
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Profile updated successfully:', data);
-      return data;
+    if (response.data.success) {
+      console.log('Profile updated successfully:', response.data);
+      return response.data;
     } else {
       console.error('Failed to update profile:', response.statusText);
       // Handle failure (e.g., show an error message)
@@ -137,7 +120,6 @@ const updateProfile = async (userId, userData) => {
     return null;
   }
 };
-
 
 
 export {
