@@ -151,30 +151,32 @@ const UpdateProduct = asyncHandler(async (req, res) => {
       throw new ApiError(404, "Product not found in user's orders");
     }
   });
-  
   const getAllProducts = asyncHandler(async (req, res) => {
-    try {
-      const userId = req.params.id;
-
-      const user = await User.findById(userId);
+    const userId = req.params.id;
   
-      if (!user) {
-        throw new ApiError(404, "User not found");
-      }
+    const user = await User.findById(userId);
   
-      // This allorders is an array containing all product IDs
-      const allorders = user.orders;
-  
-      // Use $in to find products whose _id is in the allorders array
-      const products = await Product.find({ _id: { $in: allorders } });
-  
-      res.status(200).json(new ApiResponse(200, products, "All products retrieved successfully"));
-    } catch (error) {
-      console.error('Error:', error.message);
-      res.status(error.statusCode || 500).json({ message: error.message || "Internal Server Error" });
+    if (!user) {
+      throw new ApiError(404, "User not found");
     }
+  
+    const allOrders = user.orders;
+  
+    const products = await Product.find({ _id: { $in: allOrders } });
+  
+    res.status(200).json(new ApiResponse(200, products, "All products retrieved successfully"));
   });
-
+  
+  // Error handling middleware
+  const errorHandler = (err, req, res, next) => {
+    console.error('Error:', err.message);
+    const statusCode = err.statusCode || 500;
+    res.status(statusCode).json({ message: err.message || "Internal Server Error" });
+  };
+  
+  // Use the error handling middleware
+  app.use(errorHandler);
+  
 export {
     addNewProduct,
     UpdateProduct,
