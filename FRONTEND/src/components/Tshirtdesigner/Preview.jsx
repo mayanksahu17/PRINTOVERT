@@ -8,6 +8,7 @@ import {uploadProduct} from '../../actions/Product.js';
 function Preview() {
   const [message , setMessage] = useState("")
   const [name , setname] = useState("")
+  const [quantity , setQuantity] = useState("")
   const retrievedImageData = localStorage.getItem('frontimage');
   const retrievedImageData2 = localStorage.getItem('backimage');
   const retrievedImageData3 = localStorage.getItem('rightimage');
@@ -80,6 +81,8 @@ function Preview() {
       const shipped = store.getState().product.shipped;
       const stock = store.getState().product.stock;
       const category = store.getState().product.category;
+      
+
       const productData = {
         image0: backimage,
         image1: frontimage,
@@ -96,6 +99,7 @@ function Preview() {
         ordered: ordered,
         brand: brand,
         category: category,
+        quantity : quantity
       };
       
       console.log(productData);
@@ -148,7 +152,10 @@ function Preview() {
 
         <div className='mt-10 ml-10 w-[50%]'>
           <div className='font-semibold text-2xl '>
-            Name : <input type="text" placeholder='Enter the name of product' className='text-sm' value={name} onChange={(e) => setname(e.target.value)}/>
+            Name : <input type="text" placeholder='Enter the name ' className='rounded-lg  p-1 w-[45%] text-xl' value={name} onChange={(e) => setname(e.target.value)}/>
+          </div>
+          <div className='font-semibold text-2xl mt-4 '>
+            Quantity : <input type="text" placeholder='Enter the quantity ' className='rounded-lg p-1 w-[45%] text-xl' value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
           </div>
           <div className='font-bold text-2xl mt-6'>
             Size : {size}

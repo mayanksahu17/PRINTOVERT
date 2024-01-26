@@ -72,7 +72,7 @@ function Ticket() {
  
 
   return (
-    <div className='bg-blue-200 w-full h-180'>
+    <div className='flex-grow overflow-y-auto p-4 bg-blue-200 w-full h-180'>
       <div className='flex'>
         <h1 className='font-bold mt-8 ml-7 text-blufont-cerebriSans text-blue-900 co text-5xl'>Ticket</h1>
         <button
@@ -86,7 +86,7 @@ function Ticket() {
 
       {showUploadForm && (
         <form
-          className='uploadDiving h-520 w-[1300px] border-2 border-blue-500 rounded-2xl border-blue-450/150 font-semibold mt-3 ml-3 mr6 bg-transparent'
+          className='uploadDiving h-520 w-[1150px] border-2 border-blue-500 rounded-2xl border-blue-450/150 font-semibold mt-3 ml-3 mr6 bg-transparent'
           onSubmit={handleSubmit}
         >
           <div className='flex'>
@@ -128,7 +128,7 @@ function Ticket() {
           <textarea
             name='description'
             id=''
-            cols='140'
+            cols='130'
             rows='4'
             placeholder='  Enter your description'
             value={formData.description}
@@ -136,7 +136,7 @@ function Ticket() {
             className='mt-1 ml-10 rounded-xl'
           ></textarea>
 
-          <input type='file' name='' id='' onChange={handleFileChange} className='w-[1140px] h-8 ml-10 mt-2 mb-4 border-2' />
+          <input type='file' name='' id='' onChange={handleFileChange} className='w-[1100px] h-8 ml-10 mt-2 mb-4 border-2' />
           {message&& (<p className='text-blue-700 ml-10'>{message}</p>)}
           <div className='flex ml-10 mb-4'>
             <button

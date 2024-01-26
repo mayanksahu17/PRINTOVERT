@@ -31,7 +31,9 @@ const productSchema = new Schema(
 
     delivered: {type: Boolean },
 
-    ordered : {type : Boolean}
+    ordered : {type : Boolean},
+
+    quantity : {type : String}
 
 },
 {

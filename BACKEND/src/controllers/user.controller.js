@@ -70,6 +70,8 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async(req,res)=>{
   
   const {username , password} = req.body
+  
+  console.log(username , password);
 
   if (!username && !password) {  
     throw new ApiError(404 , "User Must have username or password")

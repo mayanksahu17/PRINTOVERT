@@ -2,12 +2,17 @@ import axios from 'axios';
 
 
 
-
 const handleLogin = async (userData) => {
-  const apiUrl = '/api/v1/users/login';  // Update the apiUrl to the relative path
+  const apiUrl = '/api/v1/users/login';
 
   try {
-    const response = await axios.post(apiUrl, userData);
+    const response = await axios.post(apiUrl, userData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    console.log('API Response:', response);
 
     const data = response.data;
 
@@ -34,6 +39,7 @@ const handleLogin = async (userData) => {
     console.error('Error during login:', error);
   }
 };
+
 
 // Function to refresh access token using the refresh token
 const refreshAccessToken = async () => {
