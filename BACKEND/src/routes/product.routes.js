@@ -1,4 +1,4 @@
-import {addNewProduct , UpdateProduct , removeProduct,getAllProducts} from '../controllers/product.controller.js'
+import {addNewProduct , UpdateProduct , removeProduct,getAllProducts ,test} from '../controllers/product.controller.js'
 import {Router} from 'express'
 import {upload} from '../middleware/multer.middleware.js'
 
@@ -14,7 +14,7 @@ router.route("/:userId/products/:productId").delete(removeProduct);
 
 router.route("/:id/get-all-products").get(getAllProducts)
 
-router.route('/test').get((req,res)=>{res.send("hii")})
+router.route('/test').get(test) 
 
 
 export default router 

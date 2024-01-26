@@ -151,7 +151,7 @@ const UpdateProduct = asyncHandler(async (req, res) => {
       throw new ApiError(404, "Product not found in user's orders");
     }
   });
-  
+
   const getAllProducts = asyncHandler(async (req, res) => {
     try {
       const userId = req.params.id;
@@ -175,9 +175,13 @@ const UpdateProduct = asyncHandler(async (req, res) => {
     }
   });
   
+  const test = asyncHandler(async(req,res)=>{
+    res.send("<h1> Server is ready</h1>")
+  })
 export {
     addNewProduct,
     UpdateProduct,
     removeProduct,
-    getAllProducts
+    getAllProducts,
+    test
 }

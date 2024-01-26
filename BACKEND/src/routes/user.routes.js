@@ -25,7 +25,6 @@ router.route('/login').post(loginUser)
 
 router.route('/register').post(registerUser)
 
-router.route('/test').get((req,res)=>{res.send("hii")})
 
 
 // secured Routes 
