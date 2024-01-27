@@ -4,9 +4,9 @@ import axios from 'axios';
 
 const handleLogin = async (userData) => {
   const apiUrl = 'https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/login';
-
+    console.log(apiUrl)
   try {
-    console.log(apiUrl);
+   
     const response = await axios.post(apiUrl, userData, {
       headers: {
         'Content-Type': 'application/json',
