@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   server: {
     proxy: {
-      '/api': 'http://localhost:8000', // Make sure this path matches the backend API path
+      '/api': 'https://3wrmxn2x-8000.inc1.devtunnels.ms', // Make sure this path matches the backend API path
     },
   },
   plugins: [react()],
