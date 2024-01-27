@@ -4,18 +4,21 @@ import axios from 'axios';
 
 const handleLogin = async (userData) => {
   const apiUrl = 'https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/login';
-    console.log(apiUrl)
+
   try {
-   
-    const response = await axios.post(apiUrl, userData, {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(userData),
     });
 
-    console.log('API Response:', response);
+    if (!response.ok) {
+      throw new Error('Login request failed');
+    }
 
-    const data = response.data;
+    const data = await response.json();
 
     if (data.success) {
       const user = data.data.user;
@@ -40,6 +43,7 @@ const handleLogin = async (userData) => {
     console.error('Error during login:', error);
   }
 };
+
 
 
 // Function to refresh access token using the refresh token
