@@ -15,8 +15,6 @@
       "src": "/(.*)",
       "dest": "src/app.js"
     }
-  ],
-  "functions": {
-    "timeout": 300
-  }
+  ]
+  
 }
