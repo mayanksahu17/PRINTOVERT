@@ -4,7 +4,7 @@ import axios from 'axios'
 const uploadProduct = async (userId, formData) => {
   try {
     console.log(userId);
-    const apiUrl = `/api/v1/users/products/${userId}/add-new/product`; // Relative path with proxy setup
+    const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/products/${userId}/add-new/product`; // Relative path with proxy setup
 
     const response = await axios.post(apiUrl, formData, {
       headers: {
@@ -28,7 +28,7 @@ const uploadProduct = async (userId, formData) => {
 
 const getAllProducts = async (userId) => {
   try {
-    const apiUrl = `/api/v1/users/products/${userId}/get-all-products`; // Relative path with proxy setup
+    const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/products/${userId}/get-all-products`; // Relative path with proxy setup
 
     const response = await axios.get(apiUrl, {
       headers: {
@@ -53,7 +53,7 @@ const getAllProducts = async (userId) => {
 const updateProduct = async (productId, userId, updateData) => {
   try {
     console.log(productId, userId, updateData);
-    const apiUrl = `/api/v1/users/products/${userId}/products/${productId}`; // Relative path with proxy setup
+    const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/products/${userId}/products/${productId}`; // Relative path with proxy setup
     const response = await axios.put(apiUrl, updateData, {
       headers: {
         'Content-Type': 'application/json',

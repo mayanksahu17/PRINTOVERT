@@ -63,28 +63,32 @@ const libuploadImage = async (file, userId) => {
 };
 
 
-
 const getAllImages = async (userId, dispatch) => {
-  const apiUrl = `/api/v1/users/all-image/${userId}`; // Relative path with proxy setup
+  const apiUrl = `/api/v1/users/all-image/${userId}`;
 
   try {
-    const response = await axios.get(apiUrl, {
+    const response = await fetch(apiUrl, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    const data = response.data;
+    if (!response.ok) {
+      throw new Error('Error getting images');
+    }
+
+    const data = await response.json();
 
     const images = data.data;
-    dispatch(addImage({ images: images }));
+    dispatch(addImage({ images }));
 
     return images;
   } catch (error) {
     console.error('Error getting images:', error);
   }
 };
-
+  
 
 export {
   getAllImages,

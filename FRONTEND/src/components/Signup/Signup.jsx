@@ -9,16 +9,17 @@ function Signup() {
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState('');
   const onSubmit = async (data) => {
-    if (!(data.fullName && data.password && data.phoneNumber && data.username && data.username)) {
+    if (!(data.firstName && data.password && data.phoneNumber && data.username)) {
       setError("All feilds are required ")
     }else{
       const  uploadata = {
-        fullName :`${data.firstName} ${data.lastName}`,
+        fullName :`${data.firstName}`,
         email : data.email ,
         username : data.username ,
         password : data.password,
         phoneNumber : data.phoneNumber
       }
+      console.log(uploadata);
         
     try {
     
@@ -52,7 +53,7 @@ function Signup() {
           <div className='ml-7 text-xl'>Full Name</div>
           <div className='w-[50%] flex justify-between '>
             <input
-              {...register('fullName')} // React Hook Form register for fullName
+              {...register('firstName')} // React Hook Form register for fullName
               className='rounded-lg p-2 w-[100%] h-7'
               type='text'
               placeholder='Enter your full name'

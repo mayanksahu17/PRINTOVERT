@@ -1,4 +1,5 @@
   import { useState, useEffect } from 'react';
+  import React from 'react';
   import { fabric } from 'fabric';
   import html2canvas from 'html2canvas';
   import Tshirt from '../../assets/Tshirt.png';

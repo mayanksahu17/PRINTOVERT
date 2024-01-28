@@ -27,7 +27,7 @@ let x
       if (user) {
         const userId = user._id;
         const responseData = await getAllImages(userId, dispatch);
-      
+      console.log(responseData);
         setImages(responseData); // Update local state with fetched images
       }
     };

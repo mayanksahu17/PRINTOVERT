@@ -12,6 +12,7 @@ import ImageUploader from './Base64.js'
 import { uploadImage } from '../../actions/Image.js';
 import { setback } from '../../store/productimage.js';
 import back from '../../assets/New folder/back.jpeg'
+import React from 'react';
 
 
 const Backdesigner = () => {

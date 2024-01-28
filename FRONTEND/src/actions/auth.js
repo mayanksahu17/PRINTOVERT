@@ -1,13 +1,12 @@
 import axios from 'axios';
 
 
-
 const handleLogin = async (userData) => {
-  const apiUrl = 'https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/login';
+  const apiUrl = '/api/v1/users/login';
 
   try {
-    
-    const response = await axios.post(apiUrl, userData, {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -73,32 +72,36 @@ const refreshAccessToken = async () => {
 };
 
 
-
 const registerUser = async (userData) => {
   try {
-    const response = await axios.post('/users/register', userData); 
+    const response = await fetch('https://3wrmxn2x-8000.inc1.devtunnels.ms/api/users/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
 
-    if (response.data.success) {
-      const responseData = response.data;
+    if (!response.ok) {
+      if (response.status === 409) {
+        console.error('Registration failed: User already exists');
+        throw new Error('Registration failed: User already exists');
+      } else {
+        console.error('Registration failed:', response.statusText);
+        throw new Error('Registration failed');
+      }
+    }
+
+    const responseData = await response.json();
+
+    if (responseData.success) {
       console.log('User registered successfully:', responseData);
 
-      const user = responseData.data.user;
-      // const refreshToken = user.refreshToken;
-      // const accessToken = user.accessToken;
-
-      // Store tokens in localStorage
-      // localStorage.setItem('accessToken', accessToken);
-      // localStorage.setItem('refreshToken', refreshToken);
-
-      // console.log('Access Token:', accessToken);
-      // console.log('Refresh Token:', refreshToken);
+      // Optionally, you can handle tokens and localStorage as needed
 
       return responseData;
-    } else if (response.status === 409) {
-      console.error('Registration failed: User already exists');
-      throw new Error('Registration failed: User already exists');
     } else {
-      console.error('Registration failed:', response.statusText);
+      console.error('Registration failed:', responseData.message);
       throw new Error('Registration failed');
     }
   } catch (error) {
@@ -106,7 +109,6 @@ const registerUser = async (userData) => {
     throw error;
   }
 };
-
 
 
 

@@ -4,7 +4,7 @@ import axios from 'axios';
 const addTicket = async (userId, formData) => {
   try {
     console.log(userId);
-    const apiUrl = `/api/v1/users/${userId}/create-ticket`; // Relative path with proxy setup
+    const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/${userId}/create-ticket`; // Relative path with proxy setup
     
     const response = await axios.post(apiUrl, formData, {
       headers: {

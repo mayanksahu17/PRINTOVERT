@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const getAllUserTransactions = async (userId) => {
-  const apiUrl = `/api/v1/users/${userId}/transactions`; // Relative path with proxy setup
+  const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/${userId}/transactions`; // Relative path with proxy setup
 
   try {
     const response = await axios.get(apiUrl, {

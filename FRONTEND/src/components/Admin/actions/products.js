@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const getAllProducts = async () => {
-    const apiUrl =  `http://localhost:8000/api/v1/admin/ordered/get-all-products`
+    const apiUrl =  `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/admin/ordered/get-all-products`
   
     try {
       const response = await axios.get(apiUrl, {
@@ -23,7 +23,7 @@ const getAllActiveOrders = async()=>{
 
 }
 const getAllDeliveredOrders = async()=>{
-  const apiUrl =  `http://localhost:8000/api/v1/admin/delivered/get-all-products`
+  const apiUrl =  `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/admin/delivered/get-all-products`
 
  try {
       const response = await axios.get(apiUrl, {
@@ -44,7 +44,7 @@ const getAllDeliveredOrders = async()=>{
 
 
 const updateProduct = async ({ ordered, delivered, shipped , prodctId }) => {
-  const apiUrl = `http://localhost:8000/api/v1/admin/${prodctId}/update-product`;
+  const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/admin/${prodctId}/update-product`;
   const data = { ordered, delivered, shipped };
 
   try {
