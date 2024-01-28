@@ -32,7 +32,8 @@ const addNewProduct = asyncHandler(async (req, res) => {
           image0,
           image1,
           image2,
-          image3
+          image3,
+          userid
                    } = req.body;
 
     
@@ -54,6 +55,7 @@ const addNewProduct = asyncHandler(async (req, res) => {
           image1,
           image2,
           image3,
+          userid
       };
 
      // Save the product to get its ID

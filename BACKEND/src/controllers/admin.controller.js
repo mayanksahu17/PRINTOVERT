@@ -25,11 +25,11 @@ const getAllDeliveredProducts = asyncHandler(async (req, res) => {
 const updateproduct = asyncHandler(async (req, res) => {
   try {
     const productId = req.params.id;
-    
+    const {shipped, delivered, ordered} = req.body
   
     const updatedProduct = await Product.findByIdAndUpdate(
       productId,
-      req.body,
+      {shipped, delivered, ordered},
       { new: true }
     );
 
@@ -110,11 +110,11 @@ const getwalletrequests = asyncHandler(async (req, res) => {
   });
 
 const addwalletamount = asyncHandler(async (req, res) => {
-    const { amount, userid } = req.body;
+    const { amount, userId } = req.body;
   
     try {
      
-      const user = await User.findById(userid);
+      const user = await User.findById(userId);
   
       if (!user) {
         throw new ApiError(404, 'User not found');
@@ -135,7 +135,20 @@ const addwalletamount = asyncHandler(async (req, res) => {
     }
   });
   
+const getAllusers = asyncHandler(async(req,res)=>{
+  try {
+    const users = await User.find()
+    if (!users) {
+      throw new ApiError(404, 'User not found');
+    }
 
+    res.json(new ApiResponse(200 ,users,"Users fetched successfully"));
+  
+  } catch (error) {
+    console.error('Users not found', error);
+    res.status(error.statusCode || 500).json(new ApiResponse(400, error.message));
+  }
+})
 
 
 
@@ -154,5 +167,6 @@ export  {
     loginAdmin,
     getwalletrequests,
     addwalletamount,
-    updateproduct
+    updateproduct,
+    getAllusers
 }

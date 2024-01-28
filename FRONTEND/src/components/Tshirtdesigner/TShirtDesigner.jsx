@@ -124,9 +124,13 @@
         const item = e.target.files[0] ? e.target.files[0] : localStorage.getItem('image1');
         reader.readAsDataURL(item);
         try {
+          console.log("test1");
           const response = await uploadImage(item, userId);
+          console.log("test2");
           const url = response.data.imageURL;
+          console.log("test3");
           dispatch(selectedImage({ image: url }));
+          console.log("test4");
         } catch (error) {
           console.error("Error uploading image:", error);
           // Handle the error as needed

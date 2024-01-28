@@ -33,7 +33,11 @@ const productSchema = new Schema(
 
     ordered : {type : Boolean},
 
-    quantity : {type : String}
+    quantity : {type : String},
+
+    userid : {type : String},
+
+    rejected : {type : String}
 
 },
 {

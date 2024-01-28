@@ -99,7 +99,8 @@ function Preview() {
         ordered: ordered,
         brand: brand,
         category: category,
-        quantity : quantity
+        quantity : quantity,
+        userid : userId
       };
       
       console.log(productData);

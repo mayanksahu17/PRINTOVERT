@@ -8,7 +8,8 @@ import  {
     loginAdmin,
     getwalletrequests,
     addwalletamount,
-    updateproduct
+    updateproduct,
+    getAllusers
 } from '../controllers/admin.controller.js'
 import {Router} from 'express'
 
@@ -30,7 +31,10 @@ router.route("/get-wallet-requests").get(getwalletrequests)
 
 router.route("/add-wallet-amount").post(addwalletamount)
 
-router.route("/add-wallet-amount").patch(updateproduct)
+router.route("/:id/update-product").patch(updateproduct)
+
+router.route("/get-all-users").get(getAllusers)
+
 
 router.route("/test").get(test)
 

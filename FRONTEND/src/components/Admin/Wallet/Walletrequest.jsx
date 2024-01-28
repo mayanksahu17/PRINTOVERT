@@ -1,41 +1,43 @@
-import React from 'react'
-
+import React, { useEffect, useState } from 'react';
+import Requestcard from './Requestcard';
+import getAllWalletRequests from '../actions/wallet.js';
+import store from '../../../store/store.js';
+import { useNavigate } from 'react-router-dom';
 function Walletrequest() {
+  const [walletRequests, setWalletRequests] = useState([]);
+  const navigate = useNavigate()
+  const isAuthenticated = store.getState().auth.user
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/admin/admin-login")
+     }
+    const fetchData = async () => {
+      try {
+        const response = await getAllWalletRequests();
+        setWalletRequests(response); // Set the fetched wallet requests data
+      } catch (error) {
+        console.error('Error fetching wallet requests:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <>
-    
-    <div  className='bg-blue-200 w-[100%] h-[100%]'>
-  
-    <div className='bg-blue-200 w-full h-180'> 
-                <h2 className='font-bold mt-8 ml-7 font-cerebriSans text-3xl text-blue-900'>Wallet Reqeuests</h2>
-                <h5 className='text-gray-600 ml-7 font-bold '>Let's have a Tour to the Wallet</h5>
-                </div>
-   <div className='mt-4'><hr /></div>
+    <div className='bg-blue-200 w-full h-full flex-grow overflow-y-auto'>
+      <div className='bg-blue-200 w-full h-180'> 
+        <h2 className='font-bold mt-8 ml-7 font-cerebriSans text-3xl text-blue-900'>Wallet Requests</h2>
+        <h5 className='text-gray-600 ml-7 font-bold'>Let's have a Tour to the Wallet</h5>
+      </div>
+      <div className='mt-4'><hr /></div>
 
-
-   <div className='w-[1150px] flex mt-5 ml-10 h-80 bg-gray-100 rounded-xl'>
-<div className='h-72  w-72 rounded-xl mt-5 mr-5 ml-5 bg-blue-300'></div>
-<div className='h-72  w-72 rounded-xl mt-5 bg-blue-300'></div>
-
-<div className='flex mt-64 ml-32'>
-<div className='w-[50%] flex justify-between'><button className='ml-8 rounded-2xl p-2 w-[80%] h-8 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 font-semibold'><div className=' -mt-2'>Approve</div></button></div>
-<div className='w-[50%] flex justify-between'><button className='ml-10 rounded-2xl p-2  w-52 h-8  bg-white hover:bg-red-600 hover:text-white  border-gray-600 border-2 font-semibold'><div className=' -mt-2'> Reject</div></button> </div>
-</div>
-
-   </div>
-
-
-  
-  
+      <div className='flex flex-wrap justify-center'>
+        {walletRequests?.map((request) => (
+          <Requestcard key={request._id} walletRequest={request} />
+        ))}
+      </div>
     </div>
-      
-      
-     
-    
-    
-    </>
-      
-    )
+  );
 }
 
-export default Walletrequest
+export default Walletrequest;

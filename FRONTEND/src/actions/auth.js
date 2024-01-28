@@ -6,7 +6,7 @@ const handleLogin = async (userData) => {
   const apiUrl = '/api/v1/users/login';
 
   try {
-    console.log(apiUrl);
+    
     const response = await axios.post(apiUrl, userData, {
       headers: {
         'Content-Type': 'application/json',
