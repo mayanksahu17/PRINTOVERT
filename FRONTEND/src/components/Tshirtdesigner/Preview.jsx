@@ -81,7 +81,7 @@ function Preview() {
       const shipped = store.getState().product.shipped;
       const stock = store.getState().product.stock;
       const category = store.getState().product.category;
-      
+      const price = localStorage.getItem("imagePrice");
 
       const productData = {
         image0: backimage,

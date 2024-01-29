@@ -34,7 +34,6 @@ const generateAccessTokenandRefreshTocken = async(userId)=>{
 const registerUser = asyncHandler(async (req, res) => {
   const { fullName, email, username, password, phoneNumber } = req.body;
 
-  // Explicitly trim the inputs
   const trimmedFields = [fullName, email, username, password, phoneNumber].map(field => field?.trim());
 
   if (trimmedFields.some(field => field === "")) {

@@ -26,7 +26,7 @@ function Orders({ orderData, handleUpdate }) {
         </div>
         <div className='flex justify-between items-center w-[80%]'>
           {/* <span className='font-semibold text-sm'>Color: <span className=' text-base'>{orderData.color}</span></span> */}
-          <span className='font-semibold text-sm'>Quantity: <span className=' text-base'>{orderData.stock}</span></span>
+          <span className='font-semibold text-sm'>Quantity: <span className=' text-base'>{orderData.quantity}</span></span>
         </div>
         <div className='flex justify-between items-center w-[80%]'>
           {/* <span className='font-semibold text-sm'>Address: <span className=' text-base'>{orderData.shipped ? 'Shipped' : 'Not Shipped'}</span></span> */}
