@@ -3,80 +3,96 @@ import ProductCard from './ProductCard';
 import { getAllProducts, updateProduct } from '../actions/products.js';
 import store from '../../../store/store.js';
 import { useNavigate } from 'react-router-dom';
+
 function AdOrders() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [refreshFlag, setRefreshFlag] = useState(false);
-  const navigate = useNavigate()
-  const isAuthenticated = store.getState().auth.user
-
-  const activeProduct = async ({ ordered, delivered, shipped, productId }) => {
-    const response = await updateProduct({ ordered, delivered, shipped, productId });
-    console.log(response);
-    console.log("Order status updated to active");
-    setRefreshFlag(!refreshFlag); // Toggle refresh flag to trigger component remount
-  };
-
-  const rejectProduct = async ({ ordered, delivered, shipped, productId }) => {
-    const response = await updateProduct({ ordered, delivered, shipped, productId });
-    if (response) {
-      console.log(response);
-    }
-    setRefreshFlag(!refreshFlag); // Toggle refresh flag to trigger component remount
-  };
+  const navigate = useNavigate();
+  const isAuthenticated = store.getState().auth.user;
 
   useEffect(() => {
-   if (!isAuthenticated) {
-    navigate("/admin/admin-login")
-   }
-    getAllOrderedProducts();
-  }, [refreshFlag]); // Include refreshFlag in dependency array to remount when it changes
+    if (!isAuthenticated) {
+      navigate('/admin/admin-login');
+    } else {
+      fetchProducts();
+    }
+  }, [refreshFlag, isAuthenticated, navigate]); 
 
-  const getAllOrderedProducts = async () => {
+  const fetchProducts = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      // Fetch product data from your API or wherever it's stored
       const response = await getAllProducts();
-      setProducts(response.data); // Update the products state with the fetched data
-      console.log(response.data);
+      setProducts(response.data);
     } catch (error) {
+      setError('Error fetching products');
       console.error('Error fetching products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateProductStatus = async (productId, updates) => {
+    setLoading(true);
+    setError(null);
+    try {
+      await updateProduct(productId, updates); // Pass productId along with updates
+      setRefreshFlag(!refreshFlag);
+    } catch (error) {
+      setError('Error updating product status');
+      console.error('Error updating product status:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleActive = (productId) => {
+    const product = products.find((p) => p._id === productId);
+    if (product) {
+      const updates = {ordered : true,   delivered: false, shipped: false, active: true, rejected: false };
+      updateProductStatus(productId, updates);
+    } else {
+      console.error('Product not found');
+    }
+  };
+
+  const handleReject = (productId) => {
+    const product = products.find((p) => p._id === productId);
+    if (product) {
+      const updates = {ordered : false,  delivered: false, shipped: false, active: false, rejected: true };
+      updateProductStatus(productId, updates);
+    } else {
+      console.error('Product not found');
     }
   };
 
   return (
-    <>
-      <div className="h-full w-full bg-blue-200 flex-grow overflow-y-auto">
+    <div className="h-full w-full bg-blue-200 flex-grow overflow-y-auto">
+      <div>
+        <h1 className="font-bold mt-8 ml-8 text-blue font-cerebriSans text-blue-900 co text-5xl">Customer Order Pending</h1>
+        <h5 className="text-black ml-10">This product is Pending</h5>
+      </div>
+      <div className="mt-4">
+        <hr />
+      </div>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      {!loading && !error && products.length > 0 && (
         <div>
-          <h1 className="font-bold mt-8 ml-8 text-blue font-cerebriSans text-blue-900 co text-5xl">
-            Customer Order Pending
-          </h1>
-          <h5 className="text-black ml-10">This product is Pending</h5>
-        </div>
-        <div className="mt-4">
-          <hr />
-        </div>
-
-        <div className="">
           {products.map((product) => (
             <ProductCard
               key={product._id}
               product={product}
-              handleActive={() => activeProduct({
-                ordered: true,
-                delivered: false,
-                shipped: false,
-                productId: product._id
-              })}
-              handleReject={() => rejectProduct({
-                ordered: false,
-                delivered: false,
-                shipped: false,
-                productId: product._id
-              })}
+              handleActive={() => handleActive(product._id)}
+              handleReject={() => handleReject(product._id)}
             />
           ))}
         </div>
-      </div>
-    </>
+      )}
+      {!loading && !error && products.length === 0 && <p>No products found</p>}
+    </div>
   );
 }
 

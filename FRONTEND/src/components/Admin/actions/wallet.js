@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = `http://localhost:8000/api/v1/admin/get-wallet-requests`;
+const url = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/admin/get-wallet-requests`;
 
 const getAllWalletRequests = async () => {
   try {

@@ -37,7 +37,9 @@ const productSchema = new Schema(
 
     userid : {type : String},
 
-    rejected : {type : String}
+    rejected : {type : String},
+
+    active : {type : String}
 
 },
 {

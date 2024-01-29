@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProductDelivered from './ProductDelivered.jsx';
-import { getAllProducts, updateProduct } from '../actions/products.js';
+import { getAllDeliveredOrders, updateProduct } from '../actions/products.js';
 import store from '../../../store/store.js';
 import { useNavigate } from 'react-router-dom';
 function Delivered() {
@@ -13,16 +13,16 @@ function Delivered() {
  
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/admin/admin-login")
+      // navigate("/admin/admin-login")
+      getAllOrderedProducts();
      }
-    getAllOrderedProducts();
-  }, [refreshFlag]); // Include refreshFlag in dependency array to remount when it changes
+  }, [refreshFlag]); 
 
   const getAllOrderedProducts = async () => {
     try {
-      // Fetch product data from your API or wherever it's stored
-      const response = await getAllProducts();
-      setProducts(response.data); // Update the products state with the fetched data
+      
+      const response = await getAllDeliveredOrders();
+      setProducts(response.data); 
       console.log(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);

@@ -4,7 +4,7 @@ import axios from 'axios';
 const uploadImage = async (file, userId) => {
   try {
     console.log(userId);
-    const apiUrl = `/api/v1/users/image/${userId}`; // Relative path with proxy setup
+    const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/image/${userId}`; // Relative path with proxy setup
 
     if (!file) console.log("file leke a bhai ");
 
@@ -35,7 +35,7 @@ const uploadImage = async (file, userId) => {
 const libuploadImage = async (file, userId) => {
   try {
     console.log(userId);
-    const apiUrl = `/api/v1/users/${userId}/upload/library/image`; // Relative path with proxy setup
+    const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/${userId}/upload/library/image`; // Relative path with proxy setup
 
     if (!file) console.log("file leke a bhai ");
 
@@ -64,7 +64,7 @@ const libuploadImage = async (file, userId) => {
 
 
 const getAllImages = async (userId, dispatch) => {
-  const apiUrl = `/api/v1/users/all-image/${userId}`;
+  const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/all-image/${userId}`;
 
   try {
     const response = await fetch(apiUrl, {

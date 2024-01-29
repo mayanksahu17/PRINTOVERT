@@ -13,7 +13,7 @@ const getAllOrderedProducts = asyncHandler(async (req, res) => {
 
 const getAllActiveProducts = asyncHandler(async (req, res) => {
   // Assuming active products are those that are not delivered yet
-  const activeProducts = await Product.find({ delivered: false });
+  const activeProducts = await Product.find({ active: true });
   return res.json(new ApiResponse(200,activeProducts, 'Active products retrieved successfully', ));
 });
 
@@ -25,11 +25,11 @@ const getAllDeliveredProducts = asyncHandler(async (req, res) => {
 const updateproduct = asyncHandler(async (req, res) => {
   try {
     const productId = req.params.id;
-    const {shipped, delivered, ordered} = req.body
+    const {ordered ,shipped, delivered ,active,rejected } = req.body
   
     const updatedProduct = await Product.findByIdAndUpdate(
       productId,
-      {shipped, delivered, ordered},
+      {shipped, delivered ,active , rejected,ordered},
       { new: true }
     );
 

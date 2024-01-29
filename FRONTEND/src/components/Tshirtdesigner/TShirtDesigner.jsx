@@ -13,7 +13,7 @@
   import store from '../../store/store.js';
   import { setfront } from '../../store/productimage.js';
   import { setPrice } from '../../store/productSlice.js';
-  // import upload from './ds.js';
+  
 
   const TShirtDesigner = () => {
     const [canvas, setCanvas] = useState(null);
@@ -29,12 +29,9 @@
       additionalRate: 0.55, 
       minimumCharge: 20,
     });
-
-
     const calculatePrintCost = (width, height) => {
       const totalSqInch = width * height;
   
-      // Apply different rates based on size
       let printCost = 0;
       if (totalSqInch <= 11 * 16) {
         printCost = totalSqInch * pricing.baseRate;
@@ -48,18 +45,34 @@
   
       return printCost;
     };
-    const handleCalculate = (width, height) => {
+  
+    // Handle canvas dimensions change
+    const handleDimensionsChange = () => {
+      const width = canvas.getWidth() / canvas.getZoom();
+      const height = canvas.getHeight() / canvas.getZoom();
+      console.log('Canvas Width:', width, 'inches');
+      console.log('Canvas Height:', height, 'inches');
+  
       const cost = calculatePrintCost(width, height);
       console.log('Printing Cost:', cost, 'Rs');
-      setPrintCost(cost)
-      dispatch(setPrice({price: cost}))
+  
+      setPrintCost(cost);
+      dispatch(setPrice({ price: cost }));
     };
-
+  
     useEffect(() => {
+      // Initialize fabric canvas
       const fabricCanvas = new fabric.Canvas('tshirt-canvas');
       setCanvas(fabricCanvas);
-
-      return () => fabricCanvas.dispose();
+  
+      // Listen for canvas dimensions change
+      fabricCanvas.on('object:scaled', handleDimensionsChange);
+  
+      return () => {
+        // Clean up event listener
+        fabricCanvas.off('object:scaled', handleDimensionsChange);
+        fabricCanvas.dispose();
+      };
     }, []);
 
     useEffect(() => {

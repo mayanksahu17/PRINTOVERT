@@ -6,6 +6,7 @@ import { ApiResponse } from '../utils/ApiResponse.js'
 import jwt from "jsonwebtoken"
 import { wallet } from '../models/wallet.model.js'
 import {Transection} from '../models/transections.js'
+import Product from '../models/product.model.js'
 
 const generateAccessTokenandRefreshTocken = async(userId)=>{
   try {
@@ -385,7 +386,7 @@ const getAllUserTransactions = asyncHandler(async (req, res) => {
 });
 
 
-const getAllOrderedProducts = asyncHandler(async (req, res) => {
+const getAllOrderedProducts = async (req, res) => {
   try {
     const userId = req.params.id; // Assuming the user ID is passed in the URL
 
@@ -396,15 +397,15 @@ const getAllOrderedProducts = asyncHandler(async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Fetch ordered products in the user's cart
-    const orderedProducts = await Product.find({ _id: { $in: user.orders }, ordered: true });
+    // Find all products that are ordered by the user
+    const orderedProducts = await Product.find({ userid: userId, ordered: true });
 
     return res.status(200).json({ success: true, data: orderedProducts });
   } catch (error) {
     console.error('Error:', error);
     return res.status(500).json({ message: 'Internal Server Error' });
   }
-});
+};
 
 const addWalletBalance = asyncHandler(async (req, res) => {
   const userId = req.params.id;

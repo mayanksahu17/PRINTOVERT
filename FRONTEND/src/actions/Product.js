@@ -74,8 +74,37 @@ const updateProduct = async (productId, userId, updateData) => {
 };
 
 
+
+const getAllOrderedProducts = async (userId) => {
+  try {
+    const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/${userId}/cart`; // Relative path with proxy setup
+
+    const response = await axios.get(apiUrl, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.data.success) {
+      throw new Error(`Error fetching products: ${response.data.message}`);
+    }
+
+    const responseData = response.data;
+    console.log('Products fetched successfully:', responseData);
+    return responseData;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    throw error;
+  }
+};
+
+
+
+
+
 export  {
   uploadProduct,
   getAllProducts,
+  getAllOrderedProducts,
   updateProduct
 };
