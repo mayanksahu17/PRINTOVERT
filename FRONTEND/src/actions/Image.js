@@ -1,27 +1,27 @@
 import { addImage } from "../store/imageslice";
-import axios from 'axios';
+
+const apiUrlBase = 'https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1';
 
 const uploadImage = async (file, userId) => {
   try {
     console.log(userId);
-    const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/image/${userId}`; // Relative path with proxy setup
+    const apiUrl = `${apiUrlBase}/users/image/${userId}`;
 
     if (!file) console.log("file leke a bhai ");
 
     const formData = new FormData();
     formData.append('Image', file);
 
-    const response = await axios.post(apiUrl, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      body: formData,
     });
 
     if (response.status !== 200) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data = response.data;
+    const data = await response.json();
     console.log("result data : ", data);
 
     return data;
@@ -35,24 +35,23 @@ const uploadImage = async (file, userId) => {
 const libuploadImage = async (file, userId) => {
   try {
     console.log(userId);
-    const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/${userId}/upload/library/image`; // Relative path with proxy setup
+    const apiUrl = `${apiUrlBase}/users/${userId}/upload/library/image`;
 
     if (!file) console.log("file leke a bhai ");
 
     const formData = new FormData();
     formData.append('Image', file);
 
-    const response = await axios.post(apiUrl, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      body: formData,
     });
 
     if (response.status !== 200) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data = response.data;
+    const data = await response.json();
     console.log("result data : ", data);
 
     return data;
@@ -64,7 +63,7 @@ const libuploadImage = async (file, userId) => {
 
 
 const getAllImages = async (userId, dispatch) => {
-  const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/all-image/${userId}`;
+  const apiUrl = `${apiUrlBase}/users/all-image/${userId}`;
 
   try {
     const response = await fetch(apiUrl, {
@@ -86,6 +85,7 @@ const getAllImages = async (userId, dispatch) => {
     return images;
   } catch (error) {
     console.error('Error getting images:', error);
+    throw error;
   }
 };
   
@@ -94,4 +94,4 @@ export {
   getAllImages,
   uploadImage,
   libuploadImage
-}
+};

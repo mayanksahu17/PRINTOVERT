@@ -1,22 +1,23 @@
-import axios from 'axios'
-
+const apiUrlBase = 'https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1';
 
 const uploadProduct = async (userId, formData) => {
   try {
     console.log(userId);
-    const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/products/${userId}/add-new/product`; // Relative path with proxy setup
+    const apiUrl = `${apiUrlBase}/users/products/${userId}/add-new/product`;
 
-    const response = await axios.post(apiUrl, formData, {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(formData),
     });
 
-    if (!response.data.success) {
-      throw new Error(`Error uploading product: ${response.data.message}`);
+    const responseData = await response.json();
+    if (!responseData.success) {
+      throw new Error(`Error uploading product: ${responseData.message}`);
     }
 
-    const responseData = response.data;
     console.log('Product uploaded successfully:', responseData);
     return responseData;
   } catch (error) {
@@ -25,22 +26,21 @@ const uploadProduct = async (userId, formData) => {
   }
 };
 
-
 const getAllProducts = async (userId) => {
   try {
-    const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/products/${userId}/get-all-products`; // Relative path with proxy setup
+    const apiUrl = `${apiUrlBase}/users/products/${userId}/get-all-products`;
 
-    const response = await axios.get(apiUrl, {
+    const response = await fetch(apiUrl, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    if (!response.data.success) {
-      throw new Error(`Error fetching products: ${response.data.message}`);
+    const responseData = await response.json();
+    if (!responseData.success) {
+      throw new Error(`Error fetching products: ${responseData.message}`);
     }
 
-    const responseData = response.data;
     console.log('Products fetched successfully:', responseData);
     return responseData;
   } catch (error) {
@@ -49,22 +49,25 @@ const getAllProducts = async (userId) => {
   }
 };
 
-
 const updateProduct = async (productId, userId, updateData) => {
   try {
     console.log(productId, userId, updateData);
-    const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/products/${userId}/products/${productId}`; // Relative path with proxy setup
-    const response = await axios.put(apiUrl, updateData, {
+    const apiUrl = `${apiUrlBase}/users/products/${userId}/products/${productId}`;
+
+    const response = await fetch(apiUrl, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(updateData),
     });
 
-    if (response.data.success) {
-      console.log('Product updated successfully:', response.data);
-      return response.data.data;
+    const responseData = await response.json();
+    if (responseData.success) {
+      console.log('Product updated successfully:', responseData);
+      return responseData.data;
     } else {
-      console.error('Error updating product:', response.data.message || 'An error occurred');
+      console.error('Error updating product:', responseData.message || 'An error occurred');
       return null;
     }
   } catch (error) {
@@ -73,23 +76,21 @@ const updateProduct = async (productId, userId, updateData) => {
   }
 };
 
-
-
 const getAllOrderedProducts = async (userId) => {
   try {
-    const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/users/${userId}/cart`; // Relative path with proxy setup
+    const apiUrl = `${apiUrlBase}/users/${userId}/cart`;
 
-    const response = await axios.get(apiUrl, {
+    const response = await fetch(apiUrl, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    if (!response.data.success) {
-      throw new Error(`Error fetching products: ${response.data.message}`);
+    const responseData = await response.json();
+    if (!responseData.success) {
+      throw new Error(`Error fetching products: ${responseData.message}`);
     }
 
-    const responseData = response.data;
     console.log('Products fetched successfully:', responseData);
     return responseData;
   } catch (error) {
@@ -98,11 +99,7 @@ const getAllOrderedProducts = async (userId) => {
   }
 };
 
-
-
-
-
-export  {
+export {
   uploadProduct,
   getAllProducts,
   getAllOrderedProducts,

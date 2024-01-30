@@ -7,7 +7,6 @@ class ImageUploader extends Component {
   imageUpload = ({file , name }) => {
     getBase64(file).then(async(base64) => {
       localStorage.setItem(name, base64);                   
-      console.debug("File stored", base64);
     });
   };
 }

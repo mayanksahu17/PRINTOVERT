@@ -13,8 +13,9 @@ function Delivered() {
  
   useEffect(() => {
     if (!isAuthenticated) {
-      // navigate("/admin/admin-login")
-      getAllOrderedProducts();
+      navigate("/admin/admin-login")
+    }else{
+       getAllOrderedProducts();
      }
   }, [refreshFlag]); 
 

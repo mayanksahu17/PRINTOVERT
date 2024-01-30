@@ -5,15 +5,16 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 import Product from '../models/product.model.js';
 import { wallet } from '../models/wallet.model.js';
 import { Admin } from '../models/admin.model.js';
+import { Transection } from '../models/transections.js';
 
 const getAllOrderedProducts = asyncHandler(async (req, res) => {
-  const orderedProducts = await Product.find({ ordered: true });
+  const orderedProducts = await Product.find({ ordered: true , delivered : false });
   return res.json(new ApiResponse(200,  orderedProducts,'Ordered products retrieved successfully'));
 }); 
 
 const getAllActiveProducts = asyncHandler(async (req, res) => {
   // Assuming active products are those that are not delivered yet
-  const activeProducts = await Product.find({ active: true });
+  const activeProducts = await Product.find({ active: true , delivered : false });
   return res.json(new ApiResponse(200,activeProducts, 'Active products retrieved successfully', ));
 });
 
@@ -110,7 +111,7 @@ const getwalletrequests = asyncHandler(async (req, res) => {
   });
 
 const addwalletamount = asyncHandler(async (req, res) => {
-    const { amount, userId } = req.body;
+    const { amount, userId , requestId } = req.body;
   
     try {
      
@@ -127,6 +128,8 @@ const addwalletamount = asyncHandler(async (req, res) => {
       user.walletBalance =  user.walletBalance +  amount; 
   
       await user.save();
+
+      const deletedRequested = await wallet.deleteOne({_id : requestId}) 
   
       res.json(new ApiResponse(200, `Wallet amount added successfully. New balance: ${user.walletBalance}`));
     } catch (error) {
@@ -150,6 +153,40 @@ const getAllusers = asyncHandler(async(req,res)=>{
   }
 })
 
+const rejectRequest = asyncHandler(async(req, res) => {
+  const { userId, TransectionId } = req.body;
+
+  try {
+    
+    const user = await User.findById(userId);
+
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    
+    const transaction = await Transection.findById(TransectionId);
+
+    // Check if the transaction exists
+    if (!transaction) {
+      return res.status(404).json({ message: 'Transaction not found' });
+    }
+
+    // Delete the transaction
+    await transaction.delete();
+
+    // Remove the transaction ID from the user's Transection array
+    user.Transection.pull(TransectionId);
+    await user.save();
+
+    return res.status(200).json({ success: true, message: 'Transaction rejected successfully' });
+  } catch (error) {
+    console.error('Error rejecting transaction:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 
 
 
@@ -168,5 +205,6 @@ export  {
     getwalletrequests,
     addwalletamount,
     updateproduct,
-    getAllusers
+    getAllusers,
+    rejectRequest
 }

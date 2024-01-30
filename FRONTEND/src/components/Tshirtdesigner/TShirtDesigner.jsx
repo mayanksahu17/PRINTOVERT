@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { fabric } from 'fabric';
 import html2canvas from 'html2canvas';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Tshirt from '../../assets/Tshirt.png';
 import Sizes from './Sizes';
 import store from '../../store/store.js';
@@ -10,14 +11,17 @@ import Colorbox from './Colorbox'
 import { useSelector, useDispatch } from 'react-redux';
 import ImageUploader from './Base64.js'
 import { uploadImage } from '../../actions/Image.js';
-import { setback } from '../../store/productimage.js';
+import { setback, setfront } from '../../store/productimage.js';
 import back from '../../assets/New folder/back.jpeg'
 import React from 'react';
 
 
 const Backdesigner = () => {
   const [canvas, setCanvas] = useState(null);
+  const [price, setPrice] = useState(200);
+  const navigate  = useNavigate();
   const [showUploadForm, setShowUploadForm] = useState(false);
+  const isAuthenticated = store.getState().auth.user
   const stateImage = useSelector((state) => state.images.selectedImage);
   const dispatch = useDispatch()
 
@@ -80,6 +84,12 @@ const Backdesigner = () => {
   };
 
   const handleCustomPicture = (e) => {
+
+    if(!isAuthenticated){
+     
+      navigate('login')
+    }else{
+      
     const reader = new FileReader();
 
     reader.onload = (event) => {
@@ -102,6 +112,7 @@ const Backdesigner = () => {
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
     }
+  }
   };
 
   const handleKeyDown = (e) => {
@@ -140,7 +151,7 @@ const Backdesigner = () => {
 
       console.log(typeof(image));
 
-      dispatch(setback({ URL: image }));
+      dispatch(setfront({ URL: image }));
 
       console.log("Image uploaded:", image);
     } catch (error) {
@@ -149,43 +160,31 @@ const Backdesigner = () => {
   };
   
 
+
   const handleSave = async () => {
-    html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const imageUploader = new ImageUploader();
-          imageUploader.imageUpload({
-            file: blob,
-            name: 'backimage',
-          });
-  
-          const ctx = canvas.getContext('2d');
-          const widthInches = canvas.width / ctx.dpi;
-          const heightInches = canvas.height / ctx.dpi;
-          const imageSize = widthInches * heightInches;
+
+ 
+
+      html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const imageUploader = new ImageUploader();
+            imageUploader.imageUpload({
+              file: blob,
+              name: 'frontimage',
+            });
+
+          }
+        }, 'image/png');
+      });
+      const canvas = await html2canvas(document.getElementById("tshirt-div"));
+      const canvasDataURL = canvas.toDataURL('image/png');
+      await upload(canvasDataURL);
+
+  }
   
   
 
-          let price = 0;
-          if (imageSize <= 50) {
-            price = 10;
-          } else if (imageSize <= 100) {
-            price = 20;
-          } else {
-            price = 30;
-          }
-  
-          // Set the price in local storage
-          localStorage.setItem('imagePrice', price.toString());
-        }
-      }, 'image/png');
-    });
-  
-    const canvas = await html2canvas(document.getElementById("tshirt-div"));
-    const canvasDataURL = canvas.toDataURL('image/png');
-    await upload(canvasDataURL);
-  }
-  
 
 
 
@@ -286,7 +285,7 @@ const Backdesigner = () => {
             </div>
             <br />
            
-    
+            <p className="text-2xl ">Total Price: <span className="text-blue-500">{price}</span> {"  "}(Taxes Apply)</p>
             <br />
             <EditButton onClick={toggleUploadForm} className='  mt-11   h-10 w-30 rounded-3xl text-white  border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold' >
               Upload
@@ -318,3 +317,4 @@ const Backdesigner = () => {
 };
 
 export default Backdesigner;
+
