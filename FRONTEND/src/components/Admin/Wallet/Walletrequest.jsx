@@ -8,22 +8,20 @@ function Walletrequest() {
   const [walletRequests, setWalletRequests] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
   const isAuthenticated = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [updateKey, setUpdateKey] = useState(0); 
 
   useEffect(() => {
+    if (!isAuthenticated) return;
     fetchData();
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated]); 
 
   const fetchData = async () => {
     try {
       setLoading(true);
       setError(null);
-      if (!isAuthenticated) {
-        navigate("/admin/admin-login");
-        return; 
-      }
       const response = await getAllWalletRequests();
       setWalletRequests(response); 
     } catch (error) {
@@ -36,19 +34,13 @@ function Walletrequest() {
 
   const handleApprove = async (amount, userId, requestId) => {
     try {
-      console.log("function");
-      setLoading(true);
-      setError(null);
       await addwalletamount(amount, userId, requestId); 
-      fetchData();
+      setUpdateKey(prevKey => prevKey + 1);
     } catch (error) {
       console.error('Error adding wallet amount:', error);
       setError('Error adding wallet amount');
-    } finally {
-      setLoading(false);
     }
   };
-
   return (
     <div className='bg-blue-200 w-full h-full flex-grow overflow-y-auto'>
       <div className='bg-blue-200 w-full h-180'>
@@ -66,7 +58,8 @@ function Walletrequest() {
             <Requestcard 
               key={request._id} 
               walletRequest={request} 
-              handleApprove={() => handleApprove(request.amount, request.userid, request._id)} 
+              handleApprove={() => handleApprove(request.amount, request.userid, request._id)}
+              updateKey={updateKey} 
             />
           ))}
         </div>

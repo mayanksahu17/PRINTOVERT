@@ -35,22 +35,19 @@ const addwalletamount = async(amount, userId , requestId) => {
   }
 };
 
- const rejectRequest =async ()=>{
+ const rejectRequest =async (userId,requestId)=>{
   const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/admin/add-wallet-amount`;
   
   try {
     const response = await axios.post(apiUrl, { amount, userId, requestId });
     
-    // Handle success response
     if (response.data.success) {
       console.log('Wallet amount added successfully:', response.data.message);
-      // You can perform additional actions here if needed
     } else {
       console.error('Failed to add wallet amount:', response.data.message);
-      // Handle the failure case appropriately
+      
     }
   } catch (error) {
-    // Handle the error case
     console.error('Error adding wallet amount:', error);
   }
  } 
@@ -60,5 +57,6 @@ const addwalletamount = async(amount, userId , requestId) => {
 
 export { 
   addwalletamount,
-  getAllWalletRequests}
+  getAllWalletRequests,
+  rejectRequest}
 

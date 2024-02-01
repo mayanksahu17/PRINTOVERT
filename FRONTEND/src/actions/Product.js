@@ -63,6 +63,7 @@ const updateProduct = async (productId, userId, updateData) => {
     });
 
     const responseData = await response.json();
+    console.log(responseData);
     if (responseData.success) {
       console.log('Product updated successfully:', responseData);
       return responseData.data;

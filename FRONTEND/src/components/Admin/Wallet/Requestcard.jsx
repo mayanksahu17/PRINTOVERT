@@ -1,41 +1,21 @@
 import React from 'react';
-import { addwalletamount, getAllWalletRequests } from '../actions/wallet.js';
+import { addwalletamount, getAllWalletRequests ,rejectRequest} from '../actions/wallet.js';
 
-function Requestcard({ walletRequest  }) {
+function Requestcard({ walletRequest, handleApprove, updateKey }) {
   const { _id, image, userId, amount, createdAt, updatedAt,status } = walletRequest;
 
+  // Use updateKey prop to trigger re-rendering when it changes
+  React.useEffect(() => {
+    console.log("updateKey changed:", updateKey);
+  }, [updateKey]);
 
-  
-  const handleApprove = async (amount, userId, requestId) => {
-    try {
-      console.log("function");
-      setLoading(true);
-      setError(null);
-      await addwalletamount(amount, userId, requestId); 
-      fetchData();
-    } catch (error) {
-      console.error('Error adding wallet amount:', error);
-      setError('Error adding wallet amount');
-    } finally {
-      setLoading(false);
-    }
-  };
   const handleReject = async (amount, userId, requestId) => {
     try {
-      console.log("function");
-      setLoading(true);
-      setError(null);
-      await addwalletamount(amount, userId, requestId); 
-      fetchData();
+      await rejectRequest( userId, requestId); 
     } catch (error) {
       console.error('Error adding wallet amount:', error);
-      setError('Error adding wallet amount');
-    } finally {
-      setLoading(false);
     }
   };
-
-
 
   return (
     <div className='w-[350px] ml-10 bg-gray-100 rounded-xl mt-3'>
@@ -49,7 +29,9 @@ function Requestcard({ walletRequest  }) {
       </div>
       <div className='flex mt-4 mb-10'>
         <div className='w-[50%] flex justify-between mb-3'>
-          <button onClick={handleApprove(walletRequest.amount, walletRequest.userid, walletRequest._id)} className='ml-8 rounded-2xl p-2 w-[80%] h-8 text-center bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 font-semibold'>
+          <button onClick={handleApprove(walletRequest.amount, walletRequest.userid, walletRequest._id)} 
+          className='ml-8 rounded-2xl p-2 w-[80%] h-8 text-center
+                   bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 font-semibold'>
             Approve
           </button>
         </div>
