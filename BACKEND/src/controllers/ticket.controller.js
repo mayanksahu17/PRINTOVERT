@@ -25,7 +25,8 @@ const createTicket = asyncHandler(async (req, res) => {
         callBackNumber,
         description,
         status : "pending",
-        response : "N/A"
+        response : "N/A",
+        userId : userId
       });
   
       // Save the new ticket

@@ -28,6 +28,9 @@ const ticketSchema = new mongoose.Schema({
         type : String,
     
     },
+    userId : {
+        type : String
+    }
   
   
 },{timestamps : true })

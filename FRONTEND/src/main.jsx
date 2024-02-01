@@ -37,6 +37,7 @@ import  store  from './store/store.js';
 import Preview from './components/Tshirtdesigner/Preview.jsx';
 import Test from './components/Test/Test.jsx';
 import Loginadmin  from './components/Admin/login/Loginadmin.jsx';
+import Tickets from './components/Admin/Tickets/Tickets.jsx';
 // Define routes using the Router and Routes components
 const AppRoutes = () => (
   <Router>
@@ -69,6 +70,7 @@ const AppRoutes = () => (
       <Route path="/admin" element={<AdLayout />}>
         <Route index element={<Home />} />
         <Route path="orders" element={<AdOrders />} />
+        <Route path="tickets" element={<Tickets />} />
         <Route path="active-orders" element={<Activeorder />} />
         <Route path="delivered" element={<Delivered />} />
         <Route path="wallet-request" element={<Walletrequest />} />

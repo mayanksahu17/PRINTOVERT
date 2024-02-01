@@ -6,6 +6,7 @@ import Product from '../models/product.model.js';
 import { wallet } from '../models/wallet.model.js';
 import { Admin } from '../models/admin.model.js';
 import { Transection } from '../models/transections.js';
+import { Ticket } from '../models/ticket.model.js';
 
 const getAllOrderedProducts = asyncHandler(async (req, res) => {
   const orderedProducts = await Product.find({ ordered: true , delivered : false });
@@ -194,6 +195,18 @@ const test = asyncHandler(async (req,res)=>{
     res.json(new ApiResponse(200,"sab theek h "))
 })
 
+const getAllTickets = asyncHandler(async (req, res) => {
+  const tickets = await Ticket.find();
+
+  if (!tickets || tickets.length === 0) {
+    throw new ApiError(404, "No tickets found");
+  }
+
+  res.status(200).json(new ApiResponse(200, tickets, "Tickets fetched successfully"));
+});
+
+
+
 export  {
     getAllOrderedProducts,
     getAllActiveProducts,
@@ -206,5 +219,6 @@ export  {
     addwalletamount,
     updateproduct,
     getAllusers,
-    rejectRequest
+    rejectRequest,
+    getAllTickets
 }

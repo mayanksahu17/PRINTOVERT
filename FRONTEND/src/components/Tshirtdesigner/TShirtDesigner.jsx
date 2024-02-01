@@ -16,19 +16,35 @@ import back from '../../assets/New folder/back.jpeg'
 import React from 'react';
 
 
-const Backdesigner = () => {
+const TshirtDesigner = () => {
   const [canvas, setCanvas] = useState(null);
-  const [price, setPrice] = useState(200);
-  const navigate  = useNavigate();
+  const [price, setPrice] = useState(100); // Updated price state
+  const navigate = useNavigate();
   const [showUploadForm, setShowUploadForm] = useState(false);
-  const isAuthenticated = store.getState().auth.user
+  const isAuthenticated = store.getState().auth.user;
   const stateImage = useSelector((state) => state.images.selectedImage);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
 
 
   const toggleUploadForm = () => {
     setShowUploadForm(!showUploadForm);
+  };
+
+
+
+  const calculateImageSizeInches = (width, height, dpi = 300) => {
+    const widthInches = width / dpi;
+    const heightInches = height / dpi;
+    return { widthInches, heightInches };
+  };
+
+  const calculatePrintingPrice = (width, height) => {
+    const totalPixels = width * height;
+    const pricePerPixel = 0.01;
+  
+    const totalPrice = totalPixels * pricePerPixel;
+    return totalPrice.toFixed(2); 
   };
 
   useEffect(() => {
@@ -43,30 +59,47 @@ const Backdesigner = () => {
 
   
   useEffect(() => {
-    // Load the image into the canvas when the page mounts
     if (stateImage) {
       loadImageIntoCanvas(stateImage, canvas);
+      // Calculate image size and update price when a new image is loaded
+      const { naturalWidth, naturalHeight } = stateImage;
+      const { widthInches, heightInches } = calculateImageSizeInches(naturalWidth, naturalHeight);
+      const newPrice = calculatePrintingPrice(naturalWidth, naturalHeight);
+      setPrice( price + newPrice);
+      // console.log(`Image size: ${widthInches} inches x ${heightInches} inches`);
     }
   }, [stateImage, canvas]);
 
   const loadImageIntoCanvas = (imageUrl, canvas) => {
     const imgObj = new Image();
     imgObj.crossOrigin = 'anonymous'; // Set this if loading images from a different domain
-
+  
     imgObj.onload = () => {
       const fabricImg = new fabric.Image(imgObj);
-
+  
+      // Calculate the size of the image in inches
+      const widthInches = imgObj.width / 300; // Assuming 300 DPI
+      const heightInches = imgObj.height / 300; // Assuming 300 DPI
+  
+      // Log the size of the image in inches
+      console.log(`Image size: ${widthInches} inches x ${heightInches} inches`);
+  
       fabricImg.scaleToHeight(300);
       fabricImg.scaleToWidth(300);
-
+  
       if (canvas) {
         canvas.add(fabricImg);
         canvas.renderAll();
+  
+        // Update the price based on the image size
+        const newPrice = calculatePrintingPrice(imgObj.width, imgObj.height);
+        setPrice((prevPrice) => prevPrice + newPrice);
       }
     };
-
+  
     imgObj.src = imageUrl;
   };
+  
 
 
   const updateTshirtImage = (imageURL) => {
@@ -75,6 +108,9 @@ const Backdesigner = () => {
       img.scaleToWidth(300);
       canvas.centerObject(img);
       canvas.add(img);
+      
+      
+      
       canvas.renderAll();
     });
   };
@@ -316,5 +352,5 @@ const Backdesigner = () => {
   );
 };
 
-export default Backdesigner;
+export default TshirtDesigner;
 

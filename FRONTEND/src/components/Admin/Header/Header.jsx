@@ -10,6 +10,7 @@ import { FaArrowRight } from "react-icons/fa";
 import LogoutButton from './Buttons/LogoutButton';
 import LoginButton from './Buttons/LoginButton';
 import { useSelector } from 'react-redux';
+import { IoTicketOutline } from "react-icons/io5";
 
 function Header() {
   const [open, setOpen] = useState(true);
@@ -25,6 +26,7 @@ function Header() {
   const active = "/admin/active-orders";
   const delivered = "/admin/delivered";
   const wallet = "/admin/wallet-request";
+  const tickets = "/admin/tickets"
 
   return (
     <div id='header' className={`flex flex-col bg-blue-700 h-[800px] ${open ? "w-80 " : "w-20 "} duration-500  relative `}>
@@ -51,7 +53,9 @@ function Header() {
 
         <NavLink to={wallet}><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <FaRupeeSign className='mt-1 text-3xl' /></div> <div className={`${!open && "scale-0"}`}>Wallet request</div></li></NavLink>
 
-        <div className=' mt-72'>
+        <NavLink to={tickets}><li className="py-3 px-4 rounded-lg hover:bg-white cursor-pointer flex text-white font-medium text-center hover:text-black hover:font-bold"> <div className='px-3  '> <IoTicketOutline className='mt-1 text-3xl' /></div> <div className={`${!open && "scale-0"}`}>Ticket</div></li></NavLink>
+
+        <div className=' mt-[220px]'>
           <hr />
           {
             !isAuthenticated && (<LoginButton open={open} />)

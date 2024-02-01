@@ -10,7 +10,8 @@ import  {
     addwalletamount,
     updateproduct,
     getAllusers,
-    rejectRequest
+    rejectRequest,
+    getAllTickets
 } from '../controllers/admin.controller.js'
 import {Router} from 'express'
 
@@ -37,6 +38,8 @@ router.route("/reject-wallet-amount").post(rejectRequest)
 router.route("/:id/update-product").patch(updateproduct)
 
 router.route("/get-all-users").get(getAllusers)
+
+router.route("/get/all-tickects").get(getAllTickets)
 
 
 router.route("/test").get(test)

@@ -10,6 +10,8 @@ function Home() {
 
   useEffect(() => {
     const fetchUsers = async () => {
+      
+
       try {
         const userData = await getAllUsers();
         console.log(userData.data);

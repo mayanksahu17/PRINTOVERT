@@ -25,7 +25,7 @@ import userRouter from './routes/user.routes.js';
 import productRouter from './routes/product.routes.js';
 import adminRouter from './routes/admin.routes.js';
 
-// routes declaration 
+ 
 app.get("/", (req, res) => {
     res.json("Server is Ready");
 });

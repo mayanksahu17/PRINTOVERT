@@ -20,10 +20,10 @@ function Walletrequest() {
     try {
       setLoading(true);
       setError(null);
-      // if (!isAuthenticated) {
-      //   navigate("/admin/admin-login");
-      //   return; 
-      // }
+      if (!isAuthenticated) {
+        navigate("/admin/admin-login");
+        return; 
+      }
       const response = await getAllWalletRequests();
       setWalletRequests(response); 
     } catch (error) {
@@ -36,6 +36,7 @@ function Walletrequest() {
 
   const handleApprove = async (amount, userId, requestId) => {
     try {
+      console.log("function");
       setLoading(true);
       setError(null);
       await addwalletamount(amount, userId, requestId); 

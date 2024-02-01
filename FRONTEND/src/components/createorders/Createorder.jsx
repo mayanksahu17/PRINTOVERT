@@ -12,6 +12,7 @@ function CreateOrder() {
   const user = store.getState().auth.user;
   const userId = user?._id;
 
+  const [loading, setLoading] = useState(true); // State variable to track loading state
   const [refreshFlag, setRefreshFlag] = useState(false); // State variable to trigger component remount
 
   const handleUpdate = async (order) => {
@@ -37,8 +38,10 @@ function CreateOrder() {
         const productData = response.data;
         console.log(productData);
         dispatch(setProducts({ data: productData }));
+        setLoading(false); // Set loading to false when data is fetched
       } catch (error) {
         console.log(error);
+        setLoading(false); // Set loading to false if there's an error
       }
     };
 
@@ -51,11 +54,22 @@ function CreateOrder() {
         <h1 className='font-bold mt-8 ml-7 text-blue font-cerebriSans text-blue-900 co text-5xl'>Create Orders</h1>
         <p className='ml-12 mt-1 text-gray-600 '>Place Order and Enjoy </p>
       </div>
-      <div className='flex flex-wrap'>
-        {productData?.map((product) => (
-          <Orders key={product._id} orderData={product} handleUpdate={handleUpdate} />
-        ))}
-      </div>
+
+      {/* Display loading indicator or message while data is being fetched */}
+      {!user && (
+        <p className='text-black font-semibold text-xl ml-7 '>Authentication required to access this feature.</p>
+      )}
+
+      {user && loading ? (
+        <p className='text-black font-semibold text-5xl ml-[350px] mt-[20%]'>Loading...</p>
+      ) : (
+        <div className='flex flex-wrap'>
+          {productData?.map((product) => (
+            <Orders key={product._id} orderData={product} handleUpdate={handleUpdate} />
+          ))}
+        </div>
+      )}
+
       <div className='h-18 w-full ml-10 flex mt-32'>
         {/* <Button  className='hover:bg-red-600 ' children={'Delete Product'} /> */}
       </div>

@@ -96,7 +96,7 @@ function Preview() {
         rating: rating,
         shipped: shipped,
         delivered: delivered,
-        ordered: true,
+        ordered: false,
         brand: brand,
         category: category,
         quantity : quantity,

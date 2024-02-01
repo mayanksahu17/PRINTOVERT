@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../../store/authSlice.js';
@@ -10,37 +10,32 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-
   const onSubmit = async (data) => {
+    setLoading(true);
+    setError('');
     
     try {
-      console.log(data);
-      const  userData = await handleLogin(data);
-      console.log(userData);
+      const userData = await handleLogin(data);
       if (!userData) {
         setError('Invalid username or password. Please try again.');
-       
+      } else {
+        dispatch(login({ user: userData, token: userData.refreshToken }));
+        navigate('/');
       }
-
-      if (userData!== undefined) {dispatch(login({user : userData , token : userData.refreshToken}));
-      
-      navigate('/');}
     } catch (error) {
-
       setError('Invalid username or password. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
-  const isAuthenticated = useSelector((state) => state.auth.user !== null);
-
-  
   return (
     <div className='bg-blue-200 w-full h-180 '>
       <div>
-        
-         <h1 className='font-bold mt-8 ml-8  text-blufont-cerebriSans text-blue-900 co text-5xl'>Sign In</h1>
+        <h1 className='font-bold mt-8 ml-8  text-blufont-cerebriSans text-blue-900 co text-5xl'>Sign In</h1>
         <p className='ml-12 mt-1'>Log in Your Account </p>
       </div>
 
@@ -52,10 +47,11 @@ function Login() {
             <div className='ml-7 text-xl'>Username</div>
             <div className='w-[50%] flex justify-between '>
               <input
-                {...register('username')} // React Hook Form register for username
+                {...register('username')}
                 className='rounded-lg p-2 w-[100%] h-7'
                 type='text'
                 placeholder='Enter the detail'
+                disabled={loading}
               />
             </div>
           </div>
@@ -64,10 +60,11 @@ function Login() {
             <div className='ml-7 text-xl'>Password</div>
             <div className='w-[50%] flex justify-between'>
               <input
-                {...register('password')} // React Hook Form register for password
+                {...register('password')}
                 className='rounded-lg p-2 w-[100%] h-7'
                 type='password'
                 placeholder='Enter the detail'
+                disabled={loading}
               />
             </div>
           </div>
@@ -75,20 +72,19 @@ function Login() {
           {error && <div className='text-red-500 ml-7 mt-2'>{error}</div>}
 
           <div className='flex justify-end mt-16 mr-10'>
-          <NavLink to='/signup'>
-  <div className='flex justify-between mr-10 '>
-    <span>
-      Don't have any account{' '}
-      <span className='ml-0 text-blue-500 underline'>
-        <div className='-mt-1 text-'>Sign Up</div>
-      </span>
-    </span>
-  </div>
-</NavLink>
+            <NavLink to='/signup'>
+              <div className='flex justify-between mr-10 '>
+                <span>
+                  Don't have any account{' '}
+                  <span className='ml-0 text-blue-500 underline'>
+                    <div className='-mt-1 text-'>Sign Up</div>
+                  </span>
+                </span>
+              </div>
+            </NavLink>
 
-
-            <button type='submit' className='ml-3 rounded-2xl p-2 w-[100px] h-9 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '>
-              <div className=' -mt-1'>Sign In </div>
+            <button type='submit' className='ml-3 rounded-2xl p-2 w-[100px] h-9 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2' disabled={loading}>
+              {loading ? 'Loading...' : 'Sign In'}
             </button>
           </div>
         </div>
