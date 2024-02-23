@@ -1,5 +1,5 @@
-
-const URL = "https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/admin/login"
+import axios from 'axios';
+const URL = "/api/v1/admin/login"
 const handleLogin = async(adminData)=>{
 
     try {
@@ -28,10 +28,10 @@ const handleLogin = async(adminData)=>{
 }
 
 
-import axios from 'axios';
+
 
 const getAllUsers = async () => {
-  const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/admin/get-all-users`;
+  const apiUrl = `/api/v1/admin/get-all-users`;
 
   try {
     const response = await axios.get(apiUrl);

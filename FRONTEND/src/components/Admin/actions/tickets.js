@@ -3,7 +3,7 @@ import axios from "axios";
 
 const getAllTickets = async()=>{
 
-    const apiURL = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/admin/get/all-tickects`
+    const apiURL = `/api/v1/admin/get/all-tickects`
 
 
     try {

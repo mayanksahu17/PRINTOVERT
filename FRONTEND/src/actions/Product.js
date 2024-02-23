@@ -1,9 +1,9 @@
-const apiUrlBase = 'https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1';
+const apiUrlBase = '';
 
 const uploadProduct = async (userId, formData) => {
   try {
     console.log(userId);
-    const apiUrl = `${apiUrlBase}/users/products/${userId}/add-new/product`;
+    const apiUrl = `/api/users/products/${userId}/add-new/product`;
 
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -28,7 +28,7 @@ const uploadProduct = async (userId, formData) => {
 
 const getAllProducts = async (userId) => {
   try {
-    const apiUrl = `${apiUrlBase}/users/products/${userId}/get-all-products`;
+    const apiUrl = `/api/users/products/${userId}/get-all-products`;
 
     const response = await fetch(apiUrl, {
       headers: {
@@ -52,7 +52,7 @@ const getAllProducts = async (userId) => {
 const updateProduct = async (productId, userId, updateData) => {
   try {
     console.log(productId, userId, updateData);
-    const apiUrl = `${apiUrlBase}/users/products/${userId}/products/${productId}`;
+    const apiUrl = `/api/users/products/${userId}/products/${productId}`;
 
     const response = await fetch(apiUrl, {
       method: 'PUT',
@@ -79,7 +79,7 @@ const updateProduct = async (productId, userId, updateData) => {
 
 const getAllOrderedProducts = async (userId) => {
   try {
-    const apiUrl = `${apiUrlBase}/users/${userId}/cart`;
+    const apiUrl = `/api/users/${userId}/cart`;
 
     const response = await fetch(apiUrl, {
       headers: {

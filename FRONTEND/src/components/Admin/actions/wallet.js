@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/admin/get-wallet-requests`;
+const url = `/api/v1/admin/get-wallet-requests`;
 
 const getAllWalletRequests = async () => {
   try {
@@ -36,7 +36,7 @@ const addwalletamount = async(amount, userId , requestId) => {
 };
 
  const rejectRequest =async (userId,requestId)=>{
-  const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/admin/add-wallet-amount`;
+  const apiUrl = `/api/v1/admin/add-wallet-amount`;
   
   try {
     const response = await axios.post(apiUrl, { amount, userId, requestId });
