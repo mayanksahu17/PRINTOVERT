@@ -11,11 +11,13 @@ function Loginadmin() {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false)
 
 
   const onSubmit = async (data) => {
     
     try {
+      setLoading(true)
       console.log(data);
       const  userData = await handleLogin(data);
       console.log(userData);
@@ -27,6 +29,7 @@ function Loginadmin() {
       if (userData!== undefined) {dispatch(login({user : userData , token : userData.refreshToken}));
       
       navigate('/admin');}
+      setLoading(false)
     } catch (error) {
 
       setError('Invalid username or password. Please try again.');
@@ -78,7 +81,7 @@ function Loginadmin() {
 
 
             <button type='submit' className='ml-3 rounded-2xl p-2 w-[100px] h-9 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '>
-              <div className=' -mt-1'>Sign In </div>
+              <div className=' -mt-1'> {loading ?  (loading&& "Signing in..") : "Sign In "}  </div>
             </button>
           </div>
         </div>

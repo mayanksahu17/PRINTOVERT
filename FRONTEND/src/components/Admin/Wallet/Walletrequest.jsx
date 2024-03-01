@@ -12,11 +12,13 @@ function Walletrequest() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [updateKey, setUpdateKey] = useState(0); 
+ 
+
 
   useEffect(() => {
     if (!isAuthenticated) return;
     fetchData();
-  }, [isAuthenticated]); 
+  }, [isAuthenticated ,updateKey ]); 
 
   const fetchData = async () => {
     try {
@@ -58,7 +60,7 @@ function Walletrequest() {
             <Requestcard 
               key={request._id} 
               walletRequest={request} 
-              handleApprove={() => handleApprove(request.amount, request.userid, request._id)}
+              handleApprove={() => handleApprove(request.amount, request.userId, request._id)}
               updateKey={updateKey} 
             />
           ))}

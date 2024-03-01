@@ -84,7 +84,7 @@ function Login() {
             </NavLink>
 
             <button type='submit' className='ml-3 rounded-2xl p-2 w-[100px] h-9 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2' disabled={loading}>
-              {loading ? 'Loading...' : 'Sign In'}
+              {loading ? 'Sign In...' : 'Sign In'}
             </button>
           </div>
         </div>

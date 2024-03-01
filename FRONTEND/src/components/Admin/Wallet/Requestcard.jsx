@@ -29,11 +29,10 @@ function Requestcard({ walletRequest, handleApprove, updateKey }) {
       </div>
       <div className='flex mt-4 mb-10'>
         <div className='w-[50%] flex justify-between mb-3'>
-          <button onClick={handleApprove(walletRequest.amount, walletRequest.userid, walletRequest._id)} 
-          className='ml-8 rounded-2xl p-2 w-[80%] h-8 text-center
-                   bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 font-semibold'>
-            Approve
-          </button>
+        <button onClick={() => handleApprove(walletRequest.amount, walletRequest.userid, walletRequest._id)} className='ml-8 rounded-2xl p-2 w-[80%] h-8 text-center bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 font-semibold'>
+          Approve
+        </button>
+
         </div>
         <div className='w-[50%] flex justify-between mb-3 mr-3'>
           <button  onClick={handleReject} className='ml-10 rounded-2xl p-2 w-52 h-8 bg-white hover:bg-red-600 hover:text-white border-gray-600 border-2 font-semibold'>

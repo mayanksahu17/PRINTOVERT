@@ -31,10 +31,8 @@ const handleLogin = async (userData) => {
 
       // Save tokens to cookies
       Cookies.set('accessToken', accessToken, { expires: 7 }); // Set expiration time as needed
-      Cookies.set('refreshToken', refreshToken, { expires: 7 }); // Set expiration time as needed
 
       console.log('Access Token:', accessToken);
-      console.log('Refresh Token:', refreshToken);
 
       return user;
     } else {

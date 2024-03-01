@@ -16,7 +16,7 @@ const getAllWalletRequests = async () => {
 
 
 const addwalletamount = async(amount, userId , requestId) => {
-  const apiUrl = `https://3wrmxn2x-8000.inc1.devtunnels.ms/api/v1/admin/add-wallet-amount`;
+  const apiUrl = `/api/v1/admin/add-wallet-amount`;
   console.log({  amount, userId , requestId});
   try {
     const response = await axios.post(apiUrl, { amount, userId, requestId });

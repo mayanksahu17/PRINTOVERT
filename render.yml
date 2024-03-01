@@ -1,0 +1,10 @@
+services:
+  - name: FRONTEND
+    env: node
+    buildCommand: npm run build
+    startCommand: npm run dev 
+    envVars:
+      NODE_ENV: production
+    github:
+      branch: main
+    staticPublishPath: PRINTOVERT/FRONTEND/build
