@@ -5,7 +5,7 @@ const initialState = {
   productimage: "",
   color: "white",
   size: "",
-  price: null,
+  price: 200,
   stock: null,
   rating: null,
   shipped: false,
@@ -36,9 +36,9 @@ const productSlice = createSlice({
       state.color = "white";
       state.size = null;
     },
-    setPrice: (state, action) => {
+    setprice: (state, action) => {
       state.price = action.payload.price;
-     
+     console.log(state.price);
     },
 
   },
@@ -52,7 +52,7 @@ export const {
   Editrightimage,
   Editleftimage,
   removeTshirt,
-  setPrice
+  setprice
 } = productSlice.actions;
 
 export default productSlice.reducer;

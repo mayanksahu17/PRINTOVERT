@@ -5,7 +5,7 @@ import { addImage } from "../store/imageslice";
 const uploadImage = async (file, userId) => {
   try {
     console.log(userId);
-    const apiUrl = `/api/users/image/${userId}`;
+    const apiUrl = `/api/v1/users/image/${userId}`;
 
     if (!file) console.log("file leke a bhai ");
 
@@ -35,7 +35,7 @@ const uploadImage = async (file, userId) => {
 const libuploadImage = async (file, userId) => {
   try {
     console.log(userId);
-    const apiUrl = `/api/users/${userId}/upload/library/image`;
+    const apiUrl = `/api/v1/users/${userId}/upload/library/image`;
 
     if (!file) console.log("file leke a bhai ");
 
@@ -63,7 +63,8 @@ const libuploadImage = async (file, userId) => {
 
 
 const getAllImages = async (userId, dispatch) => {
-  const apiUrl = `/api/users/all-image/${userId}`;
+  console.log(userId );
+  const apiUrl = `/api/v1/users/all-image/${userId}`;
 
   try {
     const response = await fetch(apiUrl, {

@@ -12,12 +12,12 @@ function Dashboard() {
     const user = store.getState().auth?.user;
 
     // Redirect to login page if user is not authenticated
-    if (!user) {
-        navigate("/login");
-        return (
-            <div className='text-black bg-blue-200 font-semibold text-xl  h-full w-full'> <p className='mt-28 ml-7'> Authentication required to access this feature.</p></div>
-        );
-    }
+        // if (!user) {
+        //     navigate("/login");
+        //     return (
+        //         <div className='text-black bg-blue-200 font-semibold text-xl  h-full w-full'> <p className='mt-28 ml-7'> Authentication required to access this feature.</p></div>
+        //     );
+        // }
 
     let spent = user?.spent || 0
     let order = user?.orders.length || 0
@@ -26,7 +26,7 @@ function Dashboard() {
 
     return (
         <>
-            <div className='bg-blue-200 w-full h-[800px]'>
+            <div className='bg-blue-200 w-full h-full'>
                 <h1 className='font-bold mt-8 ml-7 text-blufont-cerebriSans text-blue-900 co text-5xl'>Dashboard</h1>
                 <p className='ml-12 mt-1'>Let's have a Tour to the Dashboard</p>
 

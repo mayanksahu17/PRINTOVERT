@@ -103,7 +103,7 @@ function Signup() {
             <input
               {...register('phoneNumber')} // React Hook Form register for phoneNumber
               className='rounded-lg p-2 w-[100%] h-7'
-              type='text'
+              type='number'
               placeholder='Enter your phone number'
             />
           </div>

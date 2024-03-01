@@ -26,7 +26,7 @@ function Header() {
   
   return (
 
-    <div id='header' className={`flex flex-col bg-blue-700 h-[800px] ${open ? "w-80 ":"w-20 "} duration-500     relative   `}>
+    <div id='header' className={`flex flex-col bg-blue-700 h-screen ${open ? "w-80 ":"w-20 "} duration-500     relative   `}>
  <div className='h-[50px] w-[50px]'><IoIosArrowDropleft  className={`text-4xl font-extrabold text-white textwhite absolute -right-[1px]    ${open ? "rotate-[180deg]": "rotate-[0deg]"} top-2    bg-transparent       `}onClick={()=>setopen(!open)}/></div>
       <Link to ="">   
          <div className={`${!open ? "p-0":"p-12"}  flex `}>

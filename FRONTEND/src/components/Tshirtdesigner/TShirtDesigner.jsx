@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { fabric } from 'fabric';
 import html2canvas from 'html2canvas';
-import { NavLink } from 'react-router-dom';
+import {setprice} from "../../store/productSlice.js";
+import pixelsToInchesPerSquare from './pxToinch.js'
 import { useNavigate } from 'react-router-dom';
 import Tshirt from '../../assets/Tshirt.png';
 import Sizes from './Sizes';
@@ -12,20 +13,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import ImageUploader from './Base64.js'
 import { uploadImage } from '../../actions/Image.js';
 import { setback, setfront } from '../../store/productimage.js';
-import back from '../../assets/New folder/back.jpeg'
 import React from 'react';
 
 
 const TshirtDesigner = () => {
   const [canvas, setCanvas] = useState(null);
-  const [price, setPrice] = useState(100); // Updated price state
+  const [loading, setLoading] = useState({ isLoading: false , saved : false});
+  const [price, setPrice] = useState(store.getState().product.price); // Updated price state
   const navigate = useNavigate();
   const [showUploadForm, setShowUploadForm] = useState(false);
   const isAuthenticated = store.getState().auth.user;
   const stateImage = useSelector((state) => state.images.selectedImage);
   const dispatch = useDispatch();
-
-
+  const [imgWidth, setImgWidth] = useState(0);
+  const [imgHeight, setImgHeight] = useState(0);
+  const [imgPosX, setImgPosX] = useState(0);
+  const [imgPosY, setImgPosY] = useState(0);
+  const [custompicture ,setCustompicture ] = useState(false)
 
   const toggleUploadForm = () => {
     setShowUploadForm(!showUploadForm);
@@ -33,19 +37,7 @@ const TshirtDesigner = () => {
 
 
 
-  const calculateImageSizeInches = (width, height, dpi = 300) => {
-    const widthInches = width / dpi;
-    const heightInches = height / dpi;
-    return { widthInches, heightInches };
-  };
 
-  const calculatePrintingPrice = (width, height) => {
-    const totalPixels = width * height;
-    const pricePerPixel = 0.01;
-  
-    const totalPrice = totalPixels * pricePerPixel;
-    return totalPrice.toFixed(2); 
-  };
 
   useEffect(() => {
     const fabricCanvas = new fabric.Canvas('tshirt-canvas');
@@ -54,21 +46,70 @@ const TshirtDesigner = () => {
     return () => {
       fabricCanvas.dispose();
     };
-  }, []);
+    setPrice(store.getState().product.price)
+    setPrice(store.getState().product.price)
 
+  }, []);
 
   
   useEffect(() => {
     if (stateImage) {
       loadImageIntoCanvas(stateImage, canvas);
-      // Calculate image size and update price when a new image is loaded
-      const { naturalWidth, naturalHeight } = stateImage;
-      const { widthInches, heightInches } = calculateImageSizeInches(naturalWidth, naturalHeight);
-      const newPrice = calculatePrintingPrice(naturalWidth, naturalHeight);
-      setPrice( price + newPrice);
-      // console.log(`Image size: ${widthInches} inches x ${heightInches} inches`);
+      
     }
   }, [stateImage, canvas]);
+  
+
+
+  useEffect(() => {
+    if (canvas) {
+      canvas.on('object:moving', handleObjectMoving);
+
+      // Event listener cleanup
+      return () => {
+        canvas.off('object:moving', handleObjectMoving);
+      };
+    }
+  }, [canvas]);
+
+  const handleObjectMoving = (event) => {
+    const obj = event.target;
+    if (obj.type === 'image') {
+      const newX = obj.left + imgPosX;
+      const newY = obj.top + imgPosY;
+      obj.set({ left: newX, top: newY });
+      canvas.renderAll();
+    }
+  };
+
+
+
+
+
+  useEffect(() => {
+    if (canvas) {
+      canvas.on('object:modified', handleObjectModified);
+
+      // Event listener cleanup
+      return () => {
+        canvas.off('object:modified', handleObjectModified);
+      };
+    }
+  }, [canvas]);
+
+  
+
+
+  const handleObjectModified = (event) => {
+    const obj = event.target;
+    if (obj.type === 'image') {
+      const newWidth = obj.getScaledWidth();
+      const newHeight = obj.getScaledHeight();
+      setImgWidth(newWidth);
+      setImgHeight(newHeight);
+    
+    }
+  };
 
   const loadImageIntoCanvas = (imageUrl, canvas) => {
     const imgObj = new Image();
@@ -90,34 +131,13 @@ const TshirtDesigner = () => {
       if (canvas) {
         canvas.add(fabricImg);
         canvas.renderAll();
-  
-        // Update the price based on the image size
-        const newPrice = calculatePrintingPrice(imgObj.width, imgObj.height);
-        setPrice((prevPrice) => prevPrice + newPrice);
+
       }
     };
   
     imgObj.src = imageUrl;
   };
-  
 
-
-  const updateTshirtImage = (imageURL) => {
-    fabric.Image.fromURL(imageURL, (img) => {
-      img.scaleToHeight(300);
-      img.scaleToWidth(300);
-      canvas.centerObject(img);
-      canvas.add(img);
-      
-      
-      
-      canvas.renderAll();
-    });
-  };
-
-  const handleDesignChange = (e) => {
-    updateTshirtImage(e.target.value);
-  };
 
   const handleCustomPicture = (e) => {
 
@@ -148,12 +168,28 @@ const TshirtDesigner = () => {
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
     }
+
+    setCustompicture(!custompicture)
+    console.log(custompicture);
   }
   };
+  useEffect(() => {
+    // Calculate image size and update price when a new image is loaded
+    let rate = pixelsToInchesPerSquare(Math.trunc(imgHeight),Math.trunc(imgWidth) )
+    console.log(rate);
+    if (rate<20 && custompicture) rate = 20 ;
+    if (rate<20 && stateImage) rate = 20 ;
+    setPrice(price + rate)
+    dispatch(setprice({price}))
+  }, [stateImage,custompicture]);
+
 
   const handleKeyDown = (e) => {
     if (e.keyCode === 46) {
       console.log('Removing selected element on Fabric.js on DELETE key!');
+      dispatch(setprice({ price : price - 20}));
+      setPrice(price-20);
+
       canvas.remove(canvas.getActiveObject());
     }
   };
@@ -198,32 +234,36 @@ const TshirtDesigner = () => {
 
 
   const handleSave = async () => {
+  try {
+        setLoading({ loading: true, saved : false });
+        html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
+          canvas.toBlob((blob) => {
+            if (blob) {
+              const imageUploader = new ImageUploader();
+              imageUploader.imageUpload({
+                file: blob,
+                name: 'frontimage',
+              });
+  
+            }
+          }, 'image/png');
+        });
+        const canvas = await html2canvas(document.getElementById("tshirt-div"));
+        const canvasDataURL = canvas.toDataURL('image/png');
+        await upload(canvasDataURL);
+        dispatch(setprice({price}))
 
- 
-
-      html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
-        canvas.toBlob((blob) => {
-          if (blob) {
-            const imageUploader = new ImageUploader();
-            imageUploader.imageUpload({
-              file: blob,
-              name: 'frontimage',
-            });
-
-          }
-        }, 'image/png');
-      });
-      const canvas = await html2canvas(document.getElementById("tshirt-div"));
-      const canvasDataURL = canvas.toDataURL('image/png');
-      await upload(canvasDataURL);
+        setLoading({ loading: false, saved : true });
+        
+  } catch (error) {
+    console.log(error);
+    throw new Error
+  }finally{
+    setLoading({ loading: false, saved : true });
+  }
 
   }
   
-  
-
-
-
-
 
   const stateColor = useSelector((state) => state.product.color);
   useEffect(() => {
@@ -254,22 +294,24 @@ const TshirtDesigner = () => {
               <div className="relative  h-400 ">
                 <canvas id="tshirt-canvas" width="200" height="400"></canvas>
               </div>
+              <div id="dimensions">Image Width: {imgWidth}px, Image Height: {imgHeight}px</div>
+      {/* <input type="range" id="resizeSlider" min="0.1" max="2" step="0.1" value="1" /> */}
             </div>
           </div>
           <div>
              
             <div className="ml-20 h-[60px] w-full ">
             
-                <EditButton to='/tshirt-designer'className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  '>
+                <EditButton to='/tshirt-designer' className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  '>
                   Front
                 </EditButton>
-                <EditButton to="/back-edit"className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  '>
+                <EditButton to="/back-edit" className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  '>
                   Back
                 </EditButton>
-                <EditButton to="/right-side-edit"className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  '>
+                <EditButton to="/right-side-edit" className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  '>
                   Right
                 </EditButton>
-                <EditButton to="/left-side-edit"className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  '>
+                <EditButton to="/left-side-edit" className='mt-11   h-10 w-24 rounded-3xl text-white ml-12 border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold  '>
                   Left
                 </EditButton>
            
@@ -328,7 +370,10 @@ const TshirtDesigner = () => {
             </EditButton>
             <EditButton onClick={handleSave}  className='ml-6  mt-11   h-10 w-30 rounded-3xl text-white  border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold' >
               {' '}
-              Save
+            
+              {loading.isLoading ? 'Loading...' : (loading.saved ? 'Saved' : 'Save')}
+
+
             </EditButton>
             {showUploadForm && (
               <form className="uploadDiving h-12   w-72   border-2 rounded-2xl border-blue-500/100 ml-42 mt-5 bg-transparent hover:bg-white">
@@ -343,6 +388,9 @@ const TshirtDesigner = () => {
                 </label>
               </form>
             )}
+            <div>
+     
+      </div>
             <br />
             <br />
           </div>

@@ -56,14 +56,14 @@ function Preview() {
   const color = store.getState().product.color;
   const size = store.getState().product.size;
   const delivered = store.getState().product.delivered;
-  const name1 = store.getState().product.name;
+  // const name1 = store.getState().product.name;
   const ordered = store.getState().product.ordered;
   const rating = store.getState().product.rating;
   const brand = store.getState().product.brand;
   const shipped = store.getState().product.shipped;
   const stock = store.getState().product.stock;
   const category = store.getState().product.category;
-  const price = store.getState().product.price
+    const price = store.getState().product.price
 
   const saveProduct = async () => {
     try {
@@ -74,24 +74,24 @@ function Preview() {
       const color = store.getState().product.color;
       const size = store.getState().product.size;
       const delivered = store.getState().product.delivered;
-      const name1 = store.getState().product.name;
+      // const name1 = store.getState().product.name;
       const ordered = store.getState().product.ordered;
       const rating = store.getState().product.rating;
       const brand = store.getState().product.brand;
       const shipped = store.getState().product.shipped;
       const stock = store.getState().product.stock;
       const category = store.getState().product.category;
-      const price = localStorage.getItem("imagePrice");
+
 
       const productData = {
         image0: backimage,
         image1: frontimage,
         image2: leftimage,
         image3: rightimage,
-        name: nanoid(),
+        name: name,
         color: color,
         size: size,
-        price: 200,
+        price: price,
         stock: stock,
         rating: rating,
         shipped: shipped,
@@ -108,6 +108,8 @@ function Preview() {
     
       if (response) {
         setMessage("Product Saved");
+        document.getElementById("name").value="";
+        document.getElementById("quantity").value="";
         deleteStorage()
 
       } else {
@@ -130,7 +132,7 @@ function Preview() {
         <div className='flex'>
     <h1 className='font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>Peview product</h1>
 
-    <EditButton to="/tshirt-designer" children="Back to Designer"className='h-10 w-58  rounded-3xl text-white mt-[40px] ml-[30px]  border bg-blue-700  hover:bg-blue-500 hover:text-white  font-semibold'/>
+    <EditButton to="/tshirt-designer" children= "Back to Designer" className='h-10 w-58  rounded-3xl text-white mt-[40px] ml-[30px]  border bg-blue-700  hover:bg-blue-500 hover:text-white  font-semibold'/>
   
   </div>
      
@@ -153,23 +155,23 @@ function Preview() {
 
         <div className='mt-10 ml-10 w-[50%]'>
           <div className='font-semibold text-2xl '>
-            Name : <input type="text" placeholder='Enter the name ' className='rounded-lg  p-1 w-[45%] text-xl' value={name} onChange={(e) => setname(e.target.value)}/>
+            Name : <input type="text" placeholder='Enter the name ' id='name' className='rounded-lg  p-1 w-[45%] text-xl ml-[30px]' value={name} onChange={(e) => setname(e.target.value)}/>
           </div>
           <div className='font-semibold text-2xl mt-4 '>
-            Quantity : <input type="text" placeholder='Enter the quantity ' className='rounded-lg p-1 w-[45%] text-xl' value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
+            Quantity : <input type="text" placeholder='Enter the quantity ' id='quantity' className='rounded-lg p-1 w-[45%] text-xl' value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
           </div>
-          <div className='font-bold text-2xl mt-6'>
+          <div className='font-semibold text-2xl mt-6'>
             Size : {size}
           </div>
-          <div className='font-bold text-2xl mt-6'>
-            Color :{color}
+          <div className='font-semibold text-2xl mt-6'>
+            Color : {color}
           </div>
-          <div className='font-bold text-2xl mt-6'>
+          <div className='font-semibold text-2xl mt-6'>
             Price : {price}
           </div>
-          <div className='font-bold text-2xl mt-6'>
+          {/* <div className='font-bold text-2xl mt-6'>
             Brand : {brand} 
-          </div>
+          </div> */}
         </div>
         <div className='w-72'>
             <p className=" ">{message}</p>

@@ -3,7 +3,7 @@ const apiUrlBase = '';
 const uploadProduct = async (userId, formData) => {
   try {
     console.log(userId);
-    const apiUrl = `/api/users/products/${userId}/add-new/product`;
+    const apiUrl = `/api/v1/users/products/${userId}/add-new/product`;
 
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -28,7 +28,7 @@ const uploadProduct = async (userId, formData) => {
 
 const getAllProducts = async (userId) => {
   try {
-    const apiUrl = `/api/users/products/${userId}/get-all-products`;
+    const apiUrl = `/api/v1/users/products/${userId}/get-all-products`;
 
     const response = await fetch(apiUrl, {
       headers: {
@@ -52,7 +52,7 @@ const getAllProducts = async (userId) => {
 const updateProduct = async (productId, userId, updateData) => {
   try {
     console.log(productId, userId, updateData);
-    const apiUrl = `/api/users/products/${userId}/products/${productId}`;
+    const apiUrl = `/api/v1/users/products/${userId}/products/${productId}`;
 
     const response = await fetch(apiUrl, {
       method: 'PUT',
@@ -64,7 +64,7 @@ const updateProduct = async (productId, userId, updateData) => {
 
     const responseData = await response.json();
     console.log(responseData);
-    if (responseData.success) {
+    if (responseData.success){
       console.log('Product updated successfully:', responseData);
       return responseData.data;
     } else {
@@ -79,7 +79,7 @@ const updateProduct = async (productId, userId, updateData) => {
 
 const getAllOrderedProducts = async (userId) => {
   try {
-    const apiUrl = `/api/users/${userId}/cart`;
+    const apiUrl = `/api/v1/users/${userId}/cart`;
 
     const response = await fetch(apiUrl, {
       headers: {

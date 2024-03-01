@@ -13,7 +13,7 @@ const addTicket = async (userId, formData) => {
     });
 
     if (response.data.success) {
-      console.log('Ticket submitted successfully', response.data);
+      console.log('Ticket submitted succes  sfully', response.data);
       return response.data.data;
     } else {
       console.error('Error submitting ticket:', response.data.message || 'An error occurred');

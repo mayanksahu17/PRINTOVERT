@@ -8,35 +8,44 @@ function EditProfile() {
   const user = store.getState().auth.user;
   const userId = user?._id;
   const dispatch = useDispatch()
+  const [loading , setLoading] = useState(false)
   const [name, setName] = useState(user?.fullName || '');
   const [email, setEmail] = useState(user?.email || '');
   const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber || '');
   const [address, setAddress] = useState(user?.address || '');
   const [message,setMessage] = useState("")
 
-  const updateuserProfile = async () => {
-    console.log(user);
-    const userData = {
-      fullName : name,
-      email,
-      phoneNumber,
-      address,
+  try {
+    setLoading(true)
+    const updateuserProfile = async () => {
+      console.log(user);
+      const userData = {
+        fullName : name,
+        email,
+        phoneNumber,
+        address,
+      };
+      console.log(userData);
+      const response = await updateProfile(userId, userData);
+  
+      if (response) {
+        console.log('Profile updated successfully:', response);
+        dispatch(login({user : response.data}))
+        setMessage("Profile updated successfully:")
+        
+        // Handle success (e.g., show a success message)
+      } else {
+        console.error('Failed to update profile');
+        setMessage("Failed to update profile")
+        // Handle failure (e.g., show an error message)
+      }
     };
-    console.log(userData);
-    const response = await updateProfile(userId, userData);
-
-    if (response) {
-      console.log('Profile updated successfully:', response);
-      dispatch(login({user : response.data}))
-      setMessage("Profile updated successfully:")
-      
-      // Handle success (e.g., show a success message)
-    } else {
-      console.error('Failed to update profile');
-      setMessage("Failed to update profile")
-      // Handle failure (e.g., show an error message)
-    }
-  };
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }finally{
+    setLoading(false)
+  }
 
   return (
     <div className='bg-blue-200 w-full h-180'>
@@ -114,7 +123,7 @@ function EditProfile() {
           className='h-10 w-40 rounded-3xl text-white ml-10 border bg-blue-700 hover:bg-blue-500 hover:text-white font-semibold'
           onClick={updateuserProfile}
         >
-          Update Profile
+          {loading? "Loading..." : "Update profile"}
         </button>
       </div>
     </div>

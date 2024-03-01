@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 
+import Cookies from 'js-cookie';
+
 const handleLogin = async (userData) => {
   const apiUrl = '/api/v1/users/login';
 
@@ -27,8 +29,9 @@ const handleLogin = async (userData) => {
       const refreshToken = user.refreshToken;
       const accessToken = user.accessToken;
 
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
+      // Save tokens to cookies
+      Cookies.set('accessToken', accessToken, { expires: 7 }); // Set expiration time as needed
+      Cookies.set('refreshToken', refreshToken, { expires: 7 }); // Set expiration time as needed
 
       console.log('Access Token:', accessToken);
       console.log('Refresh Token:', refreshToken);
@@ -54,7 +57,7 @@ const refreshAccessToken = async () => {
       throw new Error('No refresh token available');
     }
 
-    const response = await axios.post('http://localhost:8000/api/v1/refresh-token', { refreshToken });
+    const response = await axios.post('/api/v1/refresh-token', { refreshToken });
 
     if (response.data.success) {
       const newAccessToken = response.data.data.accessToken;
