@@ -74,7 +74,7 @@ function Wallet() {
 
       </div>
       <div className='ml-5 -mt-14 text-3xl font-bold'>
-        RS 400
+      {wallet}
       </div>
       </div>
 

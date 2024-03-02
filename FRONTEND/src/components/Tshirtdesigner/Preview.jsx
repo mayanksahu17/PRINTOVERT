@@ -8,6 +8,7 @@ import {uploadProduct} from '../../actions/Product.js';
 function Preview() {
   const [message , setMessage] = useState("")
   const [name , setname] = useState("")
+  const [loading, setLoading] = useState(false);
   const [quantity , setQuantity] = useState("")
   const retrievedImageData = localStorage.getItem('frontimage');
   const retrievedImageData2 = localStorage.getItem('backimage');
@@ -67,6 +68,7 @@ function Preview() {
 
   const saveProduct = async () => {
     try {
+      setLoading(true);
       const backimage = store.getState().productimage.backimage;
       const frontimage = store.getState().productimage.frontimage;
       const leftimage = store.getState().productimage.leftimage;
@@ -104,6 +106,7 @@ function Preview() {
       };
       
       console.log(productData);
+
       const response = await uploadProduct(userId,productData);
     
       if (response) {
@@ -118,6 +121,8 @@ function Preview() {
     } catch (error) {
       console.error('Error saving product:', error);
       setMessage('Error saving product. Please try again.');
+    }finally{
+      setLoading(false);
     }
   };
   
@@ -175,7 +180,7 @@ function Preview() {
         </div>
         <div className='w-72'>
             <p className=" ">{message}</p>
-          <EditButton onClick={saveProduct} children="Save Product" className=" mt-[90%] w-44 h-12 "  />
+            <EditButton onClick={saveProduct} children={loading ? "Saving..." : "Save Product"} className=" mt-[90%] w-44 h-12 " disabled={loading} />
           <EditButton onClick={deleteStorage} children="Delete All" className="ml-2 w-44 h-12  hover:bg-red-600" to={"/tshirt-designer"} />
         </div>
 

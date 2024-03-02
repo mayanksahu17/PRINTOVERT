@@ -236,37 +236,35 @@ const Leftdesigner = () => {
   };
   
 
-
   const handleSave = async () => {
-  try {
-        setLoading({ loading: true, saved : false });
-        html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
-          canvas.toBlob((blob) => {
-            if (blob) {
-              const imageUploader = new ImageUploader();
-              imageUploader.imageUpload({
-                file: blob,
-                name: 'leftimage',
-              });
+    try {
+      setLoading({ isLoading: true, saved: false });
+      html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const imageUploader = new ImageUploader();
+            imageUploader.imageUpload({
+              file: blob,
+              name: 'leftimage',
+            });
+          }
+        }, 'image/png');
+      });
   
-            }
-          }, 'image/png');
-        });
-        const canvas = await html2canvas(document.getElementById("tshirt-div"));
-        const canvasDataURL = canvas.toDataURL('image/png');
-        await upload(canvasDataURL);
-        
-        setLoading({ loading: false, saved : true });
-        dispatch(setprice({price}))
-        
-  } catch (error) {
-    console.log(error);
-    throw new Error
-  }finally{
-    setLoading({ loading: false, saved : true });
-  }
-
-  }
+      const canvas = await html2canvas(document.getElementById('tshirt-div'));
+      const canvasDataURL = canvas.toDataURL('image/png');
+      await upload(canvasDataURL);
+      dispatch(setprice({ price }));
+  
+      setLoading({ isLoading: false, saved: true });
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
+    } finally {
+      // You don't need to set loading state here since it's the same as after the try block
+    }
+  };
+  
   
 
   const stateColor = useSelector((state) => state.product.color);
@@ -282,23 +280,22 @@ const Leftdesigner = () => {
   
 
   return (
-    <div className="bg-blue-200 h-[800px] w-[98%]">
+    <div className={`bg-blue-200 h-[800px] w-[98%] ${loading.isLoading ? " pointer-events-none" : " "}`}>
    
       <div className='flex'>
         <div>
         <h1 className='  font-bold mt-8 ml-7  text-blufont-cerebriSans text-blue-900 co text-5xl'>Desgin product </h1>
     <p className=' ml-12 mt-1'>Add you'r image</p>
     
-          <div id="tshirt-div" className="relative W-[450px] h-548 ml-20 mt-10 bg-blue-200">
+          <div id="tshirt-div" className="relative W-[450px] h-500  ml-20 mt-10 bg-blue-200">
             
             <div className="bg-white w-[450px]">
-              <img id="tshirt-backgroundpicture" src={leftsleeve1} alt="Tshirt Background" />
+              <img id="tshirt-backgroundpicture" src={leftsleeve1} alt="Tshirt Background" className='h-[550px] w-full'  />
             </div>
             <div className="absolute top-14 left-[120px] z-10 h-[450px]  ">
               <div className="relative  h-400 ">
                 <canvas id="tshirt-canvas" width="200" height="400"></canvas>
               </div>
-              <div id="dimensions">Image Width: {imgWidth}px, Image Height: {imgHeight}px</div>
       {/* <input type="range" id="resizeSlider" min="0.1" max="2" step="0.1" value="1" /> */}
             </div>
           </div>
@@ -372,13 +369,13 @@ const Leftdesigner = () => {
             <EditButton onClick={toggleUploadForm} className='  mt-11   h-10 w-30 rounded-3xl text-white  border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold' >
               Upload
             </EditButton>
-            <EditButton onClick={handleSave}  className='ml-6  mt-11   h-10 w-30 rounded-3xl text-white  border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold' >
-              {' '}
-            
-              {loading.isLoading ? 'Loading...' : (loading.saved ? 'Saved' : 'Save')}
-
-
-            </EditButton>
+            <EditButton
+                        onClick={handleSave}
+                        children={
+                          loading.isLoading ? 'Loading...' : loading.saved ? 'Saved' : 'Save'
+                        }
+                        className='ml-6 mt-11 h-10 w-30 rounded-3xl text-white border bg-blue-700 hover:bg-blue-400 hover:text-white font-bold'
+                      />
             {showUploadForm && (
               <form className="uploadDiving h-12   w-72   border-2 rounded-2xl border-blue-500/100 ml-42 mt-5 bg-transparent hover:bg-white">
                 <label htmlFor="imageInput" className="drop-container" id="dropcontainer">

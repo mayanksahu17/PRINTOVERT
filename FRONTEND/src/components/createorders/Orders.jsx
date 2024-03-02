@@ -3,14 +3,18 @@ import Button from '../button/Button';
 
 function Orders({ orderData, handleUpdate }) {
   const [refreshFlag, setRefreshFlag] = useState(false);
+  const [loading, setLoading] = useState(false); // Add loading state
   const [errorMessage, setErrorMessage] = useState(null);
 
   const handleBuyClick = async () => {
     try {
+      setLoading(true); // Set loading state to true on API request start
       await handleUpdate(orderData);
       setRefreshFlag(!refreshFlag);
     } catch (error) {
       setErrorMessage(error.message); 
+    } finally {
+      setLoading(false); // Set loading state to false regardless of success or failure
     }
   };
 
@@ -38,7 +42,7 @@ function Orders({ orderData, handleUpdate }) {
             {orderData.ordered ? 'Ordered' : 'Pending...'}
           </span>
           {!orderData.ordered && (
-            <Button children={'Buy'} className='h-8' onClick={handleBuyClick} />
+            <Button children={loading ? 'Loading...' : 'Buy'} className='h-8' onClick={handleBuyClick} disabled={loading} />
           )}
         </div>
         {errorMessage && <p className='text-red-500 text-sm mt-2'>{errorMessage}</p>} {/* Display error message if exists */}

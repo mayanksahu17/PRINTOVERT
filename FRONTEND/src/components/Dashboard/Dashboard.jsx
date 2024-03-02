@@ -26,7 +26,7 @@ function Dashboard() {
 
     return (
         <>
-            <div className='bg-blue-200 w-full h-full'>
+            <div className='bg-blue-200 w-full h-full flex-grow overflow-y-auto p-4'>
                 <h1 className='font-bold mt-8 ml-7 text-blufont-cerebriSans text-blue-900 co text-5xl'>Dashboard</h1>
                 <p className='ml-12 mt-1'>Let's have a Tour to the Dashboard</p>
 

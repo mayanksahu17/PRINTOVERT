@@ -232,37 +232,34 @@ const TshirtDesigner = () => {
   };
   
 
-
   const handleSave = async () => {
-  try {
-        setLoading({ loading: true, saved : false });
-        html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
-          canvas.toBlob((blob) => {
-            if (blob) {
-              const imageUploader = new ImageUploader();
-              imageUploader.imageUpload({
-                file: blob,
-                name: 'frontimage',
-              });
+    try {
+      setLoading({ isLoading: true, saved: false });
+      html2canvas(document.getElementById('tshirt-div')).then((canvas) => {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const imageUploader = new ImageUploader();
+            imageUploader.imageUpload({
+              file: blob,
+              name: 'frontimage',
+            });
+          }
+        }, 'image/png');
+      });
   
-            }
-          }, 'image/png');
-        });
-        const canvas = await html2canvas(document.getElementById("tshirt-div"));
-        const canvasDataURL = canvas.toDataURL('image/png');
-        await upload(canvasDataURL);
-        dispatch(setprice({price}))
-
-        setLoading({ loading: false, saved : true });
-        
-  } catch (error) {
-    console.log(error);
-    throw new Error
-  }finally{
-    setLoading({ loading: false, saved : true });
-  }
-
-  }
+      const canvas = await html2canvas(document.getElementById('tshirt-div'));
+      const canvasDataURL = canvas.toDataURL('image/png');
+      await upload(canvasDataURL);
+      dispatch(setprice({ price }));
+  
+      setLoading({ isLoading: false, saved: true });
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
+    } finally {
+      // You don't need to set loading state here since it's the same as after the try block
+    }
+  };
   
 
   const stateColor = useSelector((state) => state.product.color);
@@ -278,7 +275,7 @@ const TshirtDesigner = () => {
   
 
   return (
-    <div className="bg-blue-200 h-[800px] w-[98%]">
+    <div className={`bg-blue-200 h-[800px] w-[98%] ${loading.isLoading ? " pointer-events-none" : " "}`}>
    
       <div className='flex'>
         <div>
@@ -294,7 +291,6 @@ const TshirtDesigner = () => {
               <div className="relative  h-400 ">
                 <canvas id="tshirt-canvas" width="200" height="400"></canvas>
               </div>
-              <div id="dimensions">Image Width: {imgWidth}px, Image Height: {imgHeight}px</div>
       {/* <input type="range" id="resizeSlider" min="0.1" max="2" step="0.1" value="1" /> */}
             </div>
           </div>
@@ -368,13 +364,17 @@ const TshirtDesigner = () => {
             <EditButton onClick={toggleUploadForm} className='  mt-11   h-10 w-30 rounded-3xl text-white  border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold' >
               Upload
             </EditButton>
-            <EditButton onClick={handleSave}  className='ml-6  mt-11   h-10 w-30 rounded-3xl text-white  border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold' >
-              {' '}
+            <EditButton
+                      onClick={handleSave}
+                      children={
+                        loading.isLoading ? 'Loading...' : loading.saved ? 'Saved' : 'Save'
+                      }
+                      className='ml-6 mt-11 h-10 w-30 rounded-3xl text-white border bg-blue-700 hover:bg-blue-400 hover:text-white font-bold'
+                    />              {' '}
             
-              {loading.isLoading ? 'Loading...' : (loading.saved ? 'Saved' : 'Save')}
+             
 
 
-            </EditButton>
             {showUploadForm && (
               <form className="uploadDiving h-12   w-72   border-2 rounded-2xl border-blue-500/100 ml-42 mt-5 bg-transparent hover:bg-white">
                 <label htmlFor="imageInput" className="drop-container" id="dropcontainer">
