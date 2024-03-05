@@ -56,13 +56,14 @@ const AppRoutes = () => (
       <Route path = '/payment' element = {<Paymentpage/>}/>
       <Route path = '/login' element = {<Login/>}/>
       <Route path = '/featrenot' element = {<Featrenot/>}/>
-      <Route path = '/contact-us' element = {<Contactus/>}/>
+    <Route path = '/contact-us' element = {<Contactus/>}/>
       <Route path = '/signup' element = {<Signup/>}/>
       <Route path = '/back-edit' element = {<Backdesigner/>}/>
       <Route path = '/right-side-edit' element = {<Rightdesigner/>}/>
       <Route path = '/left-side-edit' element = {<Leftdesigner/>}/>
       <Route path = '/preview' element = {<Preview/>}/>
       <Route path = '/test' element = {<Test/>}/>
+      <Route path='*' element={<Login />} />
 
       
       </Route>

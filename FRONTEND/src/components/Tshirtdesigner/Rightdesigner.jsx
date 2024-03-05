@@ -143,7 +143,7 @@ const Rightdesigner = () => {
 
     if(!isAuthenticated){
      
-      navigate('login')
+      navigate('/login')
     }else{
       
     const reader = new FileReader();

@@ -4,7 +4,7 @@ import store from '../../store/store.js';
 import { addTicket, getAllTicket } from '../../actions/ticket.js';
 import { useEffect } from 'react';
 import Tickets from './Tickets.jsx';
-
+import { NavLink, useNavigate } from 'react-router-dom';
 function Ticket() {
   const user = store.getState().auth.user;
   let userId = user?._id;
@@ -50,7 +50,14 @@ function Ticket() {
     setMessage("");
   };
 
+
+    const navigate = useNavigate()
+
+  
   useEffect(() => {
+    if (!user) {
+      navigate("/login");
+  }
     const fetchTickets = async () => {
       try {
         const data = await getAllTicket(userId);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllOrderedProducts } from '../../actions/Product.js';
 import store from '../../store/store.js';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function Orders() {
   const [orderedProducts, setOrderedProducts] = useState([]);
@@ -8,6 +9,11 @@ function Orders() {
 
   const user = store.getState().auth.user;
   const userId = user?._id;
+  const navigate = useNavigate()
+
+  if (!user) {
+     navigate("/login");
+ }
 
   useEffect(() => {
     const fetchData = async () => {

@@ -144,7 +144,7 @@ const Backdesigner = () => {
 
     if(!isAuthenticated){
      
-      navigate('login')
+      navigate('/login')
     }else{
       
     const reader = new FileReader();

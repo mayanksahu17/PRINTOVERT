@@ -143,7 +143,7 @@ const TshirtDesigner = () => {
 
     if(!isAuthenticated){
      
-      navigate('login')
+      navigate('/login')
     }else{
       
     const reader = new FileReader();
@@ -233,6 +233,7 @@ const TshirtDesigner = () => {
   
 
   const handleSave = async () => {
+
     try {
       setLoading({ isLoading: true, saved: false });
       html2canvas(document.getElementById('tshirt-div')).then((canvas) => {

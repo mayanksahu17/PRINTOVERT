@@ -5,7 +5,7 @@ import { TbMessageUp } from "react-icons/tb";
 
 function Needhelp() {
   return (
-    <div className='bg-blue-200 w-full min-h-screen flex flex-col justify-center items-center'>
+    <div className='bg-blue-200 w-full min-h-screen flex flex-col justify-center   items-center'>
       <div className='text-center'>
         <h1 className='font-bold text-5xl text-blue-900 mt-8'>Need Help?</h1>
         <p className='mt-4 text-xl font-semibold'>We are here to empower PRINTOVERT Merchants by delivering a delightful support experience that minimizes efforts and maximizes success.</p>

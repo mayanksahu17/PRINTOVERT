@@ -22,6 +22,7 @@ function Designlibrary() {
   };
 
   useEffect(() => {
+    if(!user){navigate('/login')}
     const fetchData = async () => {
       if (user) {
         const userId = user._id;

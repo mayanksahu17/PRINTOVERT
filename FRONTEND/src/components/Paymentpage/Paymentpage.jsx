@@ -9,8 +9,8 @@ function Paymentpage() {
   const [amount, setAmount] = useState('');
   const [screenshot, setScreenshot] = useState(null);
   const [message , setMessage] = useState(false)
-  const user = store.getState().auth.user;
-  const userId = user._id;
+  const user = store?.getState()?.auth?.user;
+  const userId = user?._id;
   const handleAmountChange = (e) => {
     setAmount(e.target.value);
   };

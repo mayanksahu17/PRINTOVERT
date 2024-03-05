@@ -2,19 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { updateProfile } from '../../actions/auth.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../store/authSlice.js';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function EditProfile() {
-  const user = useSelector(state => state.auth.user);
+  const user = useSelector(state => state?.auth.user);
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const navigate = useNavigate()
   const [address, setAddress] = useState('');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
+    if (!user) {
+      navigate("/login");
+  }
     if (user) {
       setName(user.fullName || '');
       setEmail(user.email || '');
