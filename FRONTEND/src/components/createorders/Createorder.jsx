@@ -14,9 +14,7 @@ function CreateOrder() {
   const userId = user?._id;
   const navigate = useNavigate()
 
-         if (!user) {
-            navigate("/login");
-        }
+        
 
   const [loading, setLoading] = useState(true); // State variable to track loading state
   const [refreshFlag, setRefreshFlag] = useState(false); // State variable to trigger component remount
@@ -38,6 +36,10 @@ function CreateOrder() {
   };
 
   useEffect(() => {
+
+    if (!user) {
+      navigate("/login");
+  }
 
     const fetchData = async () => {
       try {

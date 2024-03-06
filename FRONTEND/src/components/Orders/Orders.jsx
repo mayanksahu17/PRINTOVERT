@@ -11,11 +11,12 @@ function Orders() {
   const userId = user?._id;
   const navigate = useNavigate()
 
-  if (!user) {
-     navigate("/login");
- }
+ 
 
   useEffect(() => {
+    if (!user) {
+      navigate("/login");
+  }
     const fetchData = async () => {
       try {
         const response = await getAllOrderedProducts(userId);
