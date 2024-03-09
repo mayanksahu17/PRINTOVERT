@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db
+  backend:
+    build: ./BACKEND
+    ports:
+      - '3001:3001'
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/your_database
+  frontend:
+    build: ./FRONTEND
+    ports:
+      - '3000:3000'
+    environment:
+      REACT_APP_BACKEND_URL: http://backend:3001
+volumes:
+  mongodb_data:
