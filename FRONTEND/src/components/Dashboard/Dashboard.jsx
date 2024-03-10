@@ -1,29 +1,57 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { NavLink, useNavigate } from 'react-router-dom';
-import store from '../../store/store.js';
-import Hoodie from '../../assets/images/Hoodie.jpeg'
-import oversizedtishirt from '../../assets/images/oversizedtishirt.jpeg'
+import { useDispatch } from 'react-redux';
+import { login } from '../../store/authSlice';
+import Cookies from 'js-cookie';
 import Product from '../Design product/Product.jsx';
-import fullsleeve from '../../assets/images/fullsleeve.jpeg'
+import Hoodie from '../../assets/images/Hoodie.jpeg';
+import oversizedtishirt from '../../assets/images/oversizedtishirt.jpeg';
+import fullsleeve from '../../assets/images/fullsleeve.jpeg';
 
 function Dashboard() {
-    const navigate = useNavigate()
-    const user = store.getState().auth?.user;
+    const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    const dispatch = useDispatch();
 
-    // Redirect to login page if user is not authenticated
-        // if (!user) {
-        //     navigate("/login");
-        //     return (
-        //         <div className='text-black bg-blue-200 font-semibold text-xl  h-full w-full'> <p className='mt-28 ml-7'> Authentication required to access this feature.</p></div>
-        //     );
-        // }
+    useEffect(() => {
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+            navigate("/login");
+            return;
+        }
 
-    let spent = user?.spent || 0
-    let order = user?.orders.length || 0
-    let wallet = user?.walletBalance || 0
-    let totalOrder = user?.totalOrders || 0
+        fetch('/api/v1/users/current-user', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to verify user');
+            }
+            return response.json();
+        })
+        .then(data => {
+            dispatch(login({ user: data.data, token: token }));
+            setUser(data.data);
+        })
+        .catch(error => {
+            console.error('Error verifying user:', error);
+            navigate("/login");
+        });
+    }, [dispatch, navigate]);
 
+    if (!user) {
+        return (
+            <div className='text-black bg-blue-200 font-semibold text-xl h-full w-full'>
+                <p className='mt-28 ml-7'>Authentication required to access this feature.</p>
+            </div>
+        );
+    }
+
+    const { spent = 0, orders = [], walletBalance = 0, totalOrders = 0 } = user;
     return (
         <>
             <div className='bg-blue-200 w-full h-full flex-grow overflow-y-auto p-4'>
@@ -38,12 +66,12 @@ function Dashboard() {
 
                     <div className=' bg-white h-28 w-64 ml-7 mt-10 rounded-2xl'>
                         <h3 className='ml-5 text-gray-500 p-1 font-base text-xl font-semibold'>Total orders</h3>
-                        <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>{totalOrder}</h2>
+                        <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>{totalOrders}</h2>
                     </div>
 
                     <div className=' bg-white h-28 w-64 ml-7 mt-10 rounded-2xl'>
                         <h3 className='ml-5 text-gray-500 p-1 font-base text-xl font-semibold'>Wallet Balance</h3>
-                        <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>${wallet}</h2>
+                        <br /> <h2 className='text-4xl font-sans font-semibold ml-5 mb-4 '>${walletBalance}</h2>
                     </div>
 
                     <div className=' bg-white h-28 w-64 ml-7 mt-10 rounded-2xl'>
@@ -53,7 +81,7 @@ function Dashboard() {
 
                     <div className=' bg-white h-32   w-80 ml-7 mt-5 rounded-2xl'>
                         <h3 className='ml-5 text-black-500 p-1 font-base text-xl font-bold'>Wallet Balance</h3>
-                        <h4 className='ml-6 text-lg'>${wallet}</h4>
+                        <h4 className='ml-6 text-lg'>${walletBalance}</h4>
                         <NavLink to="/wallet">
                             <button className='h-10 w-28 rounded-3xl text-black mt-3 ml-6 border bg-white font-bold hover:bg-blue-500 hover:text-white'>View History</button>
                         </NavLink>

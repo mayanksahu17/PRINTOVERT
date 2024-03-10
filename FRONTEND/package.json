@@ -12,10 +12,13 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
     "axios": "^1.6.5",
+    "bcrypt": "^5.1.1",
     "fabric": "^5.3.0",
     "history": "^5.3.0",
     "html2canvas": "^1.4.1",
     "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "nanoid": "^5.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

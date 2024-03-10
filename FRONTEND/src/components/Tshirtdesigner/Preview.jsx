@@ -4,12 +4,14 @@ import EditButton from './EditButton';
 import store from '../../store/store';
 import { nanoid } from '@reduxjs/toolkit';
 import {uploadProduct} from '../../actions/Product.js';
+import { useNavigate } from 'react-router-dom';
 
 function Preview() {
   const [message , setMessage] = useState("")
   const [name , setname] = useState("")
   const [loading, setLoading] = useState(false);
   const [quantity , setQuantity] = useState("")
+  const navigate = useNavigate()
   const retrievedImageData = localStorage.getItem('frontimage');
   const retrievedImageData2 = localStorage.getItem('backimage');
   const retrievedImageData3 = localStorage.getItem('rightimage');
@@ -68,6 +70,7 @@ function Preview() {
 
   const saveProduct = async () => {
     try {
+      
       setLoading(true);
       const backimage = store.getState().productimage.backimage;
       const frontimage = store.getState().productimage.frontimage;
@@ -114,6 +117,8 @@ function Preview() {
         document.getElementById("name").value="";
         document.getElementById("quantity").value="";
         deleteStorage()
+        navigate("/create-orders")
+        
 
       } else {
         setMessage(`Error: ${response.statusText}`);
@@ -123,6 +128,7 @@ function Preview() {
       setMessage('Error saving product. Please try again.');
     }finally{
       setLoading(false);
+      
     }
   };
   

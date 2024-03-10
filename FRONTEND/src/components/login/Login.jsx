@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../../store/authSlice.js';
@@ -30,6 +30,13 @@ function Login() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    // If already logged in, redirect to home page
+    if (localStorage.getItem('accessToken')){
+      navigate("/")
+    }
+  },[])
 
   return (
     <div className='bg-blue-200 min-h-screen flex flex-col justify-center items-center w-screen'>

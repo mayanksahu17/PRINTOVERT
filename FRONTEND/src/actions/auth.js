@@ -1,7 +1,9 @@
 import axios from 'axios';
-
+// const jwt = require('jsonwebtoken');
+// import conf from '../conf/config';
 
 import Cookies from 'js-cookie';
+const ACCESS_TOKEN= "abcdefghijklmno^@!pqrstuvwx%^&yzABCDEFGHIJ|||+_*&^%$@!KLMNOPQRSTUVWX*&^%$@!YZ012"
 
 const handleLogin = async (userData) => {
   const apiUrl = '/api/v1/users/login';
@@ -20,19 +22,19 @@ const handleLogin = async (userData) => {
     }
 
     const data = await response.json();
-
+  
+    localStorage.setItem("accessToken", data.data.accessToken)
+    localStorage.setItem("refreshToken",data.data.refreshToken)
     if (data.success) {
       const user = data.data.user;
 
       console.log('User Data:', user);
 
       const refreshToken = user.refreshToken;
-      const accessToken = user.accessToken;
-
-      // Save tokens to cookies
-      Cookies.set('accessToken', accessToken, { expires: 7 }); // Set expiration time as needed
-
-      console.log('Access Token:', accessToken);
+   
+    
+     
+     
 
       return user;
     } else {
@@ -136,9 +138,36 @@ const updateProfile = async (userId, userData) => {
 };
 
 
+      const getUser = async()=>{
+        const token = localStorage.getItem('accessToken');
+
+        console.log(token);
+        fetch('/api/v1/users/current-user', {
+          method: 'GET',
+          headers: {
+            'Authorization':`Bearer${token}`
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to verify user');
+          }
+          return response.json(); // assuming response is JSON
+        })
+        .then(data => {
+          console.log('User verified:', data);
+          return  data.data;
+          // dispatch(login({ user: data.data, token: token }));
+
+        })
+        .catch(error => {
+          console.error('Error verifying user:', error);
+        });}
+
 export {
   handleLogin,
   registerUser,
   refreshAccessToken,
-  updateProfile
+  updateProfile,
+  getUser
 }

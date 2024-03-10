@@ -12,6 +12,8 @@ function LogoutButton({open}) {
     
     const handleClick = ()=>{
         dispatch(logout());
+        localStorage.setItem("accessToken" , "")
+        localStorage.setItem("refreshToken" , "")
         navigate("/login")
     }
     
