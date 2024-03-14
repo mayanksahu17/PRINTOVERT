@@ -46,7 +46,7 @@ function Dashboard() {
     if (!user) {
         return (
             <div className='text-black bg-blue-200 font-semibold text-xl h-full w-full'>
-                <p className='mt-28 ml-7'>Authentication required to access this feature.</p>
+                <p className='mt-28 ml-7'>Loading ...</p>
             </div>
         );
     }
