@@ -184,14 +184,18 @@ function Preview() {
             Brand : {brand} 
           </div> */}
         </div>
+        
         <div className='w-72'>
             <p className=" ">{message}</p>
+            
             <EditButton onClick={saveProduct} children={loading ? "Saving..." : "Save Product"} className=" mt-[90%] w-44 h-12 " disabled={loading} />
           <EditButton onClick={deleteStorage} children="Delete All" className="ml-2 w-44 h-12  hover:bg-red-600" to={"/tshirt-designer"} />
         </div>
 
-      </div>
 
+
+      </div>
+      <span className='text-blue-600 m-10'>Please enter the details of your product above. and make sure you collected all four design images of your product </span>
 
 
     </div>

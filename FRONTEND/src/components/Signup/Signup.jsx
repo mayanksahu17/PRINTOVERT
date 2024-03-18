@@ -8,6 +8,8 @@ function Signup() {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // Add loading state
+
   const onSubmit = async (data) => {
     if (!(data.firstName && data.password && data.phoneNumber && data.username)) {
       setError("All feilds are required ")
@@ -22,7 +24,8 @@ function Signup() {
       console.log(uploadata);
         
     try {
-    
+      setLoading(true); // Set loading to true when sign-up starts
+
       await registerUser(uploadata);
       setError("")
       navigate('/login');
@@ -30,6 +33,9 @@ function Signup() {
     } catch (error) {
      
       console.error('Registration failed:', error);
+    }finally{
+      setLoading(false); // Set loading to false when sign-up completes or fails
+
     }
     console.log(uploadata);
   };
@@ -123,8 +129,9 @@ function Signup() {
             </div>
           </NavLink>
   
-          <button type='submit' className='ml-3 rounded-2xl p-2 w-[100px] h-9 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '>
-            <div className=' -mt-1'>Sign Up </div>
+          <button type='submit' disabled={loading} // Disable button when loading
+      className='ml-3 rounded-2xl p-2 w-[100px] h-9 bg-white hover:bg-blue-600 hover:text-white border-gray-600 border-2 '>
+            <div className=' -mt-1'>{loading ? 'Signing up...' : 'Sign up'}</div>
           </button>
         </div>
       </div>

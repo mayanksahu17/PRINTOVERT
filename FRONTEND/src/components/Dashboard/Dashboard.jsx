@@ -13,6 +13,7 @@ function Dashboard() {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const dispatch = useDispatch();
+    const [error, setError] = useState(false)
 
     useEffect(() => {
         const token = localStorage.getItem('accessToken');
@@ -38,12 +39,14 @@ function Dashboard() {
             setUser(data.data);
         })
         .catch(error => {
+            localStorage.setItem('accessToken',"");
             console.error('Error verifying user:', error);
+            console.log("Somthing went wrong plaese login ");
             navigate("/login");
         });
     }, [dispatch, navigate]);
 
-    if (!user) {
+    if (!user  ) {
         return (
             <div className='text-black bg-blue-200 font-semibold text-xl h-full w-full'>
                 <p className='mt-28 ml-7'>Loading ...</p>

@@ -257,6 +257,7 @@ const Leftdesigner = () => {
       dispatch(setprice({ price }));
   
       setLoading({ isLoading: false, saved: true });
+      navigate('/back-edit')
     } catch (error) {
       console.log(error);
       throw new Error(error.message);
@@ -365,6 +366,8 @@ const Leftdesigner = () => {
             <br />
            
             <p className="text-2xl ">Total Price: <span className="text-blue-500">{price}</span> {"  "}(Taxes Apply)</p>
+            <span>  please save the design before you move to next step.</span>
+
             <br />
             <EditButton onClick={toggleUploadForm} className='  mt-11   h-10 w-30 rounded-3xl text-white  border bg-blue-700  hover:bg-blue-400 hover:text-white  font-bold' >
               Upload

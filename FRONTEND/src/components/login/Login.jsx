@@ -17,6 +17,7 @@ function Login() {
     setError('');
     
     try {
+      console.log(data);
       const userData = await handleLogin(data);
       if (!userData) {
         setError('Invalid username or password. Please try again.');
@@ -35,7 +36,7 @@ function Login() {
     // If already logged in, redirect to home page
     if (localStorage.getItem('accessToken')){
       navigate("/")
-    }
+    } 
   },[])
 
   return (
