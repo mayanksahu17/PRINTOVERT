@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 const ACCESS_TOKEN= "abcdefghijklmno^@!pqrstuvwx%^&yzABCDEFGHIJ|||+_*&^%$@!KLMNOPQRSTUVWX*&^%$@!YZ012"
 
 const handleLogin = async (userData) => {
-  const apiUrl = '/api/v1/users/login';
+  const apiUrl = 'https://printovert-backend.onrender.com/api/v1/users/login';
 
   try {
     const response = await fetch(apiUrl, {
