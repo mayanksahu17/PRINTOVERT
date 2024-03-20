@@ -4,7 +4,7 @@ import axios from 'axios';
 const addTicket = async (userId, formData) => {
   try {
     console.log(userId);
-    const apiUrl = `/api/v1/users/${userId}/create-ticket`; // Relative path with proxy setup
+    const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/${userId}/create-ticket`; // Relative path with proxy setup
     
     const response = await axios.post(apiUrl, formData, {
       headers: {
@@ -28,7 +28,7 @@ const addTicket = async (userId, formData) => {
 const getAllTicket = async (userId) => {
   try {
     console.log(userId);
-    const apiUrl = `/api/v1/users/${userId}/tickets`; // Relative path with proxy setup
+    const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/${userId}/tickets`; // Relative path with proxy setup
     const response = await axios.get(apiUrl, {
       headers: {
         'Content-Type': 'application/json',

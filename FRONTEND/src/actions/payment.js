@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const makePayment = async (userId, amount, imageFile) => {
   console.log(userId);
-  const apiUrl = `/api/v1/users/${userId}/wallet/request`; // Relative path with proxy setup
+  const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/${userId}/wallet/request`; // Relative path with proxy setup
 
   try {
     if (!(amount || imageFile)) {

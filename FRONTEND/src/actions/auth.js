@@ -58,7 +58,7 @@ const refreshAccessToken = async () => {
       throw new Error('No refresh token available');
     }
 
-    const response = await axios.post('/api/v1/refresh-token', { refreshToken });
+    const response = await axios.post('https://printovert-backend.onrender.com/api/v1/refresh-token', { refreshToken });
 
     if (response.data.success) {
       const newAccessToken = response.data.data.accessToken;
@@ -78,7 +78,7 @@ const refreshAccessToken = async () => {
 
 const registerUser = async (userData) => {
   try {
-    const response = await fetch('/api/v1/users/register', {
+    const response = await fetch('https://printovert-backend.onrender.com/api/v1/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ const registerUser = async (userData) => {
 
 const updateProfile = async (userId, userData) => {
   try {
-    const apiUrl = `/api/v1/users/${userId}/update-account`;
+    const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/${userId}/update-account`;
 
     const response = await axios.patch(apiUrl, userData);
 
@@ -143,7 +143,7 @@ const updateProfile = async (userId, userData) => {
         const token = localStorage.getItem('accessToken');
 
         console.log(token);
-        fetch('/api/v1/users/current-user', {
+        fetch('https://printovert-backend.onrender.com/api/v1/users/current-user', {
           method: 'GET',
           headers: {
             'Authorization':`Bearer${token}`

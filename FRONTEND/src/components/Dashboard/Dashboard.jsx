@@ -22,7 +22,7 @@ function Dashboard() {
             return;
         }
 
-        fetch('/api/v1/users/current-user', {
+        fetch('https://printovert-backend.onrender.com/api/v1/users/current-user', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`

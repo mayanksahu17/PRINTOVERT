@@ -5,7 +5,7 @@ import { addImage } from "../store/imageslice";
 const uploadImage = async (file, userId) => {
   try {
     console.log(userId);
-    const apiUrl = `/api/v1/users/image/${userId}`;
+    const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/image/${userId}`;
 
     if (!file) console.log("file leke a bhai ");
 
@@ -35,7 +35,7 @@ const uploadImage = async (file, userId) => {
 const libuploadImage = async (file, userId) => {
   try {
     console.log(userId);
-    const apiUrl = `/api/v1/users/${userId}/upload/library/image`;
+    const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/${userId}/upload/library/image`;
 
     if (!file) console.log("file leke a bhai ");
 
@@ -64,7 +64,7 @@ const libuploadImage = async (file, userId) => {
 
 const getAllImages = async (userId, dispatch) => {
   console.log(userId );
-  const apiUrl = `/api/v1/users/all-image/${userId}`;
+  const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/all-image/${userId}`;
 
   try {
     const response = await fetch(apiUrl, {

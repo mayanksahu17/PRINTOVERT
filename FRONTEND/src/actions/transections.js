@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const getAllUserTransactions = async (userId) => {
-  const apiUrl = `/api/v1/users/${userId}/transactions`; // Relative path with proxy setup
+  const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/${userId}/transactions`; // Relative path with proxy setup
 
   try {
     const response = await axios.get(apiUrl, {

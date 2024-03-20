@@ -3,7 +3,7 @@ const apiUrlBase = '';
 const uploadProduct = async (userId, formData) => {
   try {
     console.log(userId);
-    const apiUrl = `/api/v1/users/products/${userId}/add-new/product`;
+    const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/products/${userId}/add-new/product`;
 
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -28,7 +28,7 @@ const uploadProduct = async (userId, formData) => {
 
 const getAllProducts = async (userId) => {
   try {
-    const apiUrl = `/api/v1/users/products/${userId}/get-all-products`;
+    const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/products/${userId}/get-all-products`;
 
     const response = await fetch(apiUrl, {
       headers: {
@@ -52,7 +52,7 @@ const getAllProducts = async (userId) => {
 const updateProduct = async (productId, userId, updateData) => {
   try {
     console.log(productId, userId, updateData);
-    const apiUrl = `/api/v1/users/products/${userId}/products/${productId}`;
+    const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/products/${userId}/products/${productId}`;
 
     const response = await fetch(apiUrl, {
       method: 'PUT',
@@ -79,7 +79,7 @@ const updateProduct = async (productId, userId, updateData) => {
 
 const getAllOrderedProducts = async (userId) => {
   try {
-    const apiUrl = `/api/v1/users/${userId}/cart`;
+    const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/${userId}/cart`;
 
     const response = await fetch(apiUrl, {
       headers: {
