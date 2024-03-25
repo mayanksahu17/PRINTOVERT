@@ -46,6 +46,8 @@ function Dashboard() {
         });
     }, [dispatch, navigate]);
 
+
+    
     if (!user  ) {
         return (
             <div className='text-black bg-blue-200 font-semibold text-xl h-full w-full'>

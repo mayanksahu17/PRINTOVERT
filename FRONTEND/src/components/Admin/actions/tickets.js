@@ -3,7 +3,7 @@ import axios from "axios";
 
 const getAllTickets = async()=>{
 
-    const apiURL = `/api/v1/admin/get/all-tickects`
+    const apiURL = `https://printovert-backend.onrender.com/api/v1/users/login/api/v1/admin/get/all-tickects`
 
 
     try {

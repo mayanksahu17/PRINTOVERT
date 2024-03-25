@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const getAllProducts = async () => {
-    const apiUrl =  `/api/v1/admin/ordered/get-all-products`
+    const apiUrl =  `https://printovert-backend.onrender.com/api/v1/users/login/api/v1/admin/ordered/get-all-products`
   
     try {
       const response = await axios.get(apiUrl, {
@@ -20,7 +20,7 @@ const getAllProducts = async () => {
   };
 
 const getAllActiveOrders = async () => {
-    const apiUrl =  `/api/v1/admin/active/get-all-products`
+    const apiUrl =  `https://printovert-backend.onrender.com/api/v1/users/login/api/v1/admin/active/get-all-products`
   
     try {
       const response = await axios.get(apiUrl, {
@@ -39,7 +39,7 @@ const getAllActiveOrders = async () => {
   };
 
 const getAllDeliveredOrders = async()=>{
-  const apiUrl =  `/api/v1/admin/delivered/get-all-products`
+  const apiUrl =  `https://printovert-backend.onrender.com/api/v1/users/login/api/v1/admin/delivered/get-all-products`
 
  try {
       const response = await axios.get(apiUrl, {
@@ -59,7 +59,7 @@ const getAllDeliveredOrders = async()=>{
 
 const updateProduct = async (prodctId,{  delivered, shipped, active, rejected }) => {
   const apiUrl = `
-  /api/v1/admin/${prodctId}/update-product`;
+  https://printovert-backend.onrender.com/api/v1/users/login/api/v1/admin/${prodctId}/update-product`;
   console.log(apiUrl);
   const data = {  delivered, shipped, active, rejected };
 

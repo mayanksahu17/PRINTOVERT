@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = `/api/v1/admin/get-wallet-requests`;
+const url = `https://printovert-backend.onrender.com/api/v1/users/login/api/v1/admin/get-wallet-requests`;
 
 const getAllWalletRequests = async () => {
   try {
@@ -16,7 +16,7 @@ const getAllWalletRequests = async () => {
 
 
 const addwalletamount = async(amount, userId , requestId) => {
-  const apiUrl = `/api/v1/admin/add-wallet-amount`;
+  const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/login/api/v1/admin/add-wallet-amount`;
   console.log({  amount, userId , requestId});
   try {
     const response = await axios.post(apiUrl, { amount, userId, requestId });
@@ -36,7 +36,7 @@ const addwalletamount = async(amount, userId , requestId) => {
 };
 
  const rejectRequest =async (userId,requestId)=>{
-  const apiUrl = `/api/v1/admin/add-wallet-amount`;
+  const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/login/api/v1/admin/add-wallet-amount`;
   
   try {
     const response = await axios.post(apiUrl, { amount, userId, requestId });

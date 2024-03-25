@@ -1,5 +1,5 @@
 import axios from 'axios';
-const URL = "/api/v1/admin/login"
+const URL = "https://printovert-backend.onrender.com/api/v1/users/login/api/v1/admin/login"
 const handleLogin = async(adminData)=>{
 
     try {
@@ -31,7 +31,7 @@ const handleLogin = async(adminData)=>{
 
 
 const getAllUsers = async () => {
-  const apiUrl = `/api/v1/admin/get-all-users`;
+  const apiUrl = `https://printovert-backend.onrender.com/api/v1/users/login/api/v1/admin/get-all-users`;
 
   try {
     const response = await axios.get(apiUrl);
